@@ -2,7 +2,17 @@ from flask import Flask, render_template
 
 app = Flask(__name__, template_folder="../Frontend/pages")
 
+@app.get("/")
+def home():
+    return render_template("index.html")
 
+@app.get("/data_minimisation")
+def data_minimisation():
+    return render_template("data_minimisation.html")
+
+@app.get("/report")
+def report():
+    return render_template("report.html")
 
 @app.get("/privacyNotice")
 def q_privacyNotice():
