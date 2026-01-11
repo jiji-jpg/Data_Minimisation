@@ -1,0 +1,117 @@
+{% extends "template.html" %}
+{% block content %}
+<div>
+<h2>{% block dataAsset %} {% endblock %} / {% block category %}{% endblock %}</h2>
+<p>Please select and answer all that applies to your organisation for a detailed analysis.
+If your organisation does not collect, you can skip to the next section.  </p>
+</div>
+
+<section>
+    {% block checkbox %}{% endblock %}
+</section>
+
+<section>
+    <h3>Data Collection Purpose</h3>
+    <p> <!-- TODO: insert description here --></p>
+    <select>
+
+        <option><!-- TODO: insert data collection purpose options here--></option>
+        <!-- TODO: copy paste options below within the <select> tag as needed-->
+    
+    </select>
+    
+    
+
+
+</section>
+
+<section>
+    <h3>Level of Data Details Collected</h3>
+    <ol>
+        
+        <!--TODO: Fill in the questions as needed-->
+
+        <li>Is the selected category(s) information collected kept as minimal and relevant as possible?</li>
+        <select>
+                <option>Yes</option>
+                <option>No</option>
+                <option>Unsure</option>
+        </select>
+        
+        
+        <li>question 2</li>
+        <select>
+                <option>Yes</option>
+                <option>No</option>
+                <option>Unsure</option>
+        </select>
+        
+        <li>question 3</li>
+        <select>
+                <option>Yes</option>
+                <option>No</option>
+                <option>Unsure</option>
+        </select>
+
+        <li>question 4</li>
+        <select>
+                <option>Yes</option>
+                <option>No</option>
+                <option>Unsure</option>
+        </select>
+
+    </ol>
+    
+</section>
+
+<section>
+    <h3>Retention Period</h3>
+    <ol>
+        <!-- TODO: Fill in the content of the questions and copy paste <option> tag as needed-->
+        <li>question 1</li>
+        <select>
+                <option></option>
+
+        </select>
+        
+        <li>question 2</li>
+        <select>
+                <option></option>
+
+        </select>
+        
+        <li>question 3</li>
+        <select>
+                <option></option>
+        
+            </select>
+
+
+    </ol>
+</section>
+
+<section>
+    <h3>Enforcement Measure / Deletion Machanism</h3>
+    <p>description</p>
+    <!-- TODO: copy the following <label> and <input> group as needed-->
+    <label>
+        <input type="checkbox">
+        deletion mechanism 1
+    </label>
+
+    <label>
+        <input type="checkbox">
+        deletion mechanism 2
+    </label>
+    
+</section>
+
+<div>
+    <button>Back</button>
+    
+    <button>Continue</button>
+    <p>Proceed to {% block category2 %}{% endblock %} Data Assets</p>
+
+</div>
+
+{% endblock %}
