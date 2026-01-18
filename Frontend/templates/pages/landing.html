@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Minimisation - FlameTree Cyber</title>
+  
+  <!-- css styles -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <!-- header component -->
+  {% include 'components/header.html' %}
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Data Minimisation<br>for Healthcare Providers</h1>
+      <p>Protect your data by practicing data minimisation while serving your healthcare clients effectively.</p>
+      
+      <div class="hero-buttons">
+        <a href="{{ url_for('privacy') }}" class="btn btn-primary">
+          Get Started
+        </a>
+        <a href="#" class="btn btn-secondary">
+          Learn More
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img src="/static/assets/imgMin.png" alt="Data minimisation illustration">
+    </div>
+  </section>
+</body>
+</html>

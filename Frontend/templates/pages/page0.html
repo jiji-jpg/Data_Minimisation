@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Notice - Data Minimisation</title>
+  
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <!-- Include header component -->
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+    
+    <div class="privacy-title">Please read the following Privacy Notice:</div>
+    
+    <div class="privacy-panel">
+      <div class="privacy-text1">Your Privacy Matters</div>
+      <div class="privacy-text2">
+        We are committed to protecting your privacy and complying with applicable data protection laws. This notice explains how we handle your information during this questionnaire.
+      </div>
+      
+      <br>
+      
+      <div class="privacy-text1">What information we collect</div>
+      <div class="privacy-text2">
+        To calculate your data minimisation score accurately, we temporarily process your questionnaire responses during your active session only. We do not permanently store or collect any personally identifiable information.
+      </div>
+      
+      <br>
+      
+      <div class="privacy-text1">Our Data Practice</div>
+      <div class="privacy-text2">
+        All questionnaire data is held temporarily in your browser session memory only. Your data is automatically and permanently erased when you:
+      </div>
+      <ul class="privacy-list">
+        <li>Close the questionnaire window or tab</li>
+        <li>Complete and exit the questionnaire</li>
+        <li>Experience a session timeout</li>
+      </ul>
+
+      <br>
+      
+      <div class="privacy-text1">Important Notes</div>
+      <ul class="privacy-list">
+        <li>Please complete the questionnaire in one session, as your progress cannot be saved or retrieved</li>
+        <li>All questions must be answered unless marked as optional to ensure accurate scoring</li>
+        <li>No data is transmitted to or stored on external servers</li>
+      </ul>
+      <br>
+    </div>
+
+    <div class="btn-container">
+      <a href="{{ url_for('backgroundcheck') }}" class="btn btn-primary">
+        Begin
+      </a>
+    </div>
+  </main>
+</body>
+</html>
