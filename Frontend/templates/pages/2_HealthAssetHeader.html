@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Data Asset - Data Minimisation</title>
+  
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <!-- Include header component -->
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+    
+    <div class="privacy-title">Health Data Asset</div>
+    
+    <div class="privacy-panel">
+      <div class="privacy-text2">
+        Health data assets include any health-related information your organisation collects, stores, or processes. This may include:
+      </div>
+      <ul class="privacy-list">
+        <li>Clinical documents (e.g., consultation notes, referral letters, discharge summaries)</li>
+        <li>Medical records (e.g., patient histories, diagnostic reports, treatment plans)</li>
+        <li>Immunisation data (e.g., vaccination records, immunisation schedules)</li>
+      </ul>
+      <br>
+    </div>
+
+    <div class="hero-buttons">
+      <a href="{{ url_for('DA3') }}" class="btn btn-primary">
+        No
+      </a>
+      <div class="privacy-text2">Skip to Medicare and Government data asset</div>
+    </div>
+    
+    <br>
+    
+    <div class="hero-buttons">
+      <a href="{{ url_for('DA2_2') }}" class="btn btn-primary">
+        Yes
+      </a>
+      <div class="privacy-text2">Continue with Health Data asset questionnaire</div>
+    </div>
+  </main>
+</body>
+</html>
