@@ -21,12 +21,12 @@ def backgroundcheck():
 @app.route('/DA1')
 def DA1():
     """Personal Data Header"""
-    return render_template('pages/1_PersonalAssetHeader.html')
+    return render_template('pages/personalDataAsset2.html')
 
 @app.route('/DA1_1') #questionnaire page has not been set yet.
 def DA1_1():
     """Personal Data Questionnaire"""
-    return render_template('pages/1A_PersonalAsset.html')
+    return render_template('pages/personalDataAsset2.html')
 
 @app.route('/DA2')
 def DA2():
