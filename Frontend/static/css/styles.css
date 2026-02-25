@@ -597,6 +597,97 @@ input[type="checkbox"]:hover {
   outline: none;
 }
 
+/* ==================== REPORT PAGE ==================== */
+/* Executive Summary Section */
+.executive-summary {
+  background: linear-gradient(135deg, #f6f9fc, #eef3f8);
+  border-radius: 16px;
+  padding: 32px 36px;
+  max-width: 1100px;
+  margin: 40px auto;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #1f2937;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Section Heading */
+.executive-summary h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 12px;
+}
+
+/* Intro Paragraph */
+.executive-summary p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #374151;
+  max-width: 900px;
+}
+
+/* Score Cards Container */
+.summary-scores {
+  display: flex;
+  gap: 24px;
+  margin: 28px 0 32px;
+  flex-wrap: wrap;
+}
+
+/* Individual Score Card */
+.score-card {
+  background: #ffffff;
+  border: 2px solid #1e40af;
+  border-radius: 14px;
+  padding: 24px 32px;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Score Number */
+.score-card h3 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1e40af;
+  margin: 0 0 6px;
+}
+
+/* Score Label */
+.score-card p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e40af;
+  margin: 0;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+/* Status Summary */
+.summary-status {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+/* Status Items */
+.summary-status p {
+  background: #ffffff;
+  padding: 18px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #374151;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Highlighted Numbers */
+.summary-status strong {
+  font-size: 22px;
+  color: #ef4444;
+  margin-right: 6px;
+  font-weight: 700;
+}
+
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 1024px) {
   .hero {
