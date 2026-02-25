@@ -389,27 +389,149 @@ input#unsure:checked + .toggle-label {
 .toggle-switch:active .toggle-slider {
   transform: scaleX(0.98) scaleY(0.95);
 }
-  /* --------------------- Checkbox --------------------- */
-.checkbox-label {
-  display: inline-flex;       
-  align-items: flex-start;    /* Top row aligns with checkbox top */
-  gap: 12px;
-  cursor: pointer;            
+.label-text {
+  display: flex;
+  flex-direction: column;     
+  max-width: 100%;           /* Limits both lines, prevents overlap */
+}
+
+/* ==================== TOGGLE SWITCH (3-option) For Forms ==================== */
+.toggle-switchF {
+  --track-height: 30px;
+  --label-width: 72px;
+  --accent-color: #527DFF;
+  --track-color: #f2f2f7;
+  --text-color: #8e8e93;
+  --text-active: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: calc(3 * var(--label-width) + 8px);
+  height: var(--track-height);
+  background: var(--track-color);
+  border-radius: 22px;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  margin: .5rem 0;
+}
+
+.sr-only,
+.sr-onlyF {  /* Fixed class inconsistency */
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.toggle-label {  /* Use your class */
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  transition: all 0.25s ease;
+  z-index: 3;
+  padding: 0 8px;
+}
+
+.toggle-slider {  /* Use your class */
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: var(--label-width);
+  height: calc(var(--track-height) - 8px);
+  background: var(--accent-color);
+  border-radius: 18px;
+  transition: left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* FIXED: Slider positions using unique IDs */
+#toggle1 #toggle1-yes:checked ~ .toggle-slider,
+#toggle2 #toggle2-yes:checked ~ .toggle-slider,
+#toggle3 #toggle3-yes:checked ~ .toggle-slider,
+#toggle4 #toggle4-yes:checked ~ .toggle-slider { 
+  left: 4px; 
+}
+
+#toggle1 #toggle1-no:checked ~ .toggle-slider,
+#toggle2 #toggle2-no:checked ~ .toggle-slider,
+#toggle3 #toggle3-no:checked ~ .toggle-slider,
+#toggle4 #toggle4-no:checked ~ .toggle-slider { 
+  left: calc(var(--label-width) + 4px); 
+}
+
+#toggle1 #toggle1-unsure:checked ~ .toggle-slider,
+#toggle2 #toggle2-unsure:checked ~ .toggle-slider,
+#toggle3 #toggle3-unsure:checked ~ .toggle-slider,
+#toggle4 #toggle4-unsure:checked ~ .toggle-slider { 
+  left: calc(2 * var(--label-width) + 4px); 
+}
+
+/* FIXED: Active label text */
+#toggle1 #toggle1-yes:checked + .toggle-label,
+#toggle1 #toggle1-no:checked + .toggle-label,
+#toggle1 #toggle1-unsure:checked + .toggle-label,
+#toggle2 #toggle2-yes:checked + .toggle-label,
+#toggle2 #toggle2-no:checked + .toggle-label,
+#toggle2 #toggle2-unsure:checked + .toggle-label,
+#toggle3 #toggle3-yes:checked + .toggle-label,
+#toggle3 #toggle3-no:checked + .toggle-label,
+#toggle3 #toggle3-unsure:checked + .toggle-label,
+#toggle4 #toggle4-yes:checked + .toggle-label,
+#toggle4 #toggle4-no:checked + .toggle-label,
+#toggle4 #toggle4-unsure:checked + .toggle-label {
+  color: var(--text-active) !important;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.toggle-switchF:hover {  /* Fixed class */
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.toggle-switchF:active .toggle-slider {  /* Fixed class */
+  transform: scaleX(0.98) scaleY(0.95);
 }
 
 .label-text {
   display: flex;
   flex-direction: column;     
-  max-width: 200px;           /* Limits both lines, prevents overlap */
+  max-width: 100%;           /* Limits both lines, prevents overlap */
 }
-
 .label-top {
   font-weight: bold;
   font-size: 14px;            
 }
 
 .label-bottom {
-  font-size: 12px;            
+  font-size: 12px; 
+  flex: 1;                    /* Grows to fill remaining space */
+  margin: 0;
+  display: flex;           
+}
+  /* --------------------- Checkbox --------------------- */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* Equal 2 columns */
+  gap: 20px;                       /* Space between items */
+  max-width: 100%;                /* Optional container width */
+  align-content: start;
+}
+  .checkbox-label {
+  display: inline-flex;       
+  align-items: flex-start;    /* Top row aligns with checkbox top */
+  gap: 12px;
+  cursor: pointer;            
 }
 
 input[type="checkbox"] {
@@ -443,6 +565,43 @@ input[type="checkbox"]:checked::after {
 
 input[type="checkbox"]:hover {
   border-color: #999;
+}
+ /* --------------------- DROP DOWN --------------------- */
+ .custom-select {
+  position: relative;
+  display: inline-block;
+  width: 300px;               /* Adjust width */
+}
+.custom-select select {
+  appearance: none;
+  width: 100%;
+  height: 35px;               /* Taller height */
+  padding: 10px 36px 10px 16px;
+  border: 1px solid #d0d0d0;  /* Lighter gray border */
+  border-radius: 10px;         /* Rounded oblong corners */
+  background: #fafafa;        /* Light background */
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Subtle shadow */
+}
+
+/* Custom arrow */
+.custom-select::after {
+  content: "▼";               /* Down arrow */
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;       /* Click passes through */
+  font-size: 12px;
+  color: #666;
+}
+
+/* Hover/focus effects */
+.custom-select select:hover,
+.custom-select select:focus {
+  border-color: #999;
+  outline: none;
 }
 
   /* --------------------- RESPONSIVE --------------------- */
