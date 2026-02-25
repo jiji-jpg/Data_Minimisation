@@ -12,7 +12,7 @@ def landing():
 @app.route('/privacy')
 def privacy():
     """Terms & Conditions"""
-    return render_template('pages/page0.html')
+    return render_template('pages/privacy.html')
 
 @app.route('/backgroundcheck')
 def backgroundcheck():
@@ -20,22 +20,28 @@ def backgroundcheck():
 
 @app.route('/DA1')
 def DA1():
-    return render_template('pages/DataAsset1.html')
+    """Personal Data Header"""
+    return render_template('pages/1_PersonalAssetHeader.html')
 
-@app.route('/personal-data-asset')
-def personal_data_asset():
-    """Personal data asset intro page"""
-    return render_template('pages/personalDataAsset.html')
+@app.route('/DA1_1') #questionnaire page has not been set yet.
+def DA1_1():
+    """Personal Data Questionnaire"""
+    return render_template('pages/1A_PersonalAsset.html')
 
-@app.route('/personal-data-asset-questionnaire')
-def personal_data_asset_2():
-    """Personal data asset questionnaire"""
-    return render_template('pages/personalDataAsset2.html')
+@app.route('/DA2')
+def DA2():
+    """Health Data Header"""
+    return render_template('pages/2_HealthAssetHeader.html')
 
-@app.route('/health-data-asset')
-def health_data_asset_p2():
-    """Health data asset page"""
-    return render_template('pages/healthDataAssetP2.html')
+@app.route('/DA2_2')
+def DA2_2():
+    """Health Data Questionnaire"""
+    return render_template('pages/2A_HealthAsset.html')
+
+@app.route('/DA3')
+def DA3():
+    """Medicare and Government data asset Header"""
+    return render_template('pages/3_GovAssetHeader.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
