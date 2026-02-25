@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Check - Data Minimisation</title>
+  
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <!-- Include header component -->
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+    
+    <div class="privacy-title">Personal Data Asset  / Personal Details and Contact Details</div>
+    <div class="privacy-text2">Please select and answer all that applies to your organisation for a detailed analysis.<br> If your organisation does not collect, you can skip to the next section.  </div>
+    <div class="privacy-panel">
+      <div class="form-section">
+          <h2>Personal Details</h2><br>
+          <label class="checkbox-label">
+            <input type="checkbox" />
+            <span class="label-text">
+              <span class="label-top">Main option title</span>
+              <span class="label-bottom">Secondary description text</span>
+            </span>
+          </label>
+      </div>
+    </div>
+    
+    <div class="hero-buttons">
+      <a href="{{ url_for('privacy') }}" class="btn btn-primary">
+        Back
+      </a>
+      <a href="{{ url_for('DA1') }}" class="btn btn-primary">
+        Continue
+      </a>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('toggle').addEventListener('change', function() {
+      this.classList.add('selected');
+    });
+  </script>
+</body>
+</html>

@@ -259,7 +259,13 @@
     margin-bottom: 1rem;
     text-align: left;
   }
-
+ .privacy-title2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111E43;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
   .privacy-text1 {
     font-size: 0.95rem;
     color: #404040;
@@ -382,6 +388,61 @@ input#unsure:checked + .toggle-label {
 
 .toggle-switch:active .toggle-slider {
   transform: scaleX(0.98) scaleY(0.95);
+}
+  /* --------------------- Checkbox --------------------- */
+.checkbox-label {
+  display: inline-flex;       
+  align-items: flex-start;    /* Top row aligns with checkbox top */
+  gap: 12px;
+  cursor: pointer;            
+}
+
+.label-text {
+  display: flex;
+  flex-direction: column;     
+  max-width: 200px;           /* Limits both lines, prevents overlap */
+}
+
+.label-top {
+  font-weight: bold;
+  font-size: 14px;            
+}
+
+.label-bottom {
+  font-size: 12px;            
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  margin: 0;
+  flex-shrink: 0;             /* Checkbox won't shrink */
+  transition: border-color 0.2s;
+}
+
+input[type="checkbox"]:checked {
+  background: transparent;
+  border-color: #000;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+input[type="checkbox"]:hover {
+  border-color: #999;
 }
 
   /* --------------------- RESPONSIVE --------------------- */
