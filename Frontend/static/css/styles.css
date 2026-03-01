@@ -598,94 +598,491 @@ input[type="checkbox"]:hover {
 }
 
 /* ==================== REPORT PAGE ==================== */
-/* Executive Summary Section */
+/* --------------------- Executive Summary Section --------------------- */
 .executive-summary {
-  background: linear-gradient(135deg, #f6f9fc, #eef3f8);
-  border-radius: 16px;
-  padding: 32px 36px;
-  max-width: 1100px;
-  margin: 40px auto;
-  font-family: "Inter", "Segoe UI", sans-serif;
-  color: #1f2937;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  background-color: #eef2f7;            
+  padding: 60px;
+  border-radius: 18px;
+  margin: 60px 0;
+  border-left: 8px solid #1f3c88;       
 }
 
-/* Section Heading */
+/* Section heading */
 .executive-summary h2 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1e3a8a;
-  margin-bottom: 12px;
+  color: #1f3c88;                       
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
-/* Intro Paragraph */
-.executive-summary p {
+/* Intro paragraph */
+.executive-summary > p {
+  color: #4a5568;                       
+  line-height: 1.7;
   font-size: 15px;
-  line-height: 1.6;
-  color: #374151;
+  margin-bottom: 40px;
   max-width: 900px;
 }
 
-/* Score Cards Container */
+/* --------------------- Score Cards --------------------- */
 .summary-scores {
   display: flex;
-  gap: 24px;
-  margin: 28px 0 32px;
-  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
-/* Individual Score Card */
 .score-card {
-  background: #ffffff;
-  border: 2px solid #1e40af;
-  border-radius: 14px;
-  padding: 24px 32px;
-  min-width: 220px;
+  background-color: #ffffff;
+  padding: 35px 60px;
+  border-radius: 16px;
+  border: 3px solid #1f3c88;            
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-width: 220px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
 }
 
-/* Score Number */
+/* Hover effect */
+.score-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Score number */
 .score-card h3 {
-  font-size: 36px;
-  font-weight: 700;
-  color: #1e40af;
-  margin: 0 0 6px;
+  font-size: 40px;
+  color: #1f3c88;
+  margin-bottom: 10px;
 }
 
-/* Score Label */
+/* Score label */
 .score-card p {
   font-size: 14px;
-  font-weight: 600;
-  color: #1e40af;
-  margin: 0;
-  letter-spacing: 0.4px;
+  letter-spacing: 1px;
   text-transform: uppercase;
+  color: #1f3c88;
+  font-weight: 600;
 }
 
-/* Status Summary */
+/* --------------------- Summary Status Row --------------------- */
 .summary-status {
   display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-/* Status Items */
 .summary-status p {
-  background: #ffffff;
-  padding: 18px 24px;
+  background-color: #ffffff;
+  flex: 1;
+  text-align: center;
+  padding: 25px;
   border-radius: 12px;
-  font-size: 14px;
-  color: #374151;
+  font-size: 15px;
+  color: #4a5568;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Highlighted Numbers */
+/* Highlight numbers in status */
 .summary-status strong {
-  font-size: 22px;
-  color: #ef4444;
-  margin-right: 6px;
-  font-weight: 700;
+  display: block;
+  font-size: 32px;
+  color: #e53935;                       
+  margin-bottom: 8px;
+}
+
+/* --------------------- Key Findings Section --------------------- */
+/* Section main heading */
+.key-findings h2 {
+  grid-column: span 2;              
+  color: #c62828;                  
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+/* Intro paragraph under heading */
+.key-findings > p {
+  grid-column: span 2;              
+  color: #444;
+  line-height: 1.7;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+/* Individual finding cards */
+.key-findings article {
+  background-color: #ffffff;        
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 8px solid #e53935;   
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+/* Hover animation for cards */
+.key-findings article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Card titles */
+.key-findings article h3 {
+  color: #d32f2f;                   
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Card text */
+.key-findings article p {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* --------------------- Data Asset Assessment Overview --------------------- */
+.asset-overview {
+  padding: 60px 0;
+  margin: 60px 0;
+}
+
+/* Section heading */
+.asset-overview h2 {
+  font-size: 28px;
+  color: #1f3c88;               
+  margin-bottom: 15px;
+  position: relative;
+}
+
+/* Red underline below heading */
+.asset-overview h2::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: #e53935;   
+  margin-top: 10px;
+}
+
+/* Intro paragraph */
+.asset-overview > p {
+  max-width: 900px;
+  margin-bottom: 40px;
+  color: #4a5568;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* --------------------- Layout for Cards --------------------- */
+.asset-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* Two-column layout */
+  gap: 30px;
+}
+
+/* Make heading and intro full width */
+.asset-overview h2,
+.asset-overview > p {
+  grid-column: span 2;
+}
+
+.asset-overview article {
+  background-color: #e8f5ee;         
+  border: 2px solid #1bb273;         
+  padding: 25px;
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.asset-overview article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Card title */
+.asset-overview article h3 {
+  color: #1f3c88;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Card description */
+.asset-overview article p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4a5568;
+}
+
+/* --------------------- Status Badges --------------------- */
+/* Collected badge */
+.collected {
+  display: inline-block;
+  background-color: #1bb273;     /* Green */
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+/* Limited collection badge */
+.limited-collection {
+  display: inline-block;
+  background-color: #6c7a89;     /* Grey */
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+/* --------------------- Detailed Assessment by Category --------------------- */
+.detailed-assessment {
+  padding: 60px 0;
+  margin: 60px 0;
+}
+
+.detailed-assessment h2 {
+  font-size: 28px;
+  color: #1f3c88;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.detailed-assessment h2::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: #e53935;
+  margin-top: 10px;
+}
+
+.detailed-assessment > p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 900px;
+}
+
+/* --------------------- Catogry Cards --------------------- */
+.category {
+  background-color: #f8f9fb;
+  padding: 30px;
+  border-radius: 14px;
+  margin-bottom: 30px;
+  border: 1px solid #e1e5ee;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+/* Category header */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.category-header h3 {
+  color: #1f3c88;
+  font-size: 18px;
+}
+
+/* --------------------- Badges --------------------- */
+.badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.badge.review {
+  background-color: #f39c12;
+}
+
+.badge.compliant {
+  background-color: #1bb273;
+}
+
+.badge.action {
+  background-color: #e53935;
+}
+
+.badge.opportunity {
+  background-color: #ff7a00;
+}
+
+.category-intro {
+  margin-bottom: 20px;
+  color: #5a6473;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* --------------------- Assessment Items --------------------- */
+.assessment-item {
+  padding: 18px 20px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  border-left: 6px solid;
+}
+
+.assessment-item h4 {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.assessment-item p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+/* Success (Green) */
+.assessment-item.success {
+  background-color: #e8f5ee;
+  border-color: #1bb273;
+}
+
+/* Warning (Yellow) */
+.assessment-item.warning {
+  background-color: #f6edcf;
+  border-color: #f4b400;
+}
+
+/* Danger (Red) */
+.assessment-item.danger {
+  background-color: #fbe4e4;
+  border-color: #e53935;
+}
+
+/* Neutral (Purple-like soft tone for opportunity section) */
+.assessment-item.neutral {
+  background-color: #eae6f8;
+  border-color: #7e57c2;
+}
+
+/* Reference text */
+.reference {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Links styling */
+.assessment-item a {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #1f3c88;
+  background-color: #dde5f5;
+  padding: 5px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.assessment-item a:hover {
+  background-color: #cfd8ea;
+}
+
+/* --------------------- Clinical Documents Grid --------------------- */
+.assessment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+/* Make grid items slightly more compact */
+.assessment-grid .assessment-item {
+  margin-bottom: 0;
+}
+
+/* --------------------- Recommended Actions --------------------- */
+.recommended-actions {
+  background-color: #e8eef6;          
+  padding: 60px;
+  border-radius: 16px;
+  margin: 60px 0;
+}
+
+/* Section heading */
+.recommended-actions h2 {
+  font-size: 26px;
+  color: #1f3c88;
+  margin-bottom: 10px;
+}
+
+.recommended-actions > p {
+  color: #4a5568;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  max-width: 850px;
+}
+
+/* --------------------- Timeline Structure --------------------- */
+.recommended-actions article {
+  position: relative;
+  background-color: #ffffff;
+  padding: 25px 25px 25px 50px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Vertical line */
+.recommended-actions article::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: -25px;
+  width: 3px;
+  background-color: #3f6fd8;
+}
+
+/* Blue circle node */
+.recommended-actions article::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 30px;
+  width: 16px;
+  height: 16px;
+  background-color: #3f6fd8;
+  border-radius: 50%;
+}
+
+/* Remove extra line from last item */
+.recommended-actions article:last-child::before {
+  bottom: 50%;
+}
+/* Content styling*/
+.recommended-actions h3 {
+  color: #1f3c88;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.recommended-actions article p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Time badge */
+.recommended-actions article strong {
+  display: inline-block;
+  background-color: #1f3c88;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 10px;
 }
 
 /* ==================== RESPONSIVE ==================== */
@@ -726,5 +1123,67 @@ input[type="checkbox"]:hover {
 
   .privacy-panel {
     padding: 1.75rem;
+  }
+}
+
+/* --------------------- RESPONSIVE for Key Findings Section --------------------- */
+@media (max-width: 768px) {
+  .key-findings {
+    grid-template-columns: 1fr;
+  }
+
+  .key-findings h2,
+  .key-findings > p {
+    grid-column: span 1;
+  }
+}
+
+/* --------------------- RESPONSIVE for Executive Summary Section --------------------- */
+@media (max-width: 768px) {
+
+  .summary-scores {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .summary-status {
+    flex-direction: column;
+  }
+
+}
+
+/* --------------------- RESPONSIVE for Data Asset Assessment Overview --------------------- */
+@media (max-width: 768px) {
+  .asset-overview {
+    grid-template-columns: 1fr;   /* Stack into one column */
+  }
+
+  .asset-overview h2,
+  .asset-overview > p {
+    grid-column: span 1;
+  }
+}
+
+/* --------------------- RESPONSIVE for Detailed Assessment by Category --------------------- */
+@media (max-width: 1024px) {
+  .assessment-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .assessment-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------- RESPONSIVE for Recommended Actions --------------------- */
+@media (max-width: 768px) {
+  .recommended-actions {
+    padding: 40px 25px;
+  }
+
+  .recommended-actions article {
+    padding-left: 45px;
   }
 }

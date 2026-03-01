@@ -74,7 +74,6 @@
           Implement automated data deletion or archiving controls based on approved retention schedules to reduce reliance on manual processes and ensure consistent enforcement of retention rules.
         </p>
       </article>
-    </section>
 
       <article>
         <h3>Purpose Limitation & Data Justification</h3>
@@ -131,104 +130,129 @@
       <p>
         Each data category is assessed against data minimisation, consent, retention, and documentation controls. Items are flagged to indicate compliance status and areas requiring review.
       </p>
-      <span class="needs-review">Needs Review</span>
 
-      <article>
+    <article class="category">
+
+      <div class="category-header">
         <h3>Personal Data Assets</h3>
+        <span class="badge review">Needs Review</span>
+      </div>
 
+      <div class="assessment-item success">
+        <h4>Essential Patient Identifiers</h4>
         <p>
-          <strong>Essential Patient Identifiers</strong><br>
           Core identifiers such as name, date of birth, and contact details are appropriately collected for patient identification and communication. Collection aligns with clinical and operational requirements.
-          <a href="#">Privacy Act 1988- APP3.2</a>
         </p>
-  
+        <a href="#">Privacy Act 1988 - APP3.2</a>
+      </div>
+
+      <div class="assessment-item warning">
+        <h4>Employment & Financial Information</h4>
         <p>
-          <strong>Employment & Financial Information</strong><br>
           Employment and financial information is collected beyond what is strictly required for billing and administrative purposes. Data fields should be reviewed to confirm necessity and documented justification.
-          <a href="#">Privacy Act 1988-APP3.5</a>
-        </p> 
-
-        <p>
-          <strong>Consent Documentation</strong><br>
-          Consent records for the collection of non-essential or sensitive personal information are incomplete or inconsistently captured. Explicit consent should be documented and retained for all applicable data categories.
-          <a href="#">Privacy Act 1988-APP3.4</a>
         </p>
-      </article>
+       <a href="#">Privacy Act 1988 - APP3.5</a>
+      </div>
 
-      <article>
+      <div class="assessment-item danger">
+        <h4>Consent Documentation</h4>
+        <p>
+          Consent records for the collection of non-essential or sensitive personal information are incomplete or inconsistently captured. Explicit consent should be documented and retained for all applicable data categories.
+        </p>
+        <a href="#">Privacy Act 1988 - APP3.4</a>
+      </div>
+
+    </article>
+
+    <article class="category">
+
+      <div class="category-header">
         <h3>Health Data Assets</h3>
+        <span class="badge compliant">Compliant</span>
+      </div>
+
+      <div class="assessment-item success">
+        <h4>Clinical Documentation</h4>
         <p>
-          <strong>Clinical Documentation</strong><br>
           Medical histories, diagnoses, clinical notes, and treatment plans are collected and maintained to support continuity of care and clinical decision-making.
-          <a href="#">Privacy Act 1988</a>
-        </p> 
+        </p>
+        <a href="#">Privacy Act 1988</a>
+      </div>
 
+      <div class="assessment-item success">
+        <h4>Immunisation Records</h4>
         <p>
-          <strong>Immunisation Records</strong><br>
           Immunisation data is recorded in line with public health requirements and patient safety obligations. Current practices support compliance and clinical use.
-          <a href="#">Privacy Act 1988</a>
-        </p> 
+        </p>
+        <a href="#">Privacy Act 1988</a>
+      </div>
 
-        </article>
+    </article>
 
       <!-- Clinical Doucuments -->
       <!-- Feel free to add more <article> tag -->
-      <article>
+    <article class="category">
+
+      <div class="category-header">
         <h3>Clinical Documents</h3>
-          <span class="compliant">Compliant</span>
-        <p>
-          <strong>Allergies & Adverse Reactions Documented</strong><br>
-          Allergy and adverse reaction information is consistently recorded to support patient safety.
-        </p> 
+        <span class="badge compliant">Compliant</span>
+      </div>
 
-        <p>
-          <strong>Pathology Reports Maintained</strong><br>
-          Pathology reports are stored and accessible to support diagnosis and ongoing treatment.
-        </p>
+      <div class="assessment-grid">
 
-        <p>
-          <strong>Diagnostic Imaging Reports Stored</strong><br>
-          Imaging reports are retained to support clinical assessment and continuity of care.
-        </p>
+        <div class="assessment-item success">
+          <h4>Allergies & Adverse Reactions Documented</h4>
+          <p>Allergy and adverse reaction information is consistently recorded to support patient safety.</p>
+        </div>
 
-        <p>
-          <strong>Discharge Summaries Complete</strong><br>
-          Discharge summaries are consistently completed and maintained to support continuity of care, follow-up treatment, and communication between healthcare providers.
-        </p>
+        <div class="assessment-item success">
+          <h4>Pathology Reports Maintained</h4>
+          <p>Pathology reports are stored and accessible to support diagnosis and ongoing treatment.</p>
+        </div>
 
-        <p>
-          <strong>Goals of Care Documentation Incomplete</strong><br>
-          <span class="needs-review">Needs Review</span>
-        </p>
-        <p>
-          Goals of care documentation is not consistently captured across patient records, limiting clarity around patient preferences, treatment escalation, and long-term care planning.
-        </p>
+        <div class="assessment-item success">
+          <h4>Diagnostic Imaging Reports Stored</h4>
+          <p>Imaging reports are retained to support clinical assessment and continuity of care.</p>
+        </div>
 
-        <p>
-          <strong>Referral Process Unclear</strong><br>
-          <span class="needs-review">Needs Review</span>
-        </p>
-        <p>
-          Referral documentation and tracking processes are not clearly defined, reducing visibility over care coordination, accountability, and data ownership across clinical workflows.
-        </p>
-      </article>
+        <div class="assessment-item success">
+          <h4>Discharge Summaries Complete</h4>
+          <p>Discharge summaries are consistently completed and maintained to support continuity of care, follow-up treatment, and communication between healthcare providers.</p>
+        </div>
 
-      <article>
-          <!--Add content here-->
-      </article>
+        <div class="assessment-item danger">
+          <h4>Goals of Care Documentation Incomplete</h4>
+          <p>Goals of care documentation is not consistently captured across patient records, limiting clarity around patient preferences, treatment escalation, and long-term care planning.</p>
+        </div>
+
+        <div class="assessment-item warning">
+          <h4>Referral Process Unclear</h4>
+          <p>Referral documentation and tracking processes are not clearly defined, reducing visibility over care coordination, accountability, and data ownership across clinical workflows.</p>
+        </div>
+
+      </div>
+
+    </article>
+
+    <article>
+        <!--Feel free to add more content here-->
+    </article>
 
 
       <!-- Data Retention & Deletion -->
-      <article>
-      <div>
+    <article class="category">
+
+     <div class="category-header">
         <h3>Data Retention & Deletion</h3>
-        <span class="action-required">Action Required</span>
-        <p>
-          This section assesses whether data retention periods are defined, justified, and consistently enforced, and whether deletion controls effectively reduce unnecessary data exposure.
-        </p>
+        <span class="badge action">Action Required</span>
       </div>
 
-      <div class="retention-item warning">
+      <!-- Category introduction -->
+      <p class="category-intro">
+        This section assesses whether data retention periods are defined, justified, and consistently enforced, and whether deletion controls effectively reduce unnecessary data exposure.
+      </p>
+
+      <div class="assessment-item warning">
         <h4>Extended Retention Periods</h4>
         <p>
           Certain data categories are retained beyond recommended timeframes outlined in My Health Record guidance and relevant privacy principles. Extended retention increases exposure in the event of a data breach and may limit the organisations ability to demonstrate compliance with minimum necessary retention standards.
@@ -236,36 +260,37 @@
         <p class="reference">
           My Health Records Act 2012 - Section 28
         </p>
-        <a href="#">Privacy Act 1988-APP3.5</a>
+        <a href="#">Privacy Act 1988 - APP3.5</a>
       </div>
 
-      <div>
+      <div class="assessment-item danger">
         <h4>Manual Deletion Dependency</h4>
         <p>
           Data deletion processes rely heavily on manual intervention, increasing the likelihood that records are retained beyond approved timeframes. The absence of automated deletion or archiving controls reduces consistency and increases regulatory and cybersecurity risk.
         </p>
-        <a href="#">Privacy Act 1988-APP3.5</a>
+        <a href="#">Privacy Act 1988 - APP3.5</a>
         <a href="#">Privacy Act 1988 - APP 11.2</a>
       </div>
-      </article>
 
-      <article>
-        <div class="integration">
-          <h3>My Health Record Integration</h3>
-          <span class="opportunity">Opportunity</span>
-        </div>
+    </article>
 
-        <div>
+    <!-- My Health Record Integration -->
+    <article class="category">
+
+      <div class="category-header">
+        <h3>My Health Record Integration</h3>
+        <span class="badge opportunity">Opportunity</span>
+      </div>
+
+      <div class="assessment-item neutral">
         <h4>Limited System Access</h4>
         <p>
           The organisations current use of My Health Record appears limited. Consider expanding integration to support improved care coordination, while maintaining strict role-based access controls and purpose limitation principles to ensure data minimisation is preserved.
         </p>
+        <a href="#">My Health Records Act 2012</a>
       </div>
 
-        <p>
-        <a href="#">My Health Records Act 2012</a>
-      </article>
-    </section>
+    </article>
 
     <!-- Recommended Actions -->
     <section class="recommended-actions">
