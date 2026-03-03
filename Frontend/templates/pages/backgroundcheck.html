@@ -1,0 +1,48 @@
+  <!-- Include header component -->
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+    
+    <div class="privacy-title">Background Check</div>
+    
+    <div class="privacy-panel">
+      <div class="privacy-text1">
+        Does your organisation currently use or have access to My Health Record system?
+      </div>
+      <div class="privacy-text2">
+        My Health Record is a national digital platform that allows healthcare organisations to securely access and share patient health information across Australia's healthcare system.
+      </div>
+      
+      <div class="toggle-switch" id="toggle">
+        <input type="radio" id="yes" name="choice" value="yes" class="sr-only">
+        <label for="yes" class="toggle-label">Yes</label>
+
+        <input type="radio" id="no" name="choice" value="no" class="sr-only">
+        <label for="no" class="toggle-label">No</label>
+
+        <input type="radio" id="unsure" name="choice" value="unsure" class="sr-only">
+        <label for="unsure" class="toggle-label">Unsure</label>
+
+        <span class="toggle-slider"></span>
+      </div>
+      <br>
+    </div>
+    
+    <div class="hero-buttons">
+      <a href="{{ url_for('privacy') }}" class="btn btn-primary">
+        Back
+      </a>
+      <a href="{{ url_for('DA1') }}" class="btn btn-primary">
+        Continue
+      </a>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('toggle').addEventListener('change', function() {
+      this.classList.add('selected');
+    });
+  </script>
+</body>
+</html>

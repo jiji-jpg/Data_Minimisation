@@ -1,0 +1,19 @@
+
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Page loaded, trying to fetch header...');
+  
+  fetch('../templates/header.html')
+    .then(response => {
+      console.log('Fetch response:', response.status, response.ok);
+      if (!response.ok) throw new Error('Fetch failed');
+      return response.text();
+    })
+    .then(html => {
+      console.log('HTML loaded, length:', html.length);
+      document.getElementById('site-header').innerHTML = html;
+      console.log('Header injected!');
+    })
+    .catch(err => {
+      console.error('Fetch error:', err);
+    });
+});
