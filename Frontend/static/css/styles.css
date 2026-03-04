@@ -604,19 +604,19 @@ input[type="checkbox"]:hover {
   padding: 60px;
   border-radius: 18px;
   margin: 60px 0;
-  border-left: 8px solid #1f3c88;       
+  border-left: 8px solid #111111;       
 }
 
 /* Section heading */
 .executive-summary h2 {
-  color: #1f3c88;                       
+  color: #111111;                       
   font-size: 30px;
   margin-bottom: 20px;
 }
 
 /* Intro paragraph */
 .executive-summary > p {
-  color: #4a5568;                       
+  color: #111111;                       
   line-height: 1.7;
   font-size: 15px;
   margin-bottom: 40px;
@@ -635,7 +635,7 @@ input[type="checkbox"]:hover {
   background-color: #ffffff;
   padding: 35px 60px;
   border-radius: 16px;
-  border: 3px solid #1f3c88;            
+  border: 3px solid #ffffff;            
   text-align: center;
   min-width: 220px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
@@ -651,7 +651,7 @@ input[type="checkbox"]:hover {
 /* Score number */
 .score-card h3 {
   font-size: 40px;
-  color: #1f3c88;
+  color: #ff7700;
   margin-bottom: 10px;
 }
 
@@ -660,7 +660,7 @@ input[type="checkbox"]:hover {
   font-size: 14px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #1f3c88;
+  color: #111111;
   font-weight: 600;
 }
 
@@ -678,7 +678,7 @@ input[type="checkbox"]:hover {
   padding: 25px;
   border-radius: 12px;
   font-size: 15px;
-  color: #4a5568;
+  color: #111111;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -686,15 +686,76 @@ input[type="checkbox"]:hover {
 .summary-status strong {
   display: block;
   font-size: 32px;
-  color: #e53935;                       
+  color: #111111;                       
   margin-bottom: 8px;
+}
+
+/* --------------------- Legend --------------------- */
+.report-legend {
+  margin: 40px 0 60px;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e6eef5;
+}
+
+.report-legend h3 {
+  font-size: 18px;
+  color: #111111;
+  margin-bottom: 20px;
+}
+
+.legend-items {
+  display: grid;
+  gap: 18px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+/* Softer professional tones */
+.legend-green .legend-dot {
+  background: #1bb273;
+}
+
+.legend-yellow .legend-dot {
+  background: #ff7700;
+}
+
+.legend-red .legend-dot {
+  background: #ff002f;
+}
+
+.legend-item strong {
+  display: block;
+  font-size: 14px;
+  color: #111111;
+  margin-bottom: 4px;
+}
+
+.legend-item p {
+  font-size: 13px;
+  color: #111111;
+  margin: 0;
+  line-height: 1.6;
 }
 
 /* --------------------- Key Findings Section --------------------- */
 /* Section main heading */
 .key-findings h2 {
   grid-column: span 2;              
-  color: #c62828;                  
+  color: #111111;                  
   font-size: 30px;
   margin-bottom: 10px;
 }
@@ -702,7 +763,7 @@ input[type="checkbox"]:hover {
 /* Intro paragraph under heading */
 .key-findings > p {
   grid-column: span 2;              
-  color: #444;
+  color: #111111;
   line-height: 1.7;
   font-size: 15px;
   margin-bottom: 30px;
@@ -713,7 +774,7 @@ input[type="checkbox"]:hover {
   background-color: #ffffff;        
   padding: 25px;
   border-radius: 12px;
-  border-left: 8px solid #e53935;   
+  border-left: 8px solid #111111;   
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
@@ -726,14 +787,14 @@ input[type="checkbox"]:hover {
 
 /* Card titles */
 .key-findings article h3 {
-  color: #d32f2f;                   
+  color: #111111;                   
   font-size: 18px;
   margin-bottom: 10px;
 }
 
 /* Card text */
 .key-findings article p {
-  color: #555;
+  color: #111111;
   font-size: 14px;
   line-height: 1.6;
 }
@@ -747,18 +808,18 @@ input[type="checkbox"]:hover {
 /* Section heading */
 .asset-overview h2 {
   font-size: 28px;
-  color: #1f3c88;               
+  color: #111111;               
   margin-bottom: 15px;
   position: relative;
 }
 
-/* Red underline below heading */
+/* Black underline below heading */
 .asset-overview h2::after {
   content: "";
   display: block;
   width: 100%;
   height: 4px;
-  background-color: #e53935;   
+  background-color: #111111;   
   margin-top: 10px;
 }
 
@@ -766,7 +827,7 @@ input[type="checkbox"]:hover {
 .asset-overview > p {
   max-width: 900px;
   margin-bottom: 40px;
-  color: #4a5568;
+  color: #111111;
   line-height: 1.7;
   font-size: 15px;
 }
@@ -786,7 +847,7 @@ input[type="checkbox"]:hover {
 
 .asset-overview article {
   background-color: #e8f5ee;         
-  border: 2px solid #1bb273;         
+  border: 2px solid #111111;         
   padding: 25px;
   border-radius: 14px;
   transition: all 0.3s ease;
@@ -800,7 +861,7 @@ input[type="checkbox"]:hover {
 
 /* Card title */
 .asset-overview article h3 {
-  color: #1f3c88;
+  color: #111111;
   font-size: 18px;
   margin-bottom: 10px;
 }
@@ -809,7 +870,7 @@ input[type="checkbox"]:hover {
 .asset-overview article p {
   font-size: 14px;
   line-height: 1.6;
-  color: #4a5568;
+  color: #111111;
 }
 
 /* --------------------- Status Badges --------------------- */
@@ -828,7 +889,7 @@ input[type="checkbox"]:hover {
 /* Limited collection badge */
 .limited-collection {
   display: inline-block;
-  background-color: #6c7a89;     /* Grey */
+  background-color: #ff7700;     /* Orange */
   color: white;
   font-size: 12px;
   font-weight: 600;
@@ -845,7 +906,7 @@ input[type="checkbox"]:hover {
 
 .detailed-assessment h2 {
   font-size: 28px;
-  color: #1f3c88;
+  color: #1111111;
   margin-bottom: 10px;
   position: relative;
 }
@@ -855,12 +916,12 @@ input[type="checkbox"]:hover {
   display: block;
   width: 100%;
   height: 4px;
-  background-color: #e53935;
+  background-color: #111111;
   margin-top: 10px;
 }
 
 .detailed-assessment > p {
-  color: #4a5568;
+  color: #111111;
   line-height: 1.6;
   margin-bottom: 40px;
   max-width: 900px;
@@ -885,7 +946,7 @@ input[type="checkbox"]:hover {
 }
 
 .category-header h3 {
-  color: #1f3c88;
+  color: #111111;
   font-size: 18px;
 }
 
@@ -942,26 +1003,26 @@ input[type="checkbox"]:hover {
 
 /* Success (Green) */
 .assessment-item.success {
-  background-color: #e8f5ee;
-  border-color: #1bb273;
+  background-color: #f2f4f3;
+  border-color: #111111;
 }
 
 /* Warning (Yellow) */
 .assessment-item.warning {
-  background-color: #f6edcf;
-  border-color: #f4b400;
+  background-color: #f2f4f3;
+  border-color: #111111;
 }
 
 /* Danger (Red) */
 .assessment-item.danger {
-  background-color: #fbe4e4;
-  border-color: #e53935;
+  background-color: #f2f4f3;
+  border-color: #111111;
 }
 
-/* Neutral (Purple-like soft tone for opportunity section) */
+/* Neutral */
 .assessment-item.neutral {
   background-color: #eae6f8;
-  border-color: #7e57c2;
+  border-color: #111111;
 }
 
 /* Reference text */
@@ -1011,7 +1072,7 @@ input[type="checkbox"]:hover {
 /* Section heading */
 .recommended-actions h2 {
   font-size: 26px;
-  color: #1f3c88;
+  color: #111;
   margin-bottom: 10px;
 }
 
@@ -1040,7 +1101,7 @@ input[type="checkbox"]:hover {
   top: 0;
   bottom: -25px;
   width: 3px;
-  background-color: #3f6fd8;
+  background-color: #111111;
 }
 
 /* Blue circle node */
@@ -1083,6 +1144,25 @@ input[type="checkbox"]:hover {
   font-size: 12px;
   font-weight: 600;
   margin-top: 10px;
+}
+
+/* ==================== DISCLAIMER ==================== */
+.report-disclaimer {
+  margin: 30px 0 60px;
+  padding: 20px 24px;
+  background: #fbfcfe;
+  border-radius: 12px;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.6;
+  border: 1px solid #e6eef5;
+}
+
+.report-disclaimer h3 {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
 }
 
 /* ==================== RESPONSIVE ==================== */
