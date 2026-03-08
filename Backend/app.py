@@ -1,37 +1,52 @@
 from flask import Flask, render_template
 
-app = Flask(__name__, template_folder="../Frontend/pages")
+app = Flask(__name__, 
+            template_folder='../Frontend/templates',
+            static_folder='../Frontend/static')
 
-# Setting different pages as different routes for now for faster implementation
-@app.get("/")
-def home():
-    return render_template("index.html")
+@app.route('/')
+def landing():
+    """Landing page"""
+    return render_template('pages/landing.html')
 
+@app.route('/privacy')
+def privacy():
+    """Terms & Conditions"""
+    return render_template('pages/privacy.html')
 
-@app.get("/data_minimisation")
-def data_minimisation():
-    return render_template("data_minimisation.html")
+@app.route('/test')
+def test():
+    """test"""
+    return render_template('pages/Sub-landing_Page.html')
 
-@app.get("/report")
-def report():
-    return render_template("report.html")
+@app.route('/backgroundcheck')
+def backgroundcheck():
+    return render_template('pages/backgroundcheck.html')
 
+@app.route('/DA1')
+def DA1():
+    """Personal Data Header"""
+    return render_template('pages/personalDataAsset2.html')
 
-@app.get("/privacyNotice")
-def q_privacyNotice():
-    return render_template("q_privacyNotice.html")
+@app.route('/DA1_1') #questionnaire page has not been set yet.
+def DA1_1():
+    """Personal Data Questionnaire"""
+    return render_template('pages/personalDataAsset2.html')
 
-@app.get("/backgroundCheck")
-def q_backgroundCheck():
-    return render_template("q_backgroundCheck.html")
+@app.route('/DA2')
+def DA2():
+    """Health Data Header"""
+    return render_template('pages/2_HealthAssetHeader.html')
 
-@app.get("/personalDataAsset")
-def q_dataAsset_personalDataAsset():
-    return render_template("q_dataAsset_personalDataAsset.html")
+@app.route('/DA2_2')
+def DA2_2():
+    """Health Data Questionnaire"""
+    return render_template('pages/2A_HealthAsset.html')
 
-@app.get("/contactDetail")
-def q_questionnaire_personalDataAsset_contact():
-    return render_template("q_questionnaire_personalDataAsset_contact.html")
+@app.route('/DA3')
+def DA3():
+    """Medicare and Government data asset Header"""
+    return render_template('pages/3_GovAssetHeader.html')
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True, port=8000)
