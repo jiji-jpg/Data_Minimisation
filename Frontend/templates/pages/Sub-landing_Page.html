@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Minimisation Assessment - Healthcare Providers</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+  <!-- Include header component -->
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare Providers</h1>
+    
+    <h2>Data Asset Assessment</h2>
+
+    <div class="privacy-title">
+      This assessment will conduct a comprehensive review of the organization's data collection practices across following categories to ensure compliance with data minimisation principles.
+    </div>
+    <div class="privacy-title">
+      Please note: The accuracy of responses directly impacts the quality and relevance of the analysis. Complete and precise information is encouraged throughout this assessment.
+    </div>
+    
+    <!-- Stepper Progress Tracker -->
+    <div class="stepper-container">
+      <div class="stepper-step completed">
+        <div class="stepper-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+          </svg>
+        </div>
+        <div class="stepper-line"></div>
+        <div class="stepper-label">
+          <div class="stepper-step-number">* Required</div>
+          <div class="stepper-step-title">Personal Data Asset
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="display: block; fill: #6B7280; opacity: 0.7; cursor: help;">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247m2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+            <div class="tooltip_details" style="position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; min-width: 200px; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; pointer-events: none; white-space: nowrap;">
+            <ul style="list-style: none; margin: 0; padding: 0;">
+              <li>Basic identifiers</li>
+              <li>Government-issued identifiers</li>
+              <li>Online identifiers</li>
+              <li>Demographic details</li>
+              <li>Financial information</li>
+              <li>Biometric data</li>
+            </ul>
+            </div>
+          </svg>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <a href="{{ url_for('DA1_1') }}" class="btn btn-forms">
+            View
+          </a>
+        </div>
+      </div>
+
+      <div class="stepper-step completed">
+        <div class="stepper-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+          </svg>
+        </div>
+        <div class="stepper-line"></div>
+        <div class="stepper-label">
+          <div class="stepper-step-number">* Required</div>
+          <div class="stepper-step-title">Health Data Asset
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="display: block; fill: #6B7280; opacity: 0.7; cursor: help;">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247m2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+            <div class="tooltip_details" style="position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; min-width: 200px; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; pointer-events: none; white-space: nowrap;">
+            <ul style="list-style: none; margin: 0; padding: 0;">
+              <li>Clinical documents</li>
+                <li>Medical records</li>
+                <li>Treatment plans</li>
+                <li>Immunisation data</li>
+                <li>Diagnostic reports</li>
+            </ul>
+            </div>
+          </svg>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <a href="{{ url_for('DA1_1') }}" class="btn btn-forms">
+            View
+          </a>
+        </div>
+      </div>
+
+      <div class="stepper-step pending">
+        <div class="stepper-circle"></div>
+        <div class="stepper-line"></div>
+        <div class="stepper-label">
+          <div class="stepper-step-number">Optional</div>
+          <div class="stepper-step-title">Medicare Data Asset
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="display: block; fill: #6B7280; opacity: 0.7; cursor: help;">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247m2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+            <div class="tooltip_details" style="position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; min-width: 200px; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; pointer-events: none; white-space: nowrap;">
+            <ul style="list-style: none; margin: 0; padding: 0;">
+              <li>Residential and aged care records</li>
+              <li>Medicare and insurance records</li>
+              <li>National health registers</li>
+              <li>Proof of vaccination documents</li>
+            </ul>
+            </div>
+          </svg>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <a href="{{ url_for('DA1_1') }}" class="btn btn-forms">
+            View
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../static/js/header-loader.js"></script>
+</body>
+</html>
