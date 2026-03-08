@@ -1,0 +1,175 @@
+  <!-- Include header component -->
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+    <div class="privacy-title">Personal Data Asset  / Personal Details and Contact Details</div>
+    <div class="privacy-text2">Please select and answer all that applies to your organisation for a detailed analysis.<br> If your organisation does not collect, you can skip to the next section.</div>
+    <br>
+    <div class="privacy-panel"> 
+      <div class="form-section">
+          <h2>Personal Details</h2><br>
+      <div class="checkbox-grid">
+          <label class="checkbox-label">
+            <input type="checkbox" id="Name"/>
+            <span class="label-text">
+              <span class="label-top">Name</span>
+              <span class="label-bottom">eg. First name, Last name, Full name, Maiden name, Middle name, Nickname, etc.</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Phone" />
+            <span class="label-text">
+              <span class="label-top">Phone Number  </span>
+              <span class="label-bottom">eg. Home phone number, mobile phone number, work phone number, etc.</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="DOB" />
+            <span class="label-text">
+              <span class="label-top">Date of Birth</span>
+              <span class="label-bottom">eg. Full D.O.B, only birth month, only birth year, etc.</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Email" />
+            <span class="label-text">
+              <span class="label-top">Email</span>
+              <span class="label-bottom">eg. Work email, personal email, etc.</span>
+            </span>
+          </label>
+         <label class="checkbox-label">
+            <input type="checkbox" id="Gender" />
+            <span class="label-text">
+              <span class="label-top">Gender</span>
+              <span class="label-bottom">eg. Male, Female, Non-binary, etc.</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="PostAddress" />
+            <span class="label-text">
+              <span class="label-top">Postal Address</span>
+              <span class="label-bottom">eg. Delivery address</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Address" />
+            <span class="label-text">
+              <span class="label-top">Address</span>
+              <span class="label-bottom">eg. Home address, work address, etc.</span>
+            </span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" id="Fax" />
+            <span class="label-text">
+              <span class="label-top">Fax</span>
+              <span class="label-bottom">eg. Work fax, home fax, etc.</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Sign" />
+            <span class="label-text">
+              <span class="label-top">Signature</span>
+              <span class="label-bottom">eg. Penned/digital signature, initials, finger prints, etc.</span>
+            </span>
+          </label>
+          </div>
+      </div>
+    </div>
+    <span class="label-top">Data Collection Purpose</span>
+    <span class="label-bottom">Why did your organisation collect the selected category(s) of data?</span>
+    <div class="custom-select">
+      <select>
+        <option value="">Select</option>
+        <option value="Clinical Care" id="ClinicalCare">Clinical Care</option>
+        <option value="System Management Audit" id="SMA">System Management Audit</option>
+        <option value="Legal Obligation" id="LegalObligation">Legal Obligation</option>
+        <option value="Court Order" id="CourtOrder">Court Order</option>
+        <option value="Serious Threat or Emergency" id="STE">Serious Threat or Emergency</option>
+        <option value="Insurance Indemnity or Professional Liability Only" id="Insurance">Insurance Indemnity or Professional Liability Only</option>
+        <option value="Marketing" id="Marketing">Marketing</option>
+        <option value="Operational or Business Operation" id="Operational">Operational or Business Operation</option>
+        <option value="Human Resource" id="HumanResource">Human Resource</option>
+        <option value="General Insurance" id="GeneralInsurance">General Insurance</option>
+        <option value="Unsure" id="Unsure">Unsure</option>
+      </select>
+    </div>
+    <br><br>
+    <span class="label-top">Level of Data Details</span>
+    <!-- Toggle 1 -->
+      <div class="toggle-switchF" id="toggle1">
+        <input type="radio" id="toggle1-yes" name="choice1" value="yes" class="sr-onlyF">
+        <label for="toggle1-yes" class="toggle-label">Yes</label>
+
+        <input type="radio" id="toggle1-no" name="choice1" value="no" class="sr-onlyF">
+        <label for="toggle1-no" class="toggle-label">No</label>
+
+        <input type="radio" id="toggle1-unsure" name="choice1" value="unsure" class="sr-onlyF">
+        <label for="toggle1-unsure" class="toggle-label">Unsure</label>
+
+        <span class="toggle-slider"></span>
+      </div>
+      <span class="label-bottom">2. Is recipient's consent obtained before collecting or uploading information?</span>
+
+  <!-- Toggle 2 -->
+    <div class="toggle-switchF" id="toggle2">
+      <input type="radio" id="toggle2-yes" name="choice2" value="yes" class="sr-onlyF">
+      <label for="toggle2-yes" class="toggle-label">Yes</label>
+
+      <input type="radio" id="toggle2-no" name="choice2" value="no" class="sr-onlyF">
+      <label for="toggle2-no" class="toggle-label">No</label>
+
+      <input type="radio" id="toggle2-unsure" name="choice2" value="unsure" class="sr-onlyF">
+      <label for="toggle2-unsure" class="toggle-label">Unsure</label>
+
+      <span class="toggle-slider"></span>
+    </div>
+    <span class="label-bottom">3. Is the selected category(s) information collected essential for your organisation's operation?</span>
+
+    <!-- Toggle 3 -->
+    <div class="toggle-switchF" id="toggle3">
+      <input type="radio" id="toggle3-yes" name="choice3" value="yes" class="sr-onlyF">
+      <label for="toggle3-yes" class="toggle-label">Yes</label>
+
+      <input type="radio" id="toggle3-no" name="choice3" value="no" class="sr-onlyF">
+      <label for="toggle3-no" class="toggle-label">No</label>
+
+      <input type="radio" id="toggle3-unsure" name="choice3" value="unsure" class="sr-onlyF">
+      <label for="toggle3-unsure" class="toggle-label">Unsure</label>
+
+      <span class="toggle-slider"></span>
+    </div>
+    <span class="label-bottom">4. Can a less detailed version of the selected category(s) information be collected or used instead?</span>
+
+    <!-- Toggle 4 -->
+    <div class="toggle-switchF" id="toggle4">
+      <input type="radio" id="toggle4-yes" name="choice4" value="yes" class="sr-onlyF">
+      <label for="toggle4-yes" class="toggle-label">Yes</label>
+
+      <input type="radio" id="toggle4-no" name="choice4" value="no" class="sr-onlyF">
+      <label for="toggle4-no" class="toggle-label">No</label>
+
+      <input type="radio" id="toggle4-unsure" name="choice4" value="unsure" class="sr-onlyF">
+      <label for="toggle4-unsure" class="toggle-label">Unsure</label>
+
+      <span class="toggle-slider"></span>
+    </div>
+
+    <br><br>
+    <div class="hero-buttons">
+      <a href="{{ url_for('privacy') }}" class="btn btn-primary">
+        Back
+      </a>
+      <a href="{{ url_for('DA1') }}" class="btn btn-primary">
+        Continue
+      </a>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('toggle').addEventListener('change', function() {
+      this.classList.add('selected');
+    });
+  </script>
+</body>
+</html>

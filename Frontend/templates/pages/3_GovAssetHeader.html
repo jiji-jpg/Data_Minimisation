@@ -1,0 +1,35 @@
+  <!-- Include header component -->
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+        <div class="privacy-title">Medicare and Government Data Asset</div>
+    <div class="privacy-panel">
+       <div class="privacy-text2">
+        Medical and Government data assets include any health-related information your organisation collects, stores, or processes. This may include:
+        </div>
+      <ul class="privacy-list">
+        <li>Residential and aged care records (e.g., care plans, incident reports, medication charts)</li>
+        <li>Medicare and insurance records (e.g. medicare benefits schedule claims, pharmaceutical benefits scheme claims, proof of vaccination documents.)</li>
+        <li>National Health registers (e.g. australian immunisation register, australian organ donor register, proof of vaccination documents)</li>
+      </ul>
+      <br>
+    </div>
+    <div class="hero-buttons">
+        <a href="../templates/report.html" class="btn btn-primary" onclick="startAssessment()">
+          No
+        </a>
+        <div class="privacy-text2">Skip to finalise your report </div>
+    </div>
+    <br>
+    <div class="hero-buttons">
+        <a href="../templates/personalDataAsset2.html" class="btn btn-primary" onclick="startAssessment()">
+          Yes
+        </a>
+        <div class="privacy-text2">Continue to Medicare and Government data asset questionnaire</div>
+    </div>
+  </main>
+
+    <script src="../static/js/header-loader.js"></script>
+</body>
+</html>
