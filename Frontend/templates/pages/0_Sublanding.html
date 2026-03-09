@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Asset Assessment - Healthcare Providers</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare Providers</h1>
+    
+    <h2>Data Asset Assessment</h2>
+
+    <div class="page-subtitle">
+      This assessment will conduct a comprehensive review of the organization's data collection practices across following categories to ensure compliance with data minimisation principles.
+    </div>
+    <div class="page-subtitle">
+      Please note: The accuracy of responses directly impacts the quality and relevance of the analysis. Complete and precise information is encouraged throughout this assessment.
+    </div>
+    
+    <!-- Stepper Progress Tracker -->
+    <div class="stepper-container">
+      <!-- Step 1: Personal Data Asset -->
+      <div class="stepper-step completed">
+        <div class="stepper-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+          </svg>
+        </div>
+        <div class="stepper-line"></div>
+        <div class="stepper-label">
+          <div class="stepper-label-top">* Required</div>
+          <div class="stepper-title">
+            Personal Data Asset
+            <span class="tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" 
+              title="<ul style='list-style:none; margin:0; padding:0; text-align:left;'>
+                <li> Examples: </li>
+                <li> - Basic identifiers</li>
+                <li> - Government-issued identifiers</li>
+                <li> - Online identifiers</li>
+                <li> - Demographic details</li>
+                <li> - Financial information</li>
+                <li> - Biometric data</li>
+              </ul>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="fill: #6B7280; cursor: help;">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247m2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+              </svg>
+            </span>
+          </div>
+          <a href="{{ url_for('DA1') }}" class="btn btn-small" style="margin-top: 8px;">View</a>
+        </div>
+      </div>
+
+      <!-- Step 2: Health Data Asset -->
+      <div class="stepper-step completed">
+        <div class="stepper-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+          </svg>
+        </div>
+        <div class="stepper-line"></div>
+        <div class="stepper-label">
+          <div class="stepper-label-top">* Required</div>
+          <div class="stepper-title">
+            Health Data Asset
+            <span class="tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" 
+              title="<ul style='list-style:none; margin:0; padding:0; text-align:left;'>
+                <li> Examples: </li>
+                <li>- Clinical documents</li>
+                <li>- Medical records</li>
+                <li>- Treatment plans</li>
+                <li>- Immunisation data</li>
+                <li>- Diagnostic reports</li>
+              </ul>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="fill: #6B7280; cursor: help;">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247m2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+              </svg>
+            </span>
+          </div>
+          <a href="{{ url_for('DA1') }}" class="btn btn-small" style="margin-top: 8px;">View</a>
+        </div>
+      </div>
+
+      <!-- Step 3: Medicare Data Asset -->
+      <div class="stepper-step pending">
+        <div class="stepper-circle"></div>
+        <div class="stepper-line"></div>
+        <div class="stepper-label">
+          <div class="stepper-label-top">Optional</div>
+          
+          <div class="stepper-title">
+            Medicare Data Asset
+            <span class="tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" 
+              title="<ul style='list-style:none; margin:0; padding:0; text-align:left;'>
+                <li> Examples: </li>
+                <li>Residential and aged care records</li>
+                <li>Medicare and insurance records</li>
+                <li>National health registers</li>
+                <li>Proof of vaccination documents</li>
+              </ul>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" style="fill: #6B7280; cursor: help;">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247m2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+              </svg>
+            </span>
+          </div>
+          <a href="{{ url_for('DA1') }}" class="btn btn-small" style="margin-top: 8px;">View</a>
+        </div>
+      </div>
+    </div>
+    <div class="report-button-container">
+      <a href="{{ url_for('report') }}" class="report-link">
+        Generate Report 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
+        </svg>
+      </a>
+    </div>
+  </main>
+
+  <script src="../static/js/header-loader.js"></script>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Initialize Bootstrap Tooltips -->
+  <script>
+    // Initialize all Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
+
+  <script src="../static/js/header-loader.js"></script>
+</body>
+</html>
+</body>
+</html>
