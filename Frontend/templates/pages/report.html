@@ -13,13 +13,15 @@
 
 
   <main class="report">
-
+    <div class="container">
     <section class="report-header">
       <h2>Data Minimisation Assessment Report</h2>
       <p>Healthcare Provider Data Privacy & Compliance Analysis</p>
     </section>
-
+    </div>
+    
     <!-- Executive Summary -->
+    <div class="container">
     <section class="executive-summary">
       <h2>Executive Summary</h2>
 
@@ -45,8 +47,10 @@
         <p><strong>4</strong> Recommendations Provided</p>
       </div>
     </section>
+    </div>
 
     <!-- Legend -->
+    <div class="container">
     <section class="report-legend" aria-label="Assessment Indicator Guide">
       <h3>Assessment Indicator Guide</h3>
 
@@ -78,8 +82,10 @@
 
       </div>
     </section>
+    </div>
     
     <!-- Key Findings -->
+    <div class="container">
     <section class="key-findings">
       <h2>Key Findings</h2>
       
@@ -118,51 +124,11 @@
           20% of enforcement measure was listed as manually deleted.
         </p>
       </article>
-
     </section>
-
-    <!-- Data Asset Assessment Overview -->
-    <section class="asset-overview">
-      <h2>Data Asset Assessment Overview</h2>
-
-      <p>
-        This overview summarises the organisation’s primary data asset categories and highlights how data is currently collected and managed at a high level. The assessment focuses on necessity, purpose limitation, and alignment with data minimisation principles.
-      </p>
-
-      <article>
-        <h3>Personal Data Assets</h3>
-        <span class="collected">Collected</span>
-        <p>
-          Personal identifiers, contact details, and demographic information are collected to support patient registration, communication, and billing. Some non-essential personal data fields would benefit from clearer purpose definition and consent controls.
-        </p>
-      </article>
-
-      <article>
-        <h3>Health Data Assets</h3>
-        <span class="collected">Collected</span>
-        <p>
-          Clinical notes, medical records, immunisation data, and treatment history are collected to support healthcare delivery and continuity of care. Retention practices require consistent alignment with defined schedules.
-        </p>
-      </article>
-
-      <article>
-        <h3>Clinical Documents</h3>
-        <span class="collected">Collected</span>
-        <p>
-          Supporting clinical documentation, including pathology reports, diagnostic imaging, and discharge summaries, is maintained to support diagnosis and treatment. Documentation completeness varies across categories.
-        </p>
-      </article>
-
-      <article>
-        <h3>Medicare & Government Data</h3>
-        <span class="limited-collection">Limited Collection</span>
-        <p>
-          Medicare-related and government identifiers are collected where required for claims processing and eligibility verification. Ongoing use should remain strictly purpose-limited and auditable.
-        </p>
-      </article>
-    </section>
+    </div>
 
     <!-- Detailed Assessment by Category -->
+    <div class="container">
     <section class="detailed-assessment">
       <h2>Detailed Assessment by Category</h2>
       <p>
@@ -176,33 +142,68 @@
         <span class="badge review">Needs Review</span>
       </div>
 
-      <div class="assessment-item success">
-        <h4>Essential Patient Identifiers</h4>
+      <div class="assessment-item warning">
+        <h4>Violation of Privacy Act 1988</h4>
         <p>
-          Core identifiers such as name, date of birth, and contact details are appropriately collected for patient identification and communication. Collection aligns with clinical and operational requirements.
+          Unnecessary data collected.
         </p>
         <a href="#">Privacy Act 1988 - APP3.2</a>
       </div>
 
       <div class="assessment-item warning">
-        <h4>Employment & Financial Information</h4>
+        <h4>Unknown Purpose</h4>
         <p>
-          Employment and financial information is collected beyond what is strictly required for billing and administrative purposes. Data fields should be reviewed to confirm necessity and documented justification.
+          Data categorised with unknown purpose flagged.
         </p>
        <a href="#">Privacy Act 1988 - APP3.5</a>
       </div>
 
       <div class="assessment-item danger">
-        <h4>Consent Documentation</h4>
+        <h4>Personal Data Collected Without Consent</h4>
         <p>
-          Consent records for the collection of non-essential or sensitive personal information are incomplete or inconsistently captured. Explicit consent should be documented and retained for all applicable data categories.
+          Explicit consent should be documented and retained for all applicable data categories.
         </p>
         <a href="#">Privacy Act 1988 - APP3.4</a>
       </div>
 
-    </article>
+      <div class="assessment-item danger">
+        <h4>Not Essential for Operation</h4>
+        <p>
+          Data collected must serve a purpose in the organisation.
+        </p>
+        <a href="#">Privacy Act 1988 - APP3.4</a>
+        <a href="#">My Health Record Act</a>
+      </div>
 
-    <article class="category">
+        <div class="assessment-item danger">
+        <h4>Violation of Retention Period without Special Circumstances</h4>
+        <p>
+          Data collected must only be kept within a certain period of time unless surronded by special circumstances.
+        </p>
+        <a href="#">My Health Record Act</a>
+      </div>
+
+      <div class="assessment-item danger">
+        <h4>Retention Period Unknown</h4>
+        <p>
+          Data collected must only be kept within a certain period of time as stated in the My Health Record Act.
+        </p>
+        <a href="#">My Health Record Act</a>
+      </div>
+
+      <div class="assessment-item warning">
+        <h4>Enforcement Measures</h4>
+        <p>
+          Attributes "manually deleted".
+        </p>
+        <a href="#">My Health Record Act</a>
+      </div>
+
+    </article>
+    </section>
+    </div>
+
+    <!-- <article class="category">
 
       <div class="category-header">
         <h3>Health Data Assets</h3>
@@ -225,10 +226,10 @@
         <a href="#">Privacy Act 1988</a>
       </div>
 
-    </article>
+    </article>-->
 
       <!-- Clinical Doucuments -->
-      <!-- Feel free to add more <article> tag -->
+      <!-- Feel free to add more <article> tag 
     <article class="category">
 
       <div class="category-header">
@@ -273,19 +274,19 @@
     </article>
 
     <article>
-        <!--Feel free to add more content here-->
-    </article>
+        Feel free to add more content here
+    </article>-->
 
 
-      <!-- Data Retention & Deletion -->
+      <!-- Data Retention & Deletion 
     <article class="category">
 
      <div class="category-header">
         <h3>Data Retention & Deletion</h3>
         <span class="badge action">Action Required</span>
-      </div>
+      </div>-->
 
-      <!-- Category introduction -->
+      <!-- Category introduction 
       <p class="category-intro">
         This section assesses whether data retention periods are defined, justified, and consistently enforced, and whether deletion controls effectively reduce unnecessary data exposure.
       </p>
@@ -310,9 +311,9 @@
         <a href="#">Privacy Act 1988 - APP 11.2</a>
       </div>
 
-    </article>
+    </article>-->
 
-    <!-- My Health Record Integration -->
+    <!-- My Health Record Integration 
     <article class="category">
 
       <div class="category-header">
@@ -328,9 +329,10 @@
         <a href="#">My Health Records Act 2012</a>
       </div>
 
-    </article>
+    </article> -->
 
     <!-- Recommended Actions -->
+    <div class="container">
     <section class="recommended-actions">
       <h2>Recommended Actions</h2>
       <p>
@@ -338,39 +340,57 @@
       </p>
 
       <article class="priority-high">
-        <h3>Review Personal Data Collection Form</h3>
-        <p>
-          Conduct a structured review of all patient intake and administrative forms to confirm the necessity of each data field. Remove or make optional any non-essential fields and document the purpose for all retained personal data.
-        </p>
-        <p><strong>Complete within 2 weeks</strong></p>
+        <h3>Display Records of Why Each Data Category was Collected</h3>
+        <!--<p>
+          Conduct a structured review of all patient intake and administrative forms to confirm the necessity of each data field. 
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
       </article>
 
       <article class="priority-high">
-        <h3>Implement Consent Management</h3>
-        <p>
+        <h3>Data Collection for the Following Should Cease</h3>
+        <!--<p>
           Introduce consistent consent capture mechanisms for sensitive and non-essential personal data. Ensure consent evidence is securely stored and auditable.
-        </p>
-        <p><strong>Complete within 1 month</strong></p>
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
       </article>
 
       <article class="priority-medium">
-        <h3>Review and Formalise Retention Schedules</h3>
-        <p>
+        <h3>Staff Training on Data Collection Consent Necessary</h3>
+        <!--<p>
           Define and document retention periods for each data category in alignment with applicable obligations and clinical requirements. Apply schedules consistently across all systems.
-        </p>
-        <p><strong>Implement within 6 weeks</strong></p>
+        </p>-->
+        <p><strong>Improvement Recommended</strong></p>
       </article>
 
-      <article class="priority-medium">
-        <h3>Review Data Retention Schedule</h3>
-        <p>
+      <article class="priority-high">
+        <h3>Unnecessary Data Collection Should Cease</h3>
+        <!--<p>
           Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
-        </p>
-        <p><strong>Complete within 3 months</strong></p>
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
+      </article>
+
+      <article class="priority-high">
+        <h3>Review Data Retention Schedule</h3>
+        <!--<p>
+          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
+      </article>
+
+      <article class="priority-high">
+        <h3>Enable Automatic Deletion</h3>
+        <!--<p>
+          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
       </article>
     </section>
+    </div>
 
     <!-- Cost Reduction -->
+    <div class="container">
     <section class="cost-reduction">
 
       <h2>Estimated Cost Reduction</h2>
@@ -408,8 +428,10 @@
       </div>
 
     </section>
+    </div>
 
     <!-- Disclaimer -->
+    <div class="container">
     <section class="report-disclaimer">
       <h3>Disclaimer</h3>
       <p>
@@ -418,6 +440,7 @@
         indicative in nature and should be independently validated by qualified professionals before implementation.
       </p>
     </section>
+    </div>
 
 </main>
 
