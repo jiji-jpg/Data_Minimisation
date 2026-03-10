@@ -87,33 +87,38 @@
         The assessment identified generally sound data handling practices within clinical systems. However, gaps were observed in the collection, retention, and disposal of non-essential data, increasing privacy and regulatory risk. These findings highlight opportunities to strengthen compliance, reduce unnecessary data exposure, and improve operational consistency.
       </p>
 
-      <article>
-        <h3>Personal Data Collection</h3>
-        <p>
-          Review all personal data fields collected across systems to confirm necessity for healthcare delivery or legal compliance. Remove or restrict the collection of non-essential personal data unless a documented purpose and explicit consent are in place.
+      <article class="granularity-issues">
+        <h3>Data Collection Granularity Issues</h3>
+        <p class="purpose-violation">
+          40% of your data violates the purpose of My Health Act. 
+        </p>
+        <p class="purpose-unknown">
+          50% of your data collection purpose is unknown.
+        </p> 
+        <p class="consent-no">
+          25% of data collected from patient had no consent.
+        </p>
+        <p class="version-less-detailed">
+          7% of attributes can have less detailsed version collected.
+        </p>
+        <p class="not-essential">
+          23% of attributes are not essential for operation.
         </p>
       </article>
 
-      <article>
-        <h3>Health Data Retention</h3>
-        <p>
-          Align health data retention periods with My Health Record guidance and Australian Privacy Principles by formally defining retention schedules for each data category and enforcing them consistently across systems.
+      <article class="retention-issues">
+        <h3>Retention Period Issues</h3>
+        <p class="retention-violation">
+          20% of your data violates the retention period of My Health Act and has no special circumstances. 
+        </p>
+        <p class="retention-unknown">
+          55% of your data collection retention period is unknown.
+        </p> 
+        <p class="manual-deletion">
+          20% of enforcement measure was listed as manually deleted.
         </p>
       </article>
 
-      <article>
-        <h3>Automated Deletion Controls</h3>
-        <p>
-          Implement automated data deletion or archiving controls based on approved retention schedules to reduce reliance on manual processes and ensure consistent enforcement of retention rules.
-        </p>
-      </article>
-
-      <article>
-        <h3>Purpose Limitation & Data Justification</h3>
-        <p>
-          Introduce mandatory documentation of data purpose and justification at the point of collection, supported by periodic reviews to confirm ongoing necessity and relevance.
-        </p>
-      </article>
     </section>
 
     <!-- Data Asset Assessment Overview -->
@@ -332,7 +337,7 @@
           The following actions are prioritised to reduce regulatory and cybersecurity risk while maintaining operational continuity. Timeframes reflect practical implementation effort and risk severity.
       </p>
 
-      <article class="priority-high">
+      <article>
         <h3>Review Personal Data Collection Form</h3>
         <p>
           Conduct a structured review of all patient intake and administrative forms to confirm the necessity of each data field. Remove or make optional any non-essential fields and document the purpose for all retained personal data.
@@ -340,7 +345,7 @@
         <p><strong>Complete within 2 weeks</strong></p>
       </article>
 
-      <article class="priority-high">
+      <article>
         <h3>Implement Consent Management</h3>
         <p>
           Introduce consistent consent capture mechanisms for sensitive and non-essential personal data. Ensure consent evidence is securely stored and auditable.
@@ -348,7 +353,7 @@
         <p><strong>Complete within 1 month</strong></p>
       </article>
 
-      <article class="priority-medium">
+      <article>
         <h3>Review and Formalise Retention Schedules</h3>
         <p>
           Define and document retention periods for each data category in alignment with applicable obligations and clinical requirements. Apply schedules consistently across all systems.
@@ -356,7 +361,7 @@
         <p><strong>Implement within 6 weeks</strong></p>
       </article>
 
-      <article class="priority-medium">
+      <article>
         <h3>Review Data Retention Schedule</h3>
         <p>
           Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
