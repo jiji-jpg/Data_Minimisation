@@ -859,8 +859,8 @@ input[type="checkbox"]:hover {
 }
 
 .asset-overview article {
-  background-color: #e8f5ee;         
-  border: 2px solid #111111;         
+  background-color: #f8f9fb;   
+  border: 2px solid #e1e5ee;   
   padding: 25px;
   border-radius: 14px;
   transition: all 0.3s ease;
@@ -918,6 +918,7 @@ input[type="checkbox"]:hover {
 }
 
 .detailed-assessment h2 {
+  background-color: #ffffff;
   font-size: 28px;
   color: #111111;
   margin-bottom: 10px;
@@ -997,6 +998,7 @@ input[type="checkbox"]:hover {
 
 /* --------------------- Assessment Items --------------------- */
 .assessment-item {
+  background-color: #ffffff; 
   padding: 18px 20px;
   border-radius: 10px;
   margin-bottom: 18px;
@@ -1016,19 +1018,16 @@ input[type="checkbox"]:hover {
 
 /* Success (Green) */
 .assessment-item.success {
-  background-color: #f0fdf4;
   border-color:  #1bb273;
 }
 
-/* Warning (Yellow) */
+/* Warning (Orange) */
 .assessment-item.warning {
-  background-color:  #fff7ed;
   border-color: #ff7700;
 }
 
 /* Danger (Red) */
 .assessment-item.danger {
-  background-color: #fef2f2;
   border-color: #e53935;
 }
 
@@ -1086,6 +1085,7 @@ input[type="checkbox"]:hover {
 
 /* Section heading */
 .recommended-actions h2 {
+  background: transparent;
   font-size: 26px;
   color: #111;
   margin-bottom: 10px;
@@ -1096,6 +1096,19 @@ input[type="checkbox"]:hover {
   margin-bottom: 40px;
   line-height: 1.6;
   max-width: 100%;
+}
+
+/*---------------- Priority Button Colors ---------------- */
+.priority-high strong {
+  background-color: #ff002f;
+}
+
+.priority-medium strong {
+  background-color: #ff7700;
+}
+
+.priority-low strong {
+  background-color: #1bb273;
 }
 
 /* ------------------- Cost Reduction Section ------------------- */
@@ -1109,6 +1122,7 @@ input[type="checkbox"]:hover {
 
 .cost-reduction h2 {
   font-size: 28px;
+  background: transparent;
   color: #111111;
   margin-bottom: 10px;
 }
@@ -1205,7 +1219,6 @@ input[type="checkbox"]:hover {
 /* Time badge */
 .recommended-actions article strong {
   display: inline-block;
-  background-color: #1f3c88;
   color: white;
   padding: 6px 14px;
   border-radius: 20px;
