@@ -607,6 +607,11 @@ input[type="checkbox"]:hover {
   border-left: 8px solid #111111;       
 }
 
+.executive-summary p {
+  width: 100%;
+  max-width: none;
+}
+
 /* Section heading */
 .executive-summary h2 {
   color: #111111;                       
@@ -620,7 +625,6 @@ input[type="checkbox"]:hover {
   line-height: 1.7;
   font-size: 15px;
   margin-bottom: 40px;
-  max-width: 900px;
 }
 
 /* --------------------- Score Cards --------------------- */
@@ -753,6 +757,15 @@ input[type="checkbox"]:hover {
 
 /* --------------------- Key Findings Section --------------------- */
 /* Section main heading */
+.key-findings article {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
 .key-findings h2 {
   grid-column: span 2;              
   color: #111111;                  
@@ -825,7 +838,7 @@ input[type="checkbox"]:hover {
 
 /* Intro paragraph */
 .asset-overview > p {
-  max-width: 900px;
+  max-width: 100%;
   margin-bottom: 40px;
   color: #111111;
   line-height: 1.7;
@@ -906,7 +919,7 @@ input[type="checkbox"]:hover {
 
 .detailed-assessment h2 {
   font-size: 28px;
-  color: #1111111;
+  color: #111111;
   margin-bottom: 10px;
   position: relative;
 }
@@ -924,7 +937,7 @@ input[type="checkbox"]:hover {
   color: #111111;
   line-height: 1.6;
   margin-bottom: 40px;
-  max-width: 900px;
+  max-width: 100%;
 }
 
 /* --------------------- Catogry Cards --------------------- */
@@ -1003,25 +1016,25 @@ input[type="checkbox"]:hover {
 
 /* Success (Green) */
 .assessment-item.success {
-  background-color: #f2f4f3;
-  border-color: #111111;
+  background-color: #f0fdf4;
+  border-color:  #1bb273;
 }
 
 /* Warning (Yellow) */
 .assessment-item.warning {
-  background-color: #f2f4f3;
-  border-color: #111111;
+  background-color:  #fff7ed;
+  border-color: #ff7700;
 }
 
 /* Danger (Red) */
 .assessment-item.danger {
-  background-color: #f2f4f3;
-  border-color: #111111;
+  background-color: #fef2f2;
+  border-color: #e53935;
 }
 
 /* Neutral */
 .assessment-item.neutral {
-  background-color: #eae6f8;
+  background-color: #f2f4f3;
   border-color: #111111;
 }
 
@@ -1063,10 +1076,12 @@ input[type="checkbox"]:hover {
 
 /* --------------------- Recommended Actions --------------------- */
 .recommended-actions {
-  background-color: #e8eef6;          
+  background-color: #f8f9fb;       
   padding: 60px;
   border-radius: 16px;
   margin: 60px 0;
+  border: 1px solid #e1e5ee;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
 
 /* Section heading */
@@ -1080,7 +1095,60 @@ input[type="checkbox"]:hover {
   color: #4a5568;
   margin-bottom: 40px;
   line-height: 1.6;
-  max-width: 850px;
+  max-width: 100%;
+}
+
+/* ------------------- Cost Reduction Section ------------------- */
+
+.cost-reduction {
+  background-color: #eef2f7;
+  padding: 60px;
+  border-radius: 16px;
+  margin: 60px 0;
+}
+
+.cost-reduction h2 {
+  font-size: 28px;
+  color: #111111;
+  margin-bottom: 10px;
+}
+
+.cost-reduction > p {
+  max-width: 100%
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* Cost cards layout */
+
+.cost-cards {
+  display: flex;
+  gap: 25px;
+}
+
+.cost-card {
+  background-color: #ffffff;
+  flex: 1;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}
+
+.cost-card h3 {
+  font-size: 32px;
+  color: #ff7700;
+  margin-bottom: 10px;
+}
+
+.cost-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cost-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
 }
 
 /* --------------------- Timeline Structure --------------------- */
