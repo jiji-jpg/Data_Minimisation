@@ -12,7 +12,7 @@
   <main>
     <h1>Data Minimisation for Healthcare providers</h1>
     
-    <div class="page-subtitle">Personal Data Asset / Personal Details and Contact Details</div>
+    <div class="page-subtitle">Heath Data Asset  / Medicare and Government Data asset questionnaire</div>
     
     <div class="text-body">
       Please select and answer all that applies to your organisation for a detailed analysis.<br>
@@ -20,82 +20,61 @@
     </div>
     
     <div class="panel panel-padded"> 
-      <div class="form-section">
-        <h2>Personal Details</h2>
-        
-        <div class="checkbox-grid">
+      <div class="form-section">        
+          <h2>Residential and Aged Care Records</h2>  
           <label class="checkbox-label">
-            <input type="checkbox" id="Name"/>
+            <input type="checkbox" id="CareFacility"/>
             <span class="label-text">
-              <span class="label-title">Name</span>
-              <span class="label-desc">eg. First name, Last name, Full name, Maiden name, Middle name, Nickname, etc.</span>
+              <span class="label-title">Transfer and Residential Care Facility Documents</span>
+              <span class="label-desc">eg. Patient name, transfer date, transfer to and from location, diagnosis, current medication, mobility and care needs.</span>
             </span>
           </label>
-          
+          <br><br>
+          <h2>Medicare and Insurance Records</h2>
           <label class="checkbox-label">
-            <input type="checkbox" id="Phone" />
+            <input type="checkbox" id="MedicareBenefits" />
             <span class="label-text">
-              <span class="label-title">Phone Number</span>
-              <span class="label-desc">eg. Home phone number, mobile phone number, work phone number, etc.</span>
+              <span class="label-title">Medicare Benefits Schedule Claims</span>
+              <span class="label-desc">Medicare benefits type, date, cost and provider name: eg. Level B Consultation (GP) - Date: 15/10/2025 - Benefit: $39.75 - Provider: Dr. Sarah Chen</span>
             </span>
           </label>
-          
           <label class="checkbox-label">
-            <input type="checkbox" id="DOB" />
+            <input type="checkbox" id="PharmaceuticalBenefits" />
             <span class="label-text">
-              <span class="label-title">Date of Birth</span>
-              <span class="label-desc">eg. Full D.O.B, only birth month, only birth year, etc.</span>
+              <span class="label-title">Pharmaceutical Benefits Scheme Claims</span>
+              <span class="label-desc">Claimed date, medication, PBS code, prescribed quantity, patient co-payment, PBS benefit: eg. Date: 02/11/2025 | Medication: Atorvastatin 40mg | PBS Code: 8007K | Quantity: 30 tablets | Patient co-payment: $7.70 | PBS benefit: $18.35</span>
             </span>
           </label>
-          
           <label class="checkbox-label">
-            <input type="checkbox" id="Email" />
+            <input type="checkbox" id="VeteransAffairClaims" />
             <span class="label-text">
-              <span class="label-title">Email</span>
+              <span class="label-title">Department of Veterans’ Affairs Claims </span>
               <span class="label-desc">eg. Work email, personal email, etc.</span>
             </span>
           </label>
-          
-          <label class="checkbox-label">
-            <input type="checkbox" id="Gender" />
+          <br><br>
+          <h2>National Health Registers</h2>
+         <label class="checkbox-label">
+            <input type="checkbox" id="ImmunisationRegister" />
             <span class="label-text">
-              <span class="label-title">Gender</span>
-              <span class="label-desc">eg. Male, Female, Non-binary, etc.</span>
+              <span class="label-title">Australian Immunisation Register</span>
+              <span class="label-desc">eg. Individual statement (name, medicare number, date of birth) and recorded vaccinations.</span>
+            </span>
+          </label><br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="OrganDonorRegister" />
+            <span class="label-text">
+              <span class="label-title">Australian Organ Donor Register</span>
+              <span class="label-desc">eg. Registration confirmation (name, medicare number, d.o.b, registration date, etc.)</span>
+            </span>
+          </label><br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="ProofOfVaccinationDoc" />
+            <span class="label-text">
+              <span class="label-title">Proof of Vaccination Documents</span>
+              <span class="label-desc">eg. digital certificate, immunisation history statement, pharmacy vaccination records, etc.</span>
             </span>
           </label>
-          
-          <label class="checkbox-label">
-            <input type="checkbox" id="PostAddress" />
-            <span class="label-text">
-              <span class="label-title">Postal Address</span>
-              <span class="label-desc">eg. Delivery address</span>
-            </span>
-          </label>
-          
-          <label class="checkbox-label">
-            <input type="checkbox" id="Address" />
-            <span class="label-text">
-              <span class="label-title">Address</span>
-              <span class="label-desc">eg. Home address, work address, etc.</span>
-            </span>
-          </label>
-          
-          <label class="checkbox-label">
-            <input type="checkbox" id="Fax" />
-            <span class="label-text">
-              <span class="label-title">Fax</span>
-              <span class="label-desc">eg. Work fax, home fax, etc.</span>
-            </span>
-          </label>
-          
-          <label class="checkbox-label">
-            <input type="checkbox" id="Sign" />
-            <span class="label-text">
-              <span class="label-title">Signature</span>
-              <span class="label-desc">eg. Penned/digital signature, initials, finger prints, etc.</span>
-            </span>
-          </label>
-        </div>
       </div>
     </div>
     
@@ -173,8 +152,52 @@
       </div>
     </div>
 
+    <div class="form-section">
+    <div class="text-emphasis">Enforcement Measure / Deletion Mechanism </div>
+    <div class="text-small">How is the selected category(s) information deleted from the system?: (You may select more than one)</div> <br>
+      <div class="checkbox-grid">
+          <label class="checkbox-label">
+            <input type="checkbox" id="AutomaticallyDeleted"/>
+            <span class="label-text">
+              <span class="label-desc">Automatically deleted</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="SecurelyDestroyed" />
+            <span class="label-text">
+              <span class="label-desc">Securely destroyed</span>
+             </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="ManualDeletion" />
+            <span class="label-text">
+              <span class="label-desc">Manually deleted or archived by authorised staff</span>
+             </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="UponPR" />
+            <span class="label-text">
+              <span class="label-desc">Upon patient request</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="DeIdentified" />
+            <span class="label-text">
+              <span class="label-desc">De-identified (personal details removed but data kept for analysis)</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Unsure" />
+            <span class="label-text">
+              <span class="label-desc">Unsure</span>
+              </span>
+          </label>
+          </div>
+    </div>
+
     <div class="btn-container">
-      <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary">Continue</a>
+       <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
+      <a href="{{ url_for('report') }}" class="btn btn-secondary">Continue</a>
     </div>
   </main>
 

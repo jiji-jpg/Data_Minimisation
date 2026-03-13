@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Data Asset - Data Minimisation</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+    
+    <div class="page-subtitle">Personal Data Asset  / Government-issued identifiers and Sensitive Information</div>
+    
+    <div class="text-body">
+      Please select and answer all that applies to your organisation for a detailed analysis.<br>
+      If your organisation does not collect, you can skip to the next section.
+    </div>
+    
+    <div class="panel panel-padded"> 
+      <div class="form-section">
+        <div class="checkbox-grid">
+        <h2>Government-issued identifiers</h2>
+        <h2>Sensitive Information</h2>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Medicare"/>
+            <span class="label-text">
+              <span class="label-title">Medicare Number</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="IndigenousStatus" />
+            <span class="label-text">
+              <span class="label-title">Indigenous status</span>
+             </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="ABN" />
+            <span class="label-text">
+              <span class="label-title">ABN</span>
+             </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="DOD" />
+            <span class="label-text">
+              <span class="label-title">Date of death</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="ACN" />
+            <span class="label-text">
+              <span class="label-title">ACN</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="CulturalIdentity" />
+            <span class="label-text">
+              <span class="label-title">Cultural identity</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="VFN" />
+            <span class="label-text">
+              <span class="label-title">Veteran File Number</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Racial" />
+            <span class="label-text">
+              <span class="label-title">Racial/ethnic origin</span>
+              </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-question">
+      <div class="text-emphasis">Data Collection Purpose</div>
+      <div class="text-small">Why did your organisation collect the selected category(s) of data?</div>
+      <div class="custom-select">
+        <select>
+          <option value="">Select</option>
+          <option value="Clinical Care">Clinical Care</option>
+          <option value="System Management Audit">System Management Audit</option>
+          <option value="Legal Obligation">Legal Obligation</option>
+          <option value="Court Order">Court Order</option>
+          <option value="Serious Threat or Emergency">Serious Threat or Emergency</option>
+          <option value="Insurance Indemnity or Professional Liability Only">Insurance Indemnity or Professional Liability Only</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Operational or Business Operation">Operational or Business Operation</option>
+          <option value="Human Resource">Human Resource</option>
+          <option value="General Insurance">General Insurance</option>
+          <option value="Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-emphasis">Level of Data Details</div>
+      <div class="text-small">1. Is the selected category(s) information collected in the most detailed form?</div>
+      <div class="toggle-small" id="toggle1">
+        <input type="radio" id="toggle1-yes" name="choice1" value="yes" class="sr-only">
+        <label for="toggle1-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle1-no" name="choice1" value="no" class="sr-only">
+        <label for="toggle1-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle1-unsure" name="choice1" value="unsure" class="sr-only">
+        <label for="toggle1-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">2. Is recipient's consent obtained before collecting or uploading information?</div>
+      <div class="toggle-small" id="toggle2">
+        <input type="radio" id="toggle2-yes" name="choice2" value="yes" class="sr-only">
+        <label for="toggle2-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle2-no" name="choice2" value="no" class="sr-only">
+        <label for="toggle2-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle2-unsure" name="choice2" value="unsure" class="sr-only">
+        <label for="toggle2-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">3. Is the selected category(s) information collected essential for your organisation's operation?</div>
+      <div class="toggle-small" id="toggle3">
+        <input type="radio" id="toggle3-yes" name="choice3" value="yes" class="sr-only">
+        <label for="toggle3-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle3-no" name="choice3" value="no" class="sr-only">
+        <label for="toggle3-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle3-unsure" name="choice3" value="unsure" class="sr-only">
+        <label for="toggle3-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">4. Can a less detailed version of the selected category(s) information be collected or used instead?</div>
+      <div class="toggle-small" id="toggle4">
+        <input type="radio" id="toggle4-yes" name="choice4" value="yes" class="sr-only">
+        <label for="toggle4-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle4-no" name="choice4" value="no" class="sr-only">
+        <label for="toggle4-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle4-unsure" name="choice4" value="unsure" class="sr-only">
+        <label for="toggle4-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+    
+    <div class="btn-container">
+      <a href="{{ url_for('DA1') }}" class="btn btn-primary">Back</a>
+      <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary">Continue</a>
+    </div>
+  </main>
+
+  <script src="../static/js/tooltip.js"></script>
+</body>
+</html>

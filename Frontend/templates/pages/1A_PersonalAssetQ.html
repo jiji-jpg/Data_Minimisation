@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Data Asset - Data Minimisation</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+    
+    <div class="page-subtitle">Personal Data Asset / Personal Details and Contact Details</div>
+    
+    <div class="text-body">
+      Please select and answer all that applies to your organisation for a detailed analysis.<br>
+      If your organisation does not collect, you can skip to the next section.
+    </div>
+    
+    <div class="panel panel-padded"> 
+      <div class="form-section">
+        <h2>Personal Details</h2>
+        
+        <div class="checkbox-grid">
+          <label class="checkbox-label">
+            <input type="checkbox" id="Name"/>
+            <span class="label-text">
+              <span class="label-title">Name</span>
+              <span class="label-desc">eg. First name, Last name, Full name, Maiden name, Middle name, Nickname, etc.</span>
+            </span>
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" id="Phone" />
+            <span class="label-text">
+              <span class="label-title">Phone Number</span>
+              <span class="label-desc">eg. Home phone number, mobile phone number, work phone number, etc.</span>
+            </span>
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" id="DOB" />
+            <span class="label-text">
+              <span class="label-title">Date of Birth</span>
+              <span class="label-desc">eg. Full D.O.B, only birth month, only birth year, etc.</span>
+            </span>
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" id="Email" />
+            <span class="label-text">
+              <span class="label-title">Email</span>
+              <span class="label-desc">eg. Work email, personal email, etc.</span>
+            </span>
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" id="Gender" />
+            <span class="label-text">
+              <span class="label-title">Gender</span>
+              <span class="label-desc">eg. Male, Female, Non-binary, etc.</span>
+            </span>
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" id="PostAddress" />
+            <span class="label-text">
+              <span class="label-title">Postal Address</span>
+              <span class="label-desc">eg. Delivery address</span>
+            </span>
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" id="Address" />
+            <span class="label-text">
+              <span class="label-title">Address</span>
+              <span class="label-desc">eg. Home address, work address, etc.</span>
+            </span>
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" id="Fax" />
+            <span class="label-text">
+              <span class="label-title">Fax</span>
+              <span class="label-desc">eg. Work fax, home fax, etc.</span>
+            </span>
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" id="Sign" />
+            <span class="label-text">
+              <span class="label-title">Signature</span>
+              <span class="label-desc">eg. Penned/digital signature, initials, finger prints, etc.</span>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-question">
+      <div class="text-emphasis">Data Collection Purpose</div>
+      <div class="text-small">Why did your organisation collect the selected category(s) of data?</div>
+      <div class="custom-select">
+        <select>
+          <option value="">Select</option>
+          <option value="Clinical Care">Clinical Care</option>
+          <option value="System Management Audit">System Management Audit</option>
+          <option value="Legal Obligation">Legal Obligation</option>
+          <option value="Court Order">Court Order</option>
+          <option value="Serious Threat or Emergency">Serious Threat or Emergency</option>
+          <option value="Insurance Indemnity or Professional Liability Only">Insurance Indemnity or Professional Liability Only</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Operational or Business Operation">Operational or Business Operation</option>
+          <option value="Human Resource">Human Resource</option>
+          <option value="General Insurance">General Insurance</option>
+          <option value="Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-emphasis">Level of Data Details</div>
+      <div class="text-small">1. Is the selected category(s) information collected in the most detailed form?</div>
+      <div class="toggle-small" id="toggle1">
+        <input type="radio" id="toggle1-yes" name="choice1" value="yes" class="sr-only">
+        <label for="toggle1-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle1-no" name="choice1" value="no" class="sr-only">
+        <label for="toggle1-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle1-unsure" name="choice1" value="unsure" class="sr-only">
+        <label for="toggle1-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">2. Is recipient's consent obtained before collecting or uploading information?</div>
+      <div class="toggle-small" id="toggle2">
+        <input type="radio" id="toggle2-yes" name="choice2" value="yes" class="sr-only">
+        <label for="toggle2-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle2-no" name="choice2" value="no" class="sr-only">
+        <label for="toggle2-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle2-unsure" name="choice2" value="unsure" class="sr-only">
+        <label for="toggle2-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">3. Is the selected category(s) information collected essential for your organisation's operation?</div>
+      <div class="toggle-small" id="toggle3">
+        <input type="radio" id="toggle3-yes" name="choice3" value="yes" class="sr-only">
+        <label for="toggle3-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle3-no" name="choice3" value="no" class="sr-only">
+        <label for="toggle3-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle3-unsure" name="choice3" value="unsure" class="sr-only">
+        <label for="toggle3-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">4. Can a less detailed version of the selected category(s) information be collected or used instead?</div>
+      <div class="toggle-small" id="toggle4">
+        <input type="radio" id="toggle4-yes" name="choice4" value="yes" class="sr-only">
+        <label for="toggle4-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle4-no" name="choice4" value="no" class="sr-only">
+        <label for="toggle4-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle4-unsure" name="choice4" value="unsure" class="sr-only">
+        <label for="toggle4-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="btn-container">
+            <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
+      <a href="{{ url_for('DA2') }}" class="btn btn-secondary">Continue</a>
+    </div>
+  </main>
+
+  <script src="../static/js/tooltip.js"></script>
+</body>
+</html>

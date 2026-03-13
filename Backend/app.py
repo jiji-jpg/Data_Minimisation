@@ -25,8 +25,28 @@ def sub_landing():
 
 @app.route('/DA1')
 def DA1():
-    """Personal Data Header"""
-    return render_template('pages/1_PersonalAssetQ.html')
+    """Personal Data Asset Questionnaire (Part 1)"""
+    return render_template('pages/1A_PersonalAssetQ.html')
+
+@app.route('/DA2')
+def DA2():
+    """Personal Data Asset Questionnaire (Part 2)"""
+    return render_template('pages/1B_PersonalAssetQ.html')
+
+@app.route('/HA1')
+def HA1():
+    """Health Data Asset Questionnaire (Part 1)"""
+    return render_template('pages/2A_HealthAssetQ.html')
+
+@app.route('/HA2')
+def HA2():
+    """Health Data Asset Questionnaire (Part 2)"""
+    return render_template('pages/2B_HealthAssetQ.html')
+
+@app.route('/GA1')
+def GA1():
+    """Government Data Asset Questionnaire (Part 1)"""
+    return render_template('pages/3A_GovAssetQ.html')
 
 @app.route('/report')
 def report():
