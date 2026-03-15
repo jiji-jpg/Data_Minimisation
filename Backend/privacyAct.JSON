@@ -1,0 +1,29 @@
+| Report section 
+for each dataAsset:
+    for each category:
+        if in privacyAct.JSON:
+            list in report 
+        
+[
+    {"purpose": "marketing", 
+    "consent": ["no", "unsure"], 
+    "PrivacyActSection": "Privacy Act 7.1 - 7.4"
+
+    }, 
+
+    {"lessDetailed": ["yes", "unsure"], 
+    "PrivacyActSection": "Privacy Act 3.1 - 3.2"
+    },
+
+
+    {"category": "sensitive information", 
+    "consent": ["no", "unsure"], 
+    "PrivacyActSection": "Privacy Act 3.3 - 3.4"
+    }, 
+
+    {"retentionPeriod": ["unsure"], 
+    "PrivacyActSection": "Privacy Act 11.2"} 
+
+
+]
+

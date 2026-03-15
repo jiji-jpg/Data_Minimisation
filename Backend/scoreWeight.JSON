@@ -1,0 +1,41 @@
+{ 
+    "minimizationScore":
+        { 
+            "lessDetailed":
+                {
+                    "yes": -1,
+                    "no": 2, 
+                    "unsure": 1
+                }, 
+            
+            "consent": 
+                {
+                    "yes": 2,
+                    "no": -1, 
+                    "unsure": 1
+                }, 
+            
+            "essential":
+                {
+                    "yes": 2,
+                    "no": -1, 
+                    "unsure": 1
+                },
+            
+            "purpose": 
+                {
+                    "unsure": -1
+                }
+        }, 
+    
+    "retentionScore":
+        {
+            "reinforcementMeasure":
+                {
+                    "automaticallyDeleted": 2, 
+                    "manuallyReviewed": 1, 
+                    "unsure": -1
+                }
+        }
+    
+}
