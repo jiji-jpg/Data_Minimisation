@@ -1,9 +1,3 @@
-| Report section 
-for each dataAsset:
-    for each category:
-        if in privacyAct.JSON:
-            list in report 
-        
 [
     {"purpose": "marketing", 
     "consent": ["no", "unsure"], 
