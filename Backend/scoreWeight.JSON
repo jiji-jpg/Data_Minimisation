@@ -1,6 +1,12 @@
 { 
     "minimizationScore":
         { 
+            "qualitativeScore":
+                {
+                    "Great": [1, 3], 
+                    "Good": [4, 6], 
+                    "Bad": [7, 10]
+                },
             "lessDetailed":
                 {
                     "yes": -1,
@@ -30,6 +36,12 @@
     
     "retentionScore":
         {
+            "qualitativeScore":
+                {
+                    "Great": [1, 3], 
+                    "Good": [4, 6], 
+                    "Bad": [7, 10]
+                },
             "reinforcementMeasure":
                 {
                     "automaticallyDeleted": 2, 
