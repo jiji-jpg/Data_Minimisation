@@ -15,7 +15,7 @@
     "PrivacyActSection": "Privacy Act 3.3 - 3.4"
     }, 
 
-    {"retentionPeriod": ["unsure"], 
+    {"retentionPeriod": ["unsure", "information is kept indefinitely"], 
     "PrivacyActSection": "Privacy Act 11.2"} 
 
 
