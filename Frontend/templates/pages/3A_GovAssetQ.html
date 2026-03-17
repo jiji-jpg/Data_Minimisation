@@ -8,7 +8,6 @@
 </head>
 <body>
   {% include 'components/header.html' %}
-
   <main>
     <h1>Data Minimisation for Healthcare providers</h1>
     
@@ -82,19 +81,19 @@
       <div class="text-emphasis">Data Collection Purpose</div>
       <div class="text-small">Why did your organisation collect the selected category(s) of data?</div>
       <div class="custom-select">
-        <select>
+        <select id = "DataCollectionPurpose-3A">
           <option value="">Select</option>
-          <option value="Clinical Care">Clinical Care</option>
-          <option value="System Management Audit">System Management Audit</option>
-          <option value="Legal Obligation">Legal Obligation</option>
-          <option value="Court Order">Court Order</option>
-          <option value="Serious Threat or Emergency">Serious Threat or Emergency</option>
-          <option value="Insurance Indemnity or Professional Liability Only">Insurance Indemnity or Professional Liability Only</option>
-          <option value="Marketing">Marketing</option>
-          <option value="Operational or Business Operation">Operational or Business Operation</option>
-          <option value="Human Resource">Human Resource</option>
-          <option value="General Insurance">General Insurance</option>
-          <option value="Unsure">Unsure</option>
+          <option value="Clinical Care"id = "ClinicalCare">Clinical Care</option>
+          <option value="System Management Audit" id = "SMA">System Management Audit</option>
+          <option value="Legal Obligation" id = "LO">Legal Obligation</option>
+          <option value="Court Order" id = "CO">Court Order</option>
+          <option value="Serious Threat or Emergency" id = "STE">Serious Threat or Emergency</option>
+          <option value="Insurance Indemnity or Professional Liability Only" id = "Insurance">Insurance Indemnity or Professional Liability Only</option>
+          <option value="Marketing" id = "Marketing">Marketing</option>
+          <option value="Operational or Business Operation" id = "OBO">Operational or Business Operation</option>
+          <option value="Human Resource" id = "HumanResource">Human Resource</option>
+          <option value="General Insurance" id = "GenInsurance">General Insurance</option>
+          <option value="Unsure" id = "Unsure">Unsure</option>
         </select>
       </div>
     </div>
@@ -156,7 +155,7 @@
     <div class="form-question">
       <div class="text-small">1. What is the usual retention period for My Health Record information?</div>
       <div class="custom-select">
-        <select>
+        <select id = "Question1-3A">
           <option value="">Select</option>
         <option value="Up to 30 Years After Death" id="30YearsAD">Up to 30 Years After Death</option>
         <option value="Up to 130 Years After Birth" id="130YearsAB">Up to 130 Years After Birth</option>
@@ -167,7 +166,7 @@
     <div class="form-question">
       <div class="text-small">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
       <div class="custom-select">
-        <select>
+        <select id = "Question2-3A">
          <option value="">Select</option>
         <option value="Information is not kept once it is no longer needed" id="NotKeptIfNotNeeded">Information is not kept once it is no longer needed.</option>
         <option value="Information is kept as long as required by law" id="KeptByLaw">Information is kept as long as required by law.</option>
@@ -180,7 +179,7 @@
     <div class="form-question">
       <div class="text-small">3. Are there special circumstances where information may be retained beyond the standard limit?</div>
       <div class="custom-select">
-        <select>
+        <select id = "Question3-3A">
         <option value="">Select</option>
         <option value="Yes, for legal or audit requirements" id="LegalAudit">Yes, for legal or audit requirements.</option>
         <option value="Yes, for research or statistical purposes" id="ResearchStatistical">Yes, for research or statistical purposes.</option>
@@ -195,37 +194,37 @@
     <div class="text-small">How is the selected category(s) information deleted from the system?: (You may select more than one)</div> <br>
       <div class="checkbox-grid">
           <label class="checkbox-label">
-            <input type="checkbox" id="AutomaticallyDeleted"/>
+            <input type="checkbox" id="AutomaticallyDeleted-3A"/>
             <span class="label-text">
               <span class="label-desc">Automatically deleted</span>
             </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="SecurelyDestroyed" />
+            <input type="checkbox" id="SecurelyDestroyed-3A" />
             <span class="label-text">
               <span class="label-desc">Securely destroyed</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="ManualDeletion" />
+            <input type="checkbox" id="ManualDeletion-3A" />
             <span class="label-text">
               <span class="label-desc">Manually deleted or archived by authorised staff</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="UponPR" />
+            <input type="checkbox" id="UponPR-3A" />
             <span class="label-text">
               <span class="label-desc">Upon patient request</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="DeIdentified" />
+            <input type="checkbox" id="DeIdentified-3A" />
             <span class="label-text">
               <span class="label-desc">De-identified (personal details removed but data kept for analysis)</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="Unsure" />
+            <input type="checkbox" id="Unsure-3A" />
             <span class="label-text">
               <span class="label-desc">Unsure</span>
               </span>
@@ -235,10 +234,11 @@
 
     <div class="btn-container">
        <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
-      <a href="{{ url_for('report') }}" class="btn btn-secondary">Continue</a>
+      <a href="{{ url_for('report') }}" class="btn btn-secondary" onclick="saveAllProgress()">Continue</a>
     </div>
   </main>
 
   <script src="../static/js/tooltip.js"></script>
+  <script src="../static/js/actions.js"></script>
 </body>
 </html>

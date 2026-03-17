@@ -80,7 +80,7 @@
       <div class="text-emphasis">Data Collection Purpose</div>
       <div class="text-small">Why did your organisation collect the selected category(s) of data?</div>
       <div class="custom-select">
-        <select>
+        <select id="DataCollectionPurpose-1B">
           <option value="">Select</option>
           <option value="Clinical Care">Clinical Care</option>
           <option value="System Management Audit">System Management Audit</option>
@@ -154,7 +154,7 @@
     <div class="form-question">
       <div class="text-small">1. What is the usual retention period for My Health Record information?</div>
       <div class="custom-select">
-        <select>
+        <select id="Question1-1B">
           <option value="">Select</option>
         <option value="Up to 30 Years After Death" id="30YearsAD">Up to 30 Years After Death</option>
         <option value="Up to 130 Years After Birth" id="130YearsAB">Up to 130 Years After Birth</option>
@@ -165,7 +165,7 @@
     <div class="form-question">
       <div class="text-small">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
       <div class="custom-select">
-        <select>
+        <select id="Question2-1B">
          <option value="">Select</option>
         <option value="Information is not kept once it is no longer needed" id="NotKeptIfNotNeeded">Information is not kept once it is no longer needed.</option>
         <option value="Information is kept as long as required by law" id="KeptByLaw">Information is kept as long as required by law.</option>
@@ -178,7 +178,7 @@
     <div class="form-question">
       <div class="text-small">3. Are there special circumstances where information may be retained beyond the standard limit?</div>
       <div class="custom-select">
-        <select>
+        <select id="Question3-1B">
         <option value="">Select</option>
         <option value="Yes, for legal or audit requirements" id="LegalAudit">Yes, for legal or audit requirements.</option>
         <option value="Yes, for research or statistical purposes" id="ResearchStatistical">Yes, for research or statistical purposes.</option>
@@ -194,37 +194,37 @@
       <span class="label-desc">How is the selected category(s) information deleted from the system?<br>You may select more than one:</span><br><br>
         <div class="checkbox-grid">
           <label class="checkbox-label">
-            <input type="checkbox" id="AutomaticallyDeleted"/>
+            <input type="checkbox" id="AutomaticallyDeleted-1B"/>
             <span class="label-text">
               <span class="label-desc">Automatically deleted</span>
             </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="SecurelyDestroyed" />
+            <input type="checkbox" id="SecurelyDestroyed-1B" />
             <span class="label-text">
               <span class="label-desc">Securely destroyed</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="ManualDeletion" />
+            <input type="checkbox" id="ManualDeletion-1B" />
             <span class="label-text">
               <span class="label-desc">Manually deleted or archived by authorised staff</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="UponPR" />
+            <input type="checkbox" id="UponPR-1B" />
             <span class="label-text">
               <span class="label-desc">Upon patient request</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="DeIdentified" />
+            <input type="checkbox" id="DeIdentified-1B" />
             <span class="label-text">
               <span class="label-desc">De-identified (personal details removed but data kept for analysis)</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="Unsure" />
+            <input type="checkbox" id="Unsure-1B" />
             <span class="label-text">
               <span class="label-desc">Unsure</span>
               </span>
@@ -240,5 +240,6 @@
   </main>
 
   <script src="../static/js/tooltip.js"></script>
+  <script src="../static/js/actions.js"></script>
 </body>
 </html>

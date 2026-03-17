@@ -99,7 +99,7 @@
       <div class="text-emphasis">Data Collection Purpose</div>
       <div class="text-small">Why did your organisation collect the selected category(s) of data?</div>
       <div class="custom-select">
-        <select>
+        <select id="DataCollectionPurpose-2A">
           <option value="">Select</option>
           <option value="Clinical Care">Clinical Care</option>
           <option value="System Management Audit">System Management Audit</option>
@@ -173,7 +173,7 @@
     <div class="form-question">
       <div class="text-small">1. What is the usual retention period for My Health Record information?</div>
       <div class="custom-select">
-        <select>
+        <select id="Question1-2A">
           <option value="">Select</option>
         <option value="Up to 30 Years After Death" id="30YearsAD">Up to 30 Years After Death</option>
         <option value="Up to 130 Years After Birth" id="130YearsAB">Up to 130 Years After Birth</option>
@@ -184,7 +184,7 @@
     <div class="form-question">
       <div class="text-small">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
       <div class="custom-select">
-        <select>
+        <select id="Question2-2A">
          <option value="">Select</option>
         <option value="Information is not kept once it is no longer needed" id="NotKeptIfNotNeeded">Information is not kept once it is no longer needed.</option>
         <option value="Information is kept as long as required by law" id="KeptByLaw">Information is kept as long as required by law.</option>
@@ -197,7 +197,7 @@
     <div class="form-question">
       <div class="text-small">3. Are there special circumstances where information may be retained beyond the standard limit?</div>
       <div class="custom-select">
-        <select>
+        <select id="Question3-2A">
         <option value="">Select</option>
         <option value="Yes, for legal or audit requirements" id="LegalAudit">Yes, for legal or audit requirements.</option>
         <option value="Yes, for research or statistical purposes" id="ResearchStatistical">Yes, for research or statistical purposes.</option>
@@ -213,37 +213,37 @@
       <span class="label-desc">How is the selected category(s) information deleted from the system?<br>You may select more than one:</span><br><br>
         <div class="checkbox-grid">
           <label class="checkbox-label">
-            <input type="checkbox" id="AutomaticallyDeleted"/>
+            <input type="checkbox" id="AutomaticallyDeleted-2A"/>
             <span class="label-text">
               <span class="label-desc">Automatically deleted</span>
             </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="SecurelyDestroyed" />
+            <input type="checkbox" id="SecurelyDestroyed-2A" />
             <span class="label-text">
               <span class="label-desc">Securely destroyed</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="ManualDeletion" />
+            <input type="checkbox" id="ManualDeletion-2A" />
             <span class="label-text">
               <span class="label-desc">Manually deleted or archived by authorised staff</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="UponPR" />
+            <input type="checkbox" id="UponPR-2A" />
             <span class="label-text">
               <span class="label-desc">Upon patient request</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="DeIdentified" />
+            <input type="checkbox" id="DeIdentified-2A" />
             <span class="label-text">
               <span class="label-desc">De-identified (personal details removed but data kept for analysis)</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="Unsure" />
+            <input type="checkbox" id="Unsure-2A" />
             <span class="label-text">
               <span class="label-desc">Unsure</span>
               </span>
@@ -259,5 +259,83 @@
   </main>
 
   <script src="../static/js/tooltip.js"></script>
+  <script>
+    // Elements to persist
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+const radios = document.querySelectorAll('input[type="radio"]');
+const selects = document.querySelectorAll('select');
+
+// Auto-save all elements on change
+checkboxes.forEach(cb => cb.addEventListener('change', saveAll));
+radios.forEach(r => r.addEventListener('change', saveAll));
+selects.forEach(s => s.addEventListener('change', saveAll));
+
+// Restore function (unified)
+function restoreAllProgress() {
+  if (typeof(Storage) !== 'undefined') {
+    const saved = sessionStorage.getItem('dataMinFullProgress');
+    if (saved) {
+      const data = JSON.parse(saved);
+      
+      // Restore checkboxes by id
+      checkboxes.forEach(cb => {
+        if (data.checkboxes && data.checkboxes[cb.id] !== undefined) {
+          cb.checked = data.checkboxes[cb.id];
+        }
+      });
+      
+      // Restore radios by name group
+      radios.forEach(r => {
+        if (data.radios && data.radios[r.name] && data.radios[r.name] === r.value) {
+          r.checked = true;
+        }
+      });
+      
+      // Restore selects by id (better than index)
+      selects.forEach(s => {
+        if (s.id && data.selects && data.selects[s.id]) {
+          s.value = data.selects[s.id];
+        }
+      });
+    }
+  }
+}
+
+// Save all elements
+function saveAll() {
+  if (typeof(Storage) !== 'undefined') {
+    const data = {
+      checkboxes: {},
+      radios: {},
+      selects: {}
+    };
+    
+    // Save checkboxes
+    checkboxes.forEach(cb => {
+      data.checkboxes[cb.id] = cb.checked;
+    });
+    
+    // Save radios (only selected value per group)
+    radios.forEach(r => {
+      if (r.checked) {
+        data.radios[r.name] = r.value;
+      }
+    });
+    
+    // Save selects by id
+    selects.forEach(s => {
+      if (s.id) {
+        data.selects[s.id] = s.value;
+      }
+    });
+    
+    sessionStorage.setItem('dataMinFullProgress', JSON.stringify(data));
+  }
+}
+
+// Init on load
+restoreAllProgress();
+
+  </script>
 </body>
 </html>
