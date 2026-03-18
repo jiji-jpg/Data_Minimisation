@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Data Asset - Data Minimisation</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+    
+    <div class="page-subtitle">Heath Data Asset  / Clinical Documents</div>
+    
+    <div class="text-body">
+      Please select and answer all that applies to your organisation for a detailed analysis.<br>
+      If your organisation does not collect, you can skip to the next section.
+    </div>
+    
+    <div class="panel panel-padded"> 
+      <div class="form-section">        
+          <label class="checkbox-label">
+            <input type="checkbox" id="Allergies"/>
+            <span class="label-text">
+              <span class="label-title">Allergies, Medicine and Adverse Reactions</span>
+              <span class="label-desc">eg. Known allergies, current and past medications, adverse drug reactions and side effeects, severity of reactions, and medication intolerances. </span>
+            </span>
+          </label>
+          <br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="PathologyReoprts"/>
+            <span class="label-text">
+              <span class="label-title">Pathology Reports</span>
+              <span class="label-desc">eg. Blood test results, urine tests, tissue biopsies, microbiology cultures, genetic testing results.</span>
+            </span>
+          </label>
+          <br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Diagnostic"/>
+            <span class="label-text">
+              <span class="label-title">Diagnostic Imaging Reports</span>
+              <span class="label-desc">eg. X-ray results and findings, CT and MRI scan reports, ultrasound results, mammograms, PET scans. </span>
+            </span>
+          </label>
+          <br>
+        <label class="checkbox-label">
+            <input type="checkbox" id="Discharge"/>
+            <span class="label-text">
+              <span class="label-title">Discharge Summaries</span>
+              <span class="label-desc">eg. Reason for hospital admission, diagnoses and procedures performed, treatment provided during stay, medications prescribed on discharge, follow-up care instructions.</span>
+            </span>
+          </label>
+          <br>
+         <label class="checkbox-label">
+            <input type="checkbox" id="SpecialistLetter"/>
+            <span class="label-text">
+              <span class="label-title">Specialist Letters</span>
+              <span class="label-desc">eg. Specialist consultation findings, diagnosis and treatment recommendations, test results reviewed, referrals, management plans.</span>
+            </span>
+          </label>
+          <br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="HealthSummary"/>
+            <span class="label-text">
+              <span class="label-title">Shared Health Summaries</span>
+              <span class="label-desc">Detailed summary of above mentioned.</span>
+            </span>
+          </label>
+          <br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="EventSummary"/>
+            <span class="label-text">
+              <span class="label-title">Event Summaries</span>
+              <span class="label-desc">eg. Emergency department visits, surgery procedures, key health events and dates.</span>
+            </span>
+          </label>
+          <br>
+        <label class="checkbox-label">
+            <input type="checkbox" id="e-Referrals"/>
+            <span class="label-text">
+              <span class="label-title">e-Referrals</span>
+              <span class="label-desc">eg. GP referrals, preferred specialist or service.</span>
+            </span>
+          </label>
+          <br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Goals"/>
+            <span class="label-text">
+              <span class="label-title">Goals of Care Documents</span>
+              <span class="label-desc">eg. advance care directives, end of care preferences, CPR references, treatment limitations, palliative care preferences, appointed decision-makers.</span>
+            </span>
+          </label>
+      </div>
+    </div>
+    
+    <div class="form-question">
+      <div class="text-emphasis">Data Collection Purpose</div>
+      <div class="text-small">Why did your organisation collect the selected category(s) of data?</div>
+      <div class="custom-select">
+        <select id="DataCollectionPurpose-2A">
+          <option value="">Select</option>
+          <option value="Clinical Care">Clinical Care</option>
+          <option value="System Management Audit">System Management and Audit</option>
+          <option value="Legal Obligation">Legal Obligation</option>
+          <option value="Court Order">Court Order</option>
+          <option value="Serious Threat or Emergency">Serious Threat or Emergency</option>
+          <option value="Insurance Indemnity or Professional Liability Only">Insurance Indemnity or Professional Liability Only</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Operational or Business Operation">Operational or Business Operation</option>
+          <option value="Human Resource">Human Resource</option>
+          <option value="General Insurance">General Insurance</option>
+          <option value="Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+<!-- Level of Data Details -->
+    <div class="form-question">
+      <div class="text-emphasis">Level of Data Details</div>
+    <div class="form-question">
+      <div class="text-small">1. Is recipient's consent obtained before collecting or uploading information?</div>
+      <div class="toggle-small" id="toggle2">
+        <input type="radio" id="toggle2-yes" name="choice2" value="yes" class="sr-only">
+        <label for="toggle2-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle2-no" name="choice2" value="no" class="sr-only">
+        <label for="toggle2-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle2-unsure" name="choice2" value="unsure" class="sr-only">
+        <label for="toggle2-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">2. Is the selected category(s) information collected essential for your organisation's operation?</div>
+      <div class="toggle-small" id="toggle3">
+        <input type="radio" id="toggle3-yes" name="choice3" value="yes" class="sr-only">
+        <label for="toggle3-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle3-no" name="choice3" value="no" class="sr-only">
+        <label for="toggle3-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle3-unsure" name="choice3" value="unsure" class="sr-only">
+        <label for="toggle3-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">3. Can a less detailed version of the selected category(s) information be collected or used instead?</div>
+      <div class="toggle-small" id="toggle4">
+        <input type="radio" id="toggle4-yes" name="choice4" value="yes" class="sr-only">
+        <label for="toggle4-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle4-no" name="choice4" value="no" class="sr-only">
+        <label for="toggle4-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle4-unsure" name="choice4" value="unsure" class="sr-only">
+        <label for="toggle4-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+  <!-- Retention Period-->
+   <div class="text-emphasis">Retention Period</div>
+    <div class="form-question">
+      <div class="text-small">1. What is the usual retention period for My Health Record information?</div>
+      <div class="custom-select">
+        <select id="Question1-2A">
+          <option value="">Select</option>
+        <option value="Up to 30 Years After Death" id="30YearsAD">Up to 30 Years After Death</option>
+        <option value="Up to 130 Years After Birth" id="130YearsAB">Up to 130 Years After Birth</option>
+        <option value="Unsure" id="Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-question">
+      <div class="text-small">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
+      <div class="custom-select">
+        <select id="Question2-2A">
+         <option value="">Select</option>
+        <option value="Information is not kept once it is no longer needed" id="NotKeptIfNotNeeded">Information is not kept once it is no longer needed.</option>
+        <option value="Information is kept as long as required by law" id="KeptByLaw">Information is kept as long as required by law.</option>
+        <option value="Information is kept indefinetly." id="Indefinetly">Information is kept indefinetly.</option>
+        <option value="Unsure" id="Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">3. Are there special circumstances where information may be retained beyond the standard limit?</div>
+      <div class="custom-select">
+        <select id="Question3-2A">
+        <option value="">Select</option>
+        <option value="Yes, for legal or audit requirements" id="LegalAudit">Yes, for legal or audit requirements.</option>
+        <option value="Yes, for research or statistical purposes" id="ResearchStatistical">Yes, for research or statistical purposes.</option>
+        <option value="Yes, as part of government/institutional records" id="Indefinetly">Yes, as part of government/institutional records.</option>
+        <option value="No, informationis deleted/de-identified once it is not required." id="No">No, informationis deleted/de-identified once it is not required.</option>
+        <option value="Unsure" id="Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+  <!-- Enforcement Measure / Deletion Mechanism-->
+    <div class="form-question">
+      <span class="text-emphasis">Enforcement Measure / Deletion Mechanism </span><br>
+      <span class="text-small">How is the selected category(s) information deleted from the system?<br>You may select more than one:</span><br><br>
+        <div class="checkbox-grid">
+          <label class="checkbox-label">
+            <input type="checkbox" id="AutomaticallyDeleted-2A"/>
+            <span class="label-text">
+              <span class="label-desc">Automatically deleted</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="SecurelyDestroyed-2A" />
+            <span class="label-text">
+              <span class="label-desc">Securely destroyed</span>
+             </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="ManualDeletion-2A" />
+            <span class="label-text">
+              <span class="label-desc">Manually deleted or archived by authorised staff</span>
+             </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="UponPR-2A" />
+            <span class="label-text">
+              <span class="label-desc">Upon patient request</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="DeIdentified-2A" />
+            <span class="label-text">
+              <span class="label-desc">De-identified (personal details removed but data kept for analysis)</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Unsure-2A" />
+            <span class="label-text">
+              <span class="label-desc">Unsure</span>
+              </span>
+          </label>
+        </div>
+    </div>
+
+
+    <div class="btn-container">
+       <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
+      <a href="{{ url_for('HA2') }}" class="btn btn-secondary">Continue</a>
+    </div>
+  </main>
+
+  <script src="../static/js/tooltip.js"></script>
+  <script>
+    // Elements to persist
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+const radios = document.querySelectorAll('input[type="radio"]');
+const selects = document.querySelectorAll('select');
+
+// Auto-save all elements on change
+checkboxes.forEach(cb => cb.addEventListener('change', saveAll));
+radios.forEach(r => r.addEventListener('change', saveAll));
+selects.forEach(s => s.addEventListener('change', saveAll));
+
+// Restore function (unified)
+function restoreAllProgress() {
+  if (typeof(Storage) !== 'undefined') {
+    const saved = sessionStorage.getItem('dataMinFullProgress');
+    if (saved) {
+      const data = JSON.parse(saved);
+      
+      // Restore checkboxes by id
+      checkboxes.forEach(cb => {
+        if (data.checkboxes && data.checkboxes[cb.id] !== undefined) {
+          cb.checked = data.checkboxes[cb.id];
+        }
+      });
+      
+      // Restore radios by name group
+      radios.forEach(r => {
+        if (data.radios && data.radios[r.name] && data.radios[r.name] === r.value) {
+          r.checked = true;
+        }
+      });
+      
+      // Restore selects by id (better than index)
+      selects.forEach(s => {
+        if (s.id && data.selects && data.selects[s.id]) {
+          s.value = data.selects[s.id];
+        }
+      });
+    }
+  }
+}
+
+// Save all elements
+function saveAll() {
+  if (typeof(Storage) !== 'undefined') {
+    const data = {
+      checkboxes: {},
+      radios: {},
+      selects: {}
+    };
+    
+    // Save checkboxes
+    checkboxes.forEach(cb => {
+      data.checkboxes[cb.id] = cb.checked;
+    });
+    
+    // Save radios (only selected value per group)
+    radios.forEach(r => {
+      if (r.checked) {
+        data.radios[r.name] = r.value;
+      }
+    });
+    
+    // Save selects by id
+    selects.forEach(s => {
+      if (s.id) {
+        data.selects[s.id] = s.value;
+      }
+    });
+    
+    sessionStorage.setItem('dataMinFullProgress', JSON.stringify(data));
+  }
+}
+
+// Init on load
+restoreAllProgress();
+
+  </script>
+</body>
+</html>

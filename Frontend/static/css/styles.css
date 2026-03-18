@@ -1,5 +1,5 @@
 /* ==================== GOOGLE FONTS ==================== */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 /* ==================== GLOBAL RESET ==================== */
 * { 
@@ -8,14 +8,28 @@
   box-sizing: border-box; 
 }
 
-body { 
+/* ==================== BOOTSTRAP OVERRIDES ==================== */
+html body {
   font-family: 'Montserrat', sans-serif;
-  line-height: 1.6; 
+  line-height: 1.6;
   color: #374151;
   background: #f9fafb;
+  font-weight: 500;
 }
 
-/* ==================== NAVBAR STYLES ==================== */
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.row {
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+}
+
+/* ==================== NAVBAR ==================== */
 .navbar {
   background-color: #0b1b3a;
   color: #ffffff;
@@ -59,7 +73,30 @@ body {
   pointer-events: none;
 }
 
-/* Dropdown - Services only */
+.nav-icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-icons svg {
+  display: block;
+}
+
+.nav-icons a {
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.nav-icons a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 .dropdown {
   position: relative;
 }
@@ -104,31 +141,6 @@ body {
 
 .dropdown:hover .dropdown-content {
   display: block;
-}
-
-/* Icons on the right */
-.nav-icons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.nav-icons svg {
-  display: block;
-}
-
-.nav-icons a {
-  color: #ffffff;
-  padding: 8px;
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  pointer-events: auto;
-  cursor: pointer;
-}
-
-.nav-icons a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ==================== HERO SECTION ==================== */
@@ -182,14 +194,16 @@ body {
 }
 
 /* ==================== BUTTONS ==================== */
-.hero-buttons {
+.btn-container {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
-.btn {
-  padding: 0.4rem 1.75rem;
+a.btn,
+button.btn {
+  padding: 0.5rem 1.75rem;
   border-radius: 10px;
   font-weight: 600;
   font-size: 0.95rem;
@@ -200,37 +214,57 @@ body {
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.btn-primary {
+a.btn.btn-primary,
+button.btn.btn-primary {
   background: #527DFF;
   color: white;
 }
 
-.btn-primary:hover {
+a.btn.btn-primary:hover,
+a.btn.btn-primary:focus {
   transform: translateY(-1px);
   background: #7d9eff;
+  color: white;
 }
 
-.btn-secondary {
+a.btn.btn-secondary,
+button.btn.btn-secondary {
   background: transparent;
   color: #404040;
   border: 2px solid #404040;
 }
 
-.btn-secondary:hover {
+a.btn.btn-secondary:hover,
+a.btn.btn-secondary:focus {
   background: #404040;
   color: white;
 }
 
-/* ==================== MAIN CONTENT AREA ==================== */
-main {
+a.btn.btn-small,
+button.btn.btn-small {
+  padding: 0.35rem 1.25rem;
+  font-size: 0.875rem;
+  background: #404040;
+  color: white;
+}
+
+a.btn.btn-small:hover,
+a.btn.btn-small:focus {
+  background: #777777;
+  color: white;
+}
+
+/* ==================== MAIN CONTENT ==================== */
+body main {
   max-width: 80%;
   margin: 2rem auto;
   padding: 0 1.5rem;
 }
 
-main h1 {
+body main h1 {
   font-size: 1.875rem;
   font-weight: 700;
   color: #111E43;
@@ -238,80 +272,309 @@ main h1 {
   text-align: left;
 }
 
-/* ==================== PRIVACY/INFO PANELS ==================== */
-.privacy-panel {
-  background: #F2F2F2;
-  border-radius: 12px;
-  padding: 1.25rem 1.25rem 1.25rem 3.25rem;
-  margin-bottom: 2.5rem;
+body main h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111E43;
+  margin-bottom: 1.5rem;
 }
 
-.privacy-title {
-  font-size: 1.125rem;
-  font-weight: 200;
+/* ==================== TEXT STYLES ==================== */
+.page-subtitle {
+  font-size: 1rem;
+  font-weight: 500;
   color: #111E43;
   margin-bottom: 1rem;
-  text-align: left;
 }
 
-.privacy-text1 {
+.text-emphasis {
+  font-size: 0.95rem;
+  color: #000000;
+  line-height: 1.65;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.text-body {
   font-size: 0.95rem;
   color: #404040;
   line-height: 1.65;
+  font-weight: 400;
+}
+
+.text-small {
+  font-size: 0.875rem;
   font-weight: 500;
-}
-
-.privacy-text2 {
-  font-size: 0.95rem;
   color: #404040;
-  line-height: 1.65;
-  font-weight: 300;
 }
 
-.privacy-list {
+.text-list {
   list-style: none;
   font-size: 0.925rem;
   color: #404040;
   padding-left: 1rem;
+  margin: 0.5rem 0;
 }
 
-.privacy-list li {
+.text-list li {
   padding-left: 1.25rem;
   position: relative;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 0.5rem;
 }
 
-.privacy-list li::before {
+.text-list li::before {
   content: "•";
   position: absolute;
   left: 0;
   color: #404040;
 }
 
-/* ==================== TOGGLE SWITCH (3-option) ==================== */
-.toggle-switch {
-  --track-height: 44px;
-  --label-width: 72px;
+/* ==================== PANELS ==================== */
+.panel {
+  background: #F2F2F2;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0;
+}
+
+.panel-padded {
+  padding: 1.25rem 1.25rem 1.25rem 3.25rem;
+}
+
+/* ==================== STEPPER PROGRESS TRACKER ==================== */
+.stepper-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px 60px;
+  margin: 30px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+}
+
+.stepper-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+
+.stepper-step:not(:last-child) {
+  margin-right: 20px;
+}
+
+.stepper-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 16px;
+}
+
+.stepper-step.completed .stepper-circle {
+  background: #10B981;
+  border: 3px solid #10B981;
+}
+
+.stepper-step.active .stepper-circle {
+  background: #3B82F6;
+  border: 3px solid #3B82F6;
+}
+
+.stepper-step.active .stepper-dot {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+}
+
+.stepper-step.pending .stepper-circle {
+  background: #E0F2FE;
+  border: 3px solid #BAE6FD;
+}
+
+.stepper-line {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  width: 100%;
+  height: 3px;
+  z-index: 1;
+}
+
+.stepper-step.completed .stepper-line {
+  background: #10B981;
+}
+
+.stepper-step.active .stepper-line {
+  background: linear-gradient(to right, #3B82F6 0%, #BAE6FD 100%);
+}
+
+.stepper-step.pending .stepper-line {
+  background: #BAE6FD;
+}
+
+.stepper-step:last-child .stepper-line {
+  display: none;
+}
+
+.stepper-label {
+  text-align: center;
+  width: 100%;
+}
+
+.stepper-label-top {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #6B7280;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.stepper-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ==================== TOOLTIP ==================== */
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+  margin-left: 6px;
+}
+
+.tooltip svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  fill: #6B7280;
+}
+
+.tooltip:hover svg {
+  opacity: 1;
+}
+
+.tooltip_details {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.tooltip:hover .tooltip_details {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip_details::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: white;
+}
+
+.tooltip_details ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tooltip_details ul li {
+  font-size: 0.85rem;
+  color: #374151;
+  padding: 4px 0 4px 16px;
+  font-weight: 400;
+  position: relative;
+  white-space: normal;
+}
+
+.tooltip_details ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #527DFF;
+}
+
+/* ==================== FORMS ==================== */
+.form-section {
+  margin: 2rem 0;
+}
+
+.form-question {
+  margin: 2rem 0;
+}
+
+/* ==================== TOGGLE SWITCHES ==================== */
+.toggle-switch,
+.toggle-small {
   --accent-color: #527DFF;
   --track-color: #f2f2f7;
-  --text-color: #8e8e93;
+  --text-color: #000000;
   --text-active: #ffffff;
+  font-family: 'Montserrat', sans-serif;
   position: relative;
   display: flex;
   align-items: center;
-  width: calc(3 * var(--label-width) + 8px);
-  height: var(--track-height);
   background: var(--track-color);
   border-radius: 22px;
-  font-size: 15px;
-  font-weight: 500;
   color: var(--text-color);
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.toggle-switch {
+  --track-height: 44px;
+  --label-width: 72px;
+  width: calc(3 * var(--label-width) + 8px);
+  height: var(--track-height);
+  font-size: 15px;
+  font-weight: 600;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 4px;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   margin: 1.5rem 0;
+}
+
+.toggle-small {
+  --track-height: 30px;
+  --label-width: 72px;
+  width: calc(3 * var(--label-width) + 8px);
+  height: var(--track-height);
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0.5rem 0;
 }
 
 .sr-only {
@@ -343,111 +606,17 @@ main h1 {
   height: calc(var(--track-height) - 8px);
   background: var(--accent-color);
   border-radius: 18px;
-  transition: left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.2s;
   z-index: 2;
   pointer-events: none;
-}
-
-/* Slider positions */
-input#yes:checked ~ .toggle-slider { 
-  left: 4px; 
-}
-
-input#no:checked ~ .toggle-slider { 
-  left: calc(var(--label-width) + 4px); 
-}
-
-input#unsure:checked ~ .toggle-slider { 
-  left: calc(2 * var(--label-width) + 4px); 
-}
-
-/* White text on selected */
-input#yes:checked + .toggle-label,
-input#no:checked + .toggle-label,
-input#unsure:checked + .toggle-label {
-  color: var(--text-active) !important;
-  font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-}
-
-.toggle-switch:hover {
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.toggle-switch.selected {
-  background: #ffffff;
-}
-
-.toggle-switch:active .toggle-slider {
-  transform: scaleX(0.98) scaleY(0.95);
-}
-.label-text {
-  display: flex;
-  flex-direction: column;     
-  max-width: 100%;           /* Limits both lines, prevents overlap */
-}
-
-/* ==================== TOGGLE SWITCH (3-option) For Forms ==================== */
-.toggle-switchF {
-  --track-height: 30px;
-  --label-width: 72px;
-  --accent-color: #527DFF;
-  --track-color: #f2f2f7;
-  --text-color: #8e8e93;
-  --text-active: #ffffff;
-  font-family: 'Montserrat', sans-serif;
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: calc(3 * var(--label-width) + 8px);
-  height: var(--track-height);
-  background: var(--track-color);
-  border-radius: 22px;
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--text-color);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  margin: .5rem 0;
-}
-
-.sr-only,
-.sr-onlyF {  /* Fixed class inconsistency */
-  position: absolute;
   opacity: 0;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
 }
 
-.toggle-label {  /* Use your class */
-  flex: 1;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 18px;
-  transition: all 0.25s ease;
-  z-index: 3;
-  padding: 0 8px;
+input:checked ~ .toggle-slider {
+  opacity: 1;
 }
 
-.toggle-slider {  /* Use your class */
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: var(--label-width);
-  height: calc(var(--track-height) - 8px);
-  background: var(--accent-color);
-  border-radius: 18px;
-  transition: left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* FIXED: Slider positions using unique IDs */
+input#yes:checked ~ .toggle-slider,
 #toggle1 #toggle1-yes:checked ~ .toggle-slider,
 #toggle2 #toggle2-yes:checked ~ .toggle-slider,
 #toggle3 #toggle3-yes:checked ~ .toggle-slider,
@@ -455,6 +624,7 @@ input#unsure:checked + .toggle-label {
   left: 4px; 
 }
 
+input#no:checked ~ .toggle-slider,
 #toggle1 #toggle1-no:checked ~ .toggle-slider,
 #toggle2 #toggle2-no:checked ~ .toggle-slider,
 #toggle3 #toggle3-no:checked ~ .toggle-slider,
@@ -462,6 +632,7 @@ input#unsure:checked + .toggle-label {
   left: calc(var(--label-width) + 4px); 
 }
 
+input#unsure:checked ~ .toggle-slider,
 #toggle1 #toggle1-unsure:checked ~ .toggle-slider,
 #toggle2 #toggle2-unsure:checked ~ .toggle-slider,
 #toggle3 #toggle3-unsure:checked ~ .toggle-slider,
@@ -469,7 +640,9 @@ input#unsure:checked + .toggle-label {
   left: calc(2 * var(--label-width) + 4px); 
 }
 
-/* FIXED: Active label text */
+input#yes:checked + .toggle-label,
+input#no:checked + .toggle-label,
+input#unsure:checked + .toggle-label,
 #toggle1 #toggle1-yes:checked + .toggle-label,
 #toggle1 #toggle1-no:checked + .toggle-label,
 #toggle1 #toggle1-unsure:checked + .toggle-label,
@@ -482,49 +655,58 @@ input#unsure:checked + .toggle-label {
 #toggle4 #toggle4-yes:checked + .toggle-label,
 #toggle4 #toggle4-no:checked + .toggle-label,
 #toggle4 #toggle4-unsure:checked + .toggle-label {
-  color: var(--text-active) !important;
-  font-weight: 600;
+  color: var(--text-active);
+  font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
-.toggle-switchF:hover {  /* Fixed class */
+.toggle-switch:hover,
+.toggle-small:hover {
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.toggle-switchF:active .toggle-slider {  /* Fixed class */
+.toggle-switch.selected {
+  background: #ffffff;
+}
+
+.toggle-switch:active .toggle-slider,
+.toggle-small:active .toggle-slider {
   transform: scaleX(0.98) scaleY(0.95);
+}
+
+/* ==================== CHECKBOX ==================== */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 100%;
+  align-content: start;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
 }
 
 .label-text {
   display: flex;
-  flex-direction: column;     
-  max-width: 100%;           /* Limits both lines, prevents overlap */
-}
-.label-top {
-  font-weight: bold;
-  font-size: 14px;            
+  flex-direction: column;
+  max-width: 100%;
 }
 
-.label-bottom {
-  font-size: 12px; 
-  flex: 1;                    /* Grows to fill remaining space */
-  margin: 0;
-  display: flex;           
+.label-title {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 2px;
 }
-  /* --------------------- Checkbox --------------------- */
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;  /* Equal 2 columns */
-  gap: 20px;                       /* Space between items */
-  max-width: 100%;                /* Optional container width */
-  align-content: start;
-}
-  .checkbox-label {
-  display: inline-flex;       
-  align-items: flex-start;    /* Top row aligns with checkbox top */
-  gap: 12px;
-  cursor: pointer;            
+
+.label-desc {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
 }
 
 input[type="checkbox"] {
@@ -536,7 +718,7 @@ input[type="checkbox"] {
   border-radius: 4px;
   position: relative;
   margin: 0;
-  flex-shrink: 0;             /* Checkbox won't shrink */
+  flex-shrink: 0;
   transition: border-color 0.2s;
 }
 
@@ -559,38 +741,40 @@ input[type="checkbox"]:checked::after {
 input[type="checkbox"]:hover {
   border-color: #999;
 }
- /* --------------------- DROP DOWN --------------------- */
- .custom-select {
+
+/* ==================== DROPDOWN SELECT ==================== */
+.custom-select {
   position: relative;
   display: inline-block;
-  width: 300px;               /* Adjust width */
+  width: 300px;
+  height: 40px;
+  margin: 1rem 0;
 }
+
 .custom-select select {
   appearance: none;
   width: 100%;
-  height: 35px;               /* Taller height */
+  height: 40px;
   padding: 10px 36px 10px 16px;
-  border: 1px solid #d0d0d0;  /* Lighter gray border */
-  border-radius: 10px;         /* Rounded oblong corners */
-  background: #fafafa;        /* Light background */
+  border: 1px solid #d0d0d0;
+  border-radius: 10px;
+  background: #fafafa;
   font-size: 12px;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Subtle shadow */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Custom arrow */
 .custom-select::after {
-  content: "▼";               /* Down arrow */
+  content: "▼";
   position: absolute;
   top: 50%;
   right: 12px;
   transform: translateY(-50%);
-  pointer-events: none;       /* Click passes through */
+  pointer-events: none;
   font-size: 12px;
   color: #666;
 }
 
-/* Hover/focus effects */
 .custom-select select:hover,
 .custom-select select:focus {
   border-color: #999;
@@ -1284,6 +1468,14 @@ input[type="checkbox"]:hover {
   .hero-image::before {
     display: none;
   }
+
+  .stepper-container {
+    padding: 30px 20px;
+  }
+
+  .stepper-title {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1292,24 +1484,44 @@ input[type="checkbox"]:hover {
     padding: 0 1rem;
   }
 
-  .hero-buttons {
+  .btn-container {
     justify-content: center;
   }
 
-  .btn {
+  a.btn,
+  button.btn {
     width: 100%;
     max-width: 240px;
     justify-content: center;
   }
 
-  main {
+  body main {
     margin: 1.5rem auto;
     padding: 0 1rem;
     max-width: 95%;
   }
 
-  .privacy-panel {
-    padding: 1.75rem;
+  .panel,
+  .panel-padded {
+    padding: 1.25rem;
+  }
+
+  .stepper-container {
+    padding: 20px 15px;
+    overflow-x: auto;
+  }
+
+  .stepper-step {
+    min-width: 100px;
+  }
+
+  .stepper-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .stepper-line {
+    top: 20px;
   }
 }
 

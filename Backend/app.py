@@ -18,30 +18,40 @@ def privacy():
 def backgroundcheck():
     return render_template('pages/backgroundcheck.html')
 
+@app.route('/sub_landing')
+def sub_landing():
+    """Sublanding"""
+    return render_template('pages/0_Sublanding.html')
+
 @app.route('/DA1')
 def DA1():
-    """Personal Data Header"""
-    return render_template('pages/personalDataAsset2.html')
-
-@app.route('/DA1_1') #questionnaire page has not been set yet.
-def DA1_1():
-    """Personal Data Questionnaire"""
-    return render_template('pages/personalDataAsset2.html')
+    """Personal Data Asset Questionnaire (Part 1)"""
+    return render_template('pages/1A_PersonalAssetQ.html')
 
 @app.route('/DA2')
 def DA2():
-    """Health Data Header"""
-    return render_template('pages/2_HealthAssetHeader.html')
+    """Personal Data Asset Questionnaire (Part 2)"""
+    return render_template('pages/1B_PersonalAssetQ.html')
 
-@app.route('/DA2_2')
-def DA2_2():
-    """Health Data Questionnaire"""
-    return render_template('pages/2A_HealthAsset.html')
+@app.route('/HA1')
+def HA1():
+    """Health Data Asset Questionnaire (Part 1)"""
+    return render_template('pages/2A_HealthAssetQ.html')
 
-@app.route('/DA3')
-def DA3():
-    """Medicare and Government data asset Header"""
-    return render_template('pages/3_GovAssetHeader.html')
+@app.route('/HA2')
+def HA2():
+    """Health Data Asset Questionnaire (Part 2)"""
+    return render_template('pages/2B_HealthAssetQ.html')
+
+@app.route('/GA1')
+def GA1():
+    """Government Data Asset Questionnaire (Part 1)"""
+    return render_template('pages/3A_GovAssetQ.html')
+
+@app.route('/report')
+def report():
+    """Report"""
+    return render_template('pages/report.html')
 
 @app.route('/report')
 def report():

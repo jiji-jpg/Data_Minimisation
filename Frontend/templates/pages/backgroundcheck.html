@@ -1,16 +1,24 @@
-  <!-- Include header component -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Check - Data Minimisation</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
   {% include 'components/header.html' %}
 
   <main>
     <h1>Data Minimisation for Healthcare providers</h1>
     
-    <div class="privacy-title">Background Check</div>
+    <div class="page-subtitle">Background Check</div>
     
-    <div class="privacy-panel">
-      <div class="privacy-text1">
+    <div class="panel panel-padded">
+      <div class="text-emphasis">
         Does your organisation currently use or have access to My Health Record system?
       </div>
-      <div class="privacy-text2">
+      <div class="text-body">
         My Health Record is a national digital platform that allows healthcare organisations to securely access and share patient health information across Australia's healthcare system.
       </div>
       
@@ -26,16 +34,11 @@
 
         <span class="toggle-slider"></span>
       </div>
-      <br>
     </div>
     
-    <div class="hero-buttons">
-      <a href="{{ url_for('privacy') }}" class="btn btn-primary">
-        Back
-      </a>
-      <a href="{{ url_for('DA1') }}" class="btn btn-primary">
-        Continue
-      </a>
+    <div class="btn-container">
+      <a href="{{ url_for('privacy') }}" class="btn btn-secondary">Back</a>
+      <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Continue</a>
     </div>
   </main>
 

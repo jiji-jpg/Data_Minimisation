@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Data Asset - Data Minimisation</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+  {% include 'components/header.html' %}
+  <main>
+    <h1>Data Minimisation for Healthcare providers</h1>
+    
+    <div class="page-subtitle">Heath Data Asset  / Medicare and Government Data asset questionnaire</div>
+    
+    <div class="text-body">
+      Please select and answer all that applies to your organisation for a detailed analysis.<br>
+      If your organisation does not collect, you can skip to the next section.
+    </div>
+    
+    <div class="panel panel-padded"> 
+      <div class="form-section">        
+          <h2>Residential and Aged Care Records</h2>  
+          <label class="checkbox-label">
+            <input type="checkbox" id="CareFacility"/>
+            <span class="label-text">
+              <span class="label-title">Transfer and Residential Care Facility Documents</span>
+              <span class="label-desc">eg. Patient name, transfer date, transfer to and from location, diagnosis, current medication, mobility and care needs.</span>
+            </span>
+          </label>
+          <br><br>
+          <h2>Medicare and Insurance Records</h2>
+          <label class="checkbox-label">
+            <input type="checkbox" id="MedicareBenefits" />
+            <span class="label-text">
+              <span class="label-title">Medicare Benefits Schedule Claims</span>
+              <span class="label-desc">Medicare benefits type, date, cost and provider name: eg. Level B Consultation (GP) - Date: 15/10/2025 - Benefit: $39.75 - Provider: Dr. Sarah Chen</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="PharmaceuticalBenefits" />
+            <span class="label-text">
+              <span class="label-title">Pharmaceutical Benefits Scheme Claims</span>
+              <span class="label-desc">Claimed date, medication, PBS code, prescribed quantity, patient co-payment, PBS benefit: eg. Date: 02/11/2025 | Medication: Atorvastatin 40mg | PBS Code: 8007K | Quantity: 30 tablets | Patient co-payment: $7.70 | PBS benefit: $18.35</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="VeteransAffairClaims" />
+            <span class="label-text">
+              <span class="label-title">Department of Veterans’ Affairs Claims </span>
+              <span class="label-desc">eg. Work email, personal email, etc.</span>
+            </span>
+          </label>
+          <br><br>
+          <h2>National Health Registers</h2>
+         <label class="checkbox-label">
+            <input type="checkbox" id="ImmunisationRegister" />
+            <span class="label-text">
+              <span class="label-title">Australian Immunisation Register</span>
+              <span class="label-desc">eg. Individual statement (name, medicare number, date of birth) and recorded vaccinations.</span>
+            </span>
+          </label><br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="OrganDonorRegister" />
+            <span class="label-text">
+              <span class="label-title">Australian Organ Donor Register</span>
+              <span class="label-desc">eg. Registration confirmation (name, medicare number, d.o.b, registration date, etc.)</span>
+            </span>
+          </label><br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="ProofOfVaccinationDoc" />
+            <span class="label-text">
+              <span class="label-title">Proof of Vaccination Documents</span>
+              <span class="label-desc">eg. digital certificate, immunisation history statement, pharmacy vaccination records, etc.</span>
+            </span>
+          </label>
+      </div>
+    </div>
+    
+    <div class="form-question">
+      <div class="text-emphasis">Data Collection Purpose</div>
+      <div class="text-small">Why did your organisation collect the selected category(s) of data?</div>
+      <div class="custom-select">
+        <select id = "DataCollectionPurpose-3A">
+          <option value="">Select</option>
+          <option value="Clinical Care"id = "ClinicalCare">Clinical Care</option>
+          <option value="System Management Audit" id = "SMA">System Management and Audit</option>
+          <option value="Legal Obligation" id = "LO">Legal Obligation</option>
+          <option value="Court Order" id = "CO">Court Order</option>
+          <option value="Serious Threat or Emergency" id = "STE">Serious Threat or Emergency</option>
+          <option value="Insurance Indemnity or Professional Liability Only" id = "Insurance">Insurance Indemnity or Professional Liability Only</option>
+          <option value="Marketing" id = "Marketing">Marketing</option>
+          <option value="Operational or Business Operation" id = "OBO">Operational or Business Operation</option>
+          <option value="Human Resource" id = "HumanResource">Human Resource</option>
+          <option value="General Insurance" id = "GenInsurance">General Insurance</option>
+          <option value="Unsure" id = "Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-emphasis">Level of Data Details</div>
+    <div class="form-question">
+      <div class="text-small">1. Is recipient's consent obtained before collecting or uploading information?</div>
+      <div class="toggle-small" id="toggle2">
+        <input type="radio" id="toggle2-yes" name="choice2" value="yes" class="sr-only">
+        <label for="toggle2-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle2-no" name="choice2" value="no" class="sr-only">
+        <label for="toggle2-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle2-unsure" name="choice2" value="unsure" class="sr-only">
+        <label for="toggle2-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">2. Is the selected category(s) information collected essential for your organisation's operation?</div>
+      <div class="toggle-small" id="toggle3">
+        <input type="radio" id="toggle3-yes" name="choice3" value="yes" class="sr-only">
+        <label for="toggle3-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle3-no" name="choice3" value="no" class="sr-only">
+        <label for="toggle3-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle3-unsure" name="choice3" value="unsure" class="sr-only">
+        <label for="toggle3-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">3. Can a less detailed version of the selected category(s) information be collected or used instead?</div>
+      <div class="toggle-small" id="toggle4">
+        <input type="radio" id="toggle4-yes" name="choice4" value="yes" class="sr-only">
+        <label for="toggle4-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle4-no" name="choice4" value="no" class="sr-only">
+        <label for="toggle4-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle4-unsure" name="choice4" value="unsure" class="sr-only">
+        <label for="toggle4-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+    <!-- Retention Period-->
+   <div class="text-emphasis">Retention Period</div>
+    <div class="form-question">
+      <div class="text-small">1. What is the usual retention period for My Health Record information?</div>
+      <div class="custom-select">
+        <select id = "Question1-3A">
+          <option value="">Select</option>
+        <option value="Up to 30 Years After Death" id="30YearsAD">Up to 30 Years After Death</option>
+        <option value="Up to 130 Years After Birth" id="130YearsAB">Up to 130 Years After Birth</option>
+        <option value="Unsure" id="Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-question">
+      <div class="text-small">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
+      <div class="custom-select">
+        <select id = "Question2-3A">
+         <option value="">Select</option>
+        <option value="Information is not kept once it is no longer needed" id="NotKeptIfNotNeeded">Information is not kept once it is no longer needed.</option>
+        <option value="Information is kept as long as required by law" id="KeptByLaw">Information is kept as long as required by law.</option>
+        <option value="Information is kept indefinetly." id="Indefinetly">Information is kept indefinetly.</option>
+        <option value="Unsure" id="Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">3. Are there special circumstances where information may be retained beyond the standard limit?</div>
+      <div class="custom-select">
+        <select id = "Question3-3A">
+        <option value="">Select</option>
+        <option value="Yes, for legal or audit requirements" id="LegalAudit">Yes, for legal or audit requirements.</option>
+        <option value="Yes, for research or statistical purposes" id="ResearchStatistical">Yes, for research or statistical purposes.</option>
+        <option value="Yes, as part of government/institutional records" id="Indefinetly">Yes, as part of government/institutional records.</option>
+        <option value="No, informationis deleted/de-identified once it is not required." id="No">No, informationis deleted/de-identified once it is not required.</option>
+        <option value="Unsure" id="Unsure">Unsure</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-section">
+    <div class="text-emphasis">Enforcement Measure / Deletion Mechanism </div>
+    <div class="text-small">How is the selected category(s) information deleted from the system?: (You may select more than one)</div> <br>
+      <div class="checkbox-grid">
+          <label class="checkbox-label">
+            <input type="checkbox" id="AutomaticallyDeleted-3A"/>
+            <span class="label-text">
+              <span class="label-desc">Automatically deleted</span>
+            </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="SecurelyDestroyed-3A" />
+            <span class="label-text">
+              <span class="label-desc">Securely destroyed</span>
+             </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="ManualDeletion-3A" />
+            <span class="label-text">
+              <span class="label-desc">Manually deleted or archived by authorised staff</span>
+             </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="UponPR-3A" />
+            <span class="label-text">
+              <span class="label-desc">Upon patient request</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="DeIdentified-3A" />
+            <span class="label-text">
+              <span class="label-desc">De-identified (personal details removed but data kept for analysis)</span>
+              </span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="Unsure-3A" />
+            <span class="label-text">
+              <span class="label-desc">Unsure</span>
+              </span>
+          </label>
+          </div>
+    </div>
+
+    <div class="btn-container">
+       <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
+      <a href="{{ url_for('report') }}" class="btn btn-secondary" onclick="saveAllProgress()">Continue</a>
+    </div>
+  </main>
+
+  <script src="../static/js/tooltip.js"></script>
+  <script src="../static/js/actions.js"></script>
+</body>
+</html>
