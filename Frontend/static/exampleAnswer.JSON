@@ -3,10 +3,10 @@
     [
         {"personalDataAsset":
             [
-                {"personalDetailsAndContactDetails": 
+                {"Personal And Contact Details": 
                     [
                     {"attributeCollected": ["Name", "DOB", "Phone number", "Email", "Address"]}, 
-                    {"collectionPurpose": "Legal Obligation"}, 
+                    {"collectionPurpose": "unsure"}, 
                     {"consent": "yes"}, 
                     {"essential": "no"}, 
                     {"lessDetailed": "yes"}, 
@@ -16,7 +16,7 @@
                     {"enforcementMeasure": "manually deleted"}
                     ]
                 }, 
-                {"Government-issued identifiers": 
+                {"Government-issued Identifiers": 
                     [
                     {"attributeCollected": ["Medical Number", "ABN", "ACN"]}, 
                     {"collectionPurpose": "Operation or Business Operation"}, 
