@@ -19,7 +19,7 @@
                 {"Government-issued identifiers": 
                     [
                     {"attributeCollected": ["Medical Number", "ABN", "ACN"]}, 
-                    {"collectionPurpose": "Operation or Business Operation"}, 
+                    {"collectionPurpose": "Operational or Business Operation"}, 
                     {"consent": "unsure"}, 
                     {"essential": "unsure"}, 
                     {"lessDetailed": "no"}, 
