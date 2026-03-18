@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Data Asset - Data Minimisation</title>
+  
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  {% include "components/header.html" %}
+
+
+  <main class="report">
+    <div class="container">
+    <section class="report-header">
+      <h2>Data Minimisation Assessment Report</h2>
+      <p>Healthcare Provider Data Privacy & Compliance Analysis</p>
+    </section>
+    </div>
+    
+    <!-- Executive Summary -->
+    <div class="container">
+    <section class="executive-summary">
+      <h2>Executive Summary</h2>
+
+      <p>
+        This assessment evaluates the organisations data collection, retention, and management practices against data minimisation principles and relevant privacy obligations, including the Australian Privacy Principles (APPs) and My Health Act.
+      </p>
+
+    <div class="data-score">
+
+      <p class ="score-title">
+        <strong> Data Minimisation Score </strong> is a metric that measures how well an organisation adheres to the principle of collecting and processing only the minimum amount of personal data necessary to achieve a specific purpose. Specific details will be mentioned below.
+      </p>
+
+      <ul>
+        <li><strong>Low Score:</strong> Excessive data minimisation; immediate action required.</li>
+        <li><strong>Medium Score:</strong> Adequate data minimisation, however, requires improvements.</li>
+      <li><strong>High Score:</strong> Excellent data minimisation.</li>
+      </ul>
+
+    </div>
+
+
+    <div class="data-score">
+
+      <p class = "score-title">
+        <strong class= "mertic-title"> Data Retention Score </strong> is a metric that evaluates how effectively an organization implements appropriate time limits for storing personal data, ensuring information is not kept longer than necessary.
+      </p>
+
+      <ul>
+        <li><strong>Low Score:</strong> Poor data retention; immediate action required.</li>
+        <li><strong>Medium Score:</strong> Adequate data retention, however, requires improvements.</li>
+        <li><strong>High Score:</strong> Excellent data retention.</li>
+      </ul>
+
+    </div>
+
+      <div class="summary-scores">
+        <div class="score-card">
+          <h3 class="high-score-collection">Medium</h3>
+          <p>Minimisation Score</p>
+        </div>
+
+        <div class="score-card">
+          <h3 class="high-score-retention">High</h3>
+          <p>Retention Score</p>
+        </div>
+      </div>
+
+      <div class="summary-status">
+        <p><strong>8</strong> Data Asset Categories Assessed</p>
+        <p><strong>3</strong> Areas Requiring Action</p>
+        <p><strong>4</strong> Recommendations Provided</p>
+      </div>
+    </section>
+    </div>
+
+    <!-- Legend -->
+    <div class="container">
+    <section class="report-legend" aria-label="Assessment Indicator Guide">
+      <h3>Assessment Indicator Guide</h3>
+
+      <div class="legend-items">
+
+        <div class="legend-item legend-green">
+          <span class="legend-dot"></span>
+          <div>
+            <strong>Strong Practice Identified</strong>
+            <p>Controls appear effective based on available information.</p>
+          </div>
+        </div>
+
+        <div class="legend-item legend-yellow">
+          <span class="legend-dot"></span>
+          <div>
+            <strong>Improvement Recommended</strong>
+            <p>Opportunities exist to enhance alignment and reduce potential exposure.</p>
+          </div>
+        </div>
+
+        <div class="legend-item legend-red">
+          <span class="legend-dot"></span>
+          <div>
+            <strong>Priority Attention Suggested</strong>
+            <p>Area may present increased exposure and would benefit from review.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    </div>
+    
+    <!-- Key Findings -->
+    <div class="container">
+    <section class="key-findings">
+      <h2>Key Findings</h2>
+      
+      <p>
+        The percentages presented in the following findings represent the proportion of data or processes impacted within each category, providing an indication of the scale and significance of each issue. 
+      </p>
+
+      <article class="granularity-issues">
+        <span class="issue-collection-label">Minimal Data Collection</span>
+        <h3>Data Collection Granularity Issues</h3>
+        <p class="purpose-violation">
+          40% of your data violates the purpose of My Health Act. 
+        </p>
+        <p class="purpose-unknown">
+          50% of your data collection purpose is unknown.
+        </p> 
+        <p class="consent-no">
+          25% of data collected from patient had no consent.
+        </p>
+        <p class="version-less-detailed">
+          7% of attributes can have less detailsed version collected.
+        </p>
+        <p class="not-essential">
+          23% of attributes are not essential for operation.
+        </p>
+      </article>
+
+      <article class="retention-issues">
+        <span class="issue-retention-label">Appropriate Retention</span>
+        <h3>Retention Period Issues</h3>
+        <p class="retention-violation">
+          20% of your data violates the retention period of My Health Act and has no special circumstances. 
+        </p>
+        <p class="retention-unknown">
+          55% of your data collection retention period is unknown.
+        </p> 
+        <p class="manual-deletion">
+          20% of enforcement measure was listed as manually deleted.
+        </p>
+      </article>
+    </section>
+    </div>
+
+    <!-- Detailed Assessment by Category -->
+    <div class="container">
+    <section class="detailed-assessment">
+      <h2>Detailed Assessment by Category</h2>
+      <p>
+        Each data category is assessed against data minimisation, consent, retention, and documentation controls. Items are flagged to indicate compliance status and areas requiring review.
+      </p>
+
+    <article class="category">
+
+      <div class="category-header">
+        <h3>Personal Data Assets</h3>
+        <span class="badge review">Needs Review</span>
+      </div>
+
+      <div class="assessment-item warning">
+        <h4>Violation of Privacy Act 1988</h4>
+        <p>
+          Unnecessary data collected.
+        </p>
+        <a href="#">Privacy Act 1988 - APP3.2</a>
+      </div>
+
+      <div class="assessment-item warning">
+        <h4>Unknown Purpose</h4>
+        <p>
+          Data categorised with unknown purpose flagged.
+        </p>
+       <a href="#">Privacy Act 1988 - APP3.5</a>
+      </div>
+
+      <div class="assessment-item danger">
+        <h4>Personal Data Collected Without Consent</h4>
+        <p>
+          Explicit consent should be documented and retained for all applicable data categories.
+        </p>
+        <a href="#">Privacy Act 1988 - APP3.4</a>
+      </div>
+
+      <div class="assessment-item danger">
+        <h4>Not Essential for Operation</h4>
+        <p>
+          Data collected must serve a purpose in the organisation.
+        </p>
+        <a href="#">Privacy Act 1988 - APP3.4</a>
+        <a href="#">My Health Record Act</a>
+      </div>
+
+        <div class="assessment-item danger">
+        <h4>Violation of Retention Period without Special Circumstances</h4>
+        <p>
+          Data collected must only be kept within a certain period of time unless surronded by special circumstances.
+        </p>
+        <a href="#">My Health Record Act</a>
+      </div>
+
+      <div class="assessment-item danger">
+        <h4>Retention Period Unknown</h4>
+        <p>
+          Data collected must only be kept within a certain period of time as stated in the My Health Record Act.
+        </p>
+        <a href="#">My Health Record Act</a>
+      </div>
+
+      <div class="assessment-item warning">
+        <h4>Enforcement Measures</h4>
+        <p>
+          Attributes "manually deleted".
+        </p>
+        <a href="#">My Health Record Act</a>
+      </div>
+
+    </article>
+    </section>
+    </div>
+
+    <!-- <article class="category">
+
+      <div class="category-header">
+        <h3>Health Data Assets</h3>
+        <span class="badge compliant">Compliant</span>
+      </div>
+
+      <div class="assessment-item success">
+        <h4>Clinical Documentation</h4>
+        <p>
+          Medical histories, diagnoses, clinical notes, and treatment plans are collected and maintained to support continuity of care and clinical decision-making.
+        </p>
+        <a href="#">Privacy Act 1988</a>
+      </div>
+
+      <div class="assessment-item success">
+        <h4>Immunisation Records</h4>
+        <p>
+          Immunisation data is recorded in line with public health requirements and patient safety obligations. Current practices support compliance and clinical use.
+        </p>
+        <a href="#">Privacy Act 1988</a>
+      </div>
+
+    </article>-->
+
+      <!-- Clinical Doucuments -->
+      <!-- Feel free to add more <article> tag 
+    <article class="category">
+
+      <div class="category-header">
+        <h3>Clinical Documents</h3>
+        <span class="badge compliant">Compliant</span>
+      </div>
+
+      <div class="assessment-grid">
+
+        <div class="assessment-item success">
+          <h4>Allergies & Adverse Reactions Documented</h4>
+          <p>Allergy and adverse reaction information is consistently recorded to support patient safety.</p>
+        </div>
+
+        <div class="assessment-item success">
+          <h4>Pathology Reports Maintained</h4>
+          <p>Pathology reports are stored and accessible to support diagnosis and ongoing treatment.</p>
+        </div>
+
+        <div class="assessment-item success">
+          <h4>Diagnostic Imaging Reports Stored</h4>
+          <p>Imaging reports are retained to support clinical assessment and continuity of care.</p>
+        </div>
+
+        <div class="assessment-item success">
+          <h4>Discharge Summaries Complete</h4>
+          <p>Discharge summaries are consistently completed and maintained to support continuity of care, follow-up treatment, and communication between healthcare providers.</p>
+        </div>
+
+        <div class="assessment-item danger">
+          <h4>Goals of Care Documentation Incomplete</h4>
+          <p>Goals of care documentation is not consistently captured across patient records, limiting clarity around patient preferences, treatment escalation, and long-term care planning.</p>
+        </div>
+
+        <div class="assessment-item warning">
+          <h4>Referral Process Unclear</h4>
+          <p>Referral documentation and tracking processes are not clearly defined, reducing visibility over care coordination, accountability, and data ownership across clinical workflows.</p>
+        </div>
+
+      </div>
+
+    </article>
+
+    <article>
+        Feel free to add more content here
+    </article>-->
+
+
+      <!-- Data Retention & Deletion 
+    <article class="category">
+
+     <div class="category-header">
+        <h3>Data Retention & Deletion</h3>
+        <span class="badge action">Action Required</span>
+      </div>-->
+
+      <!-- Category introduction 
+      <p class="category-intro">
+        This section assesses whether data retention periods are defined, justified, and consistently enforced, and whether deletion controls effectively reduce unnecessary data exposure.
+      </p>
+
+      <div class="assessment-item warning">
+        <h4>Extended Retention Periods</h4>
+        <p>
+          Certain data categories are retained beyond recommended timeframes outlined in My Health Record guidance and relevant privacy principles. Extended retention increases exposure in the event of a data breach and may limit the organisations ability to demonstrate compliance with minimum necessary retention standards.
+        </p>
+        <p class="reference">
+          My Health Records Act 2012 - Section 28
+        </p>
+        <a href="#">Privacy Act 1988 - APP3.5</a>
+      </div>
+
+      <div class="assessment-item danger">
+        <h4>Manual Deletion Dependency</h4>
+        <p>
+          Data deletion processes rely heavily on manual intervention, increasing the likelihood that records are retained beyond approved timeframes. The absence of automated deletion or archiving controls reduces consistency and increases regulatory and cybersecurity risk.
+        </p>
+        <a href="#">Privacy Act 1988 - APP3.5</a>
+        <a href="#">Privacy Act 1988 - APP 11.2</a>
+      </div>
+
+    </article>-->
+
+    <!-- My Health Record Integration 
+    <article class="category">
+
+      <div class="category-header">
+        <h3>My Health Record Integration</h3>
+        <span class="badge opportunity">Opportunity</span>
+      </div>
+
+      <div class="assessment-item neutral">
+        <h4>Limited System Access</h4>
+        <p>
+          The organisations current use of My Health Record appears limited. Consider expanding integration to support improved care coordination, while maintaining strict role-based access controls and purpose limitation principles to ensure data minimisation is preserved.
+        </p>
+        <a href="#">My Health Records Act 2012</a>
+      </div>
+
+    </article> -->
+
+    <!-- Recommended Actions -->
+    <div class="container">
+    <section class="recommended-actions">
+      <h2>Recommended Actions</h2>
+      <p>
+          The following actions are prioritised to reduce regulatory and cybersecurity risk while maintaining operational continuity. Timeframes reflect practical implementation effort and risk severity.
+      </p>
+
+      <article class="priority-high">
+        <h3>Display Records of Why Each Data Category was Collected</h3>
+        <!--<p>
+          Conduct a structured review of all patient intake and administrative forms to confirm the necessity of each data field. 
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
+      </article>
+
+      <article class="priority-high">
+        <h3>Data Collection for the Following Should Cease</h3>
+        <!--<p>
+          Introduce consistent consent capture mechanisms for sensitive and non-essential personal data. Ensure consent evidence is securely stored and auditable.
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
+      </article>
+
+      <article class="priority-medium">
+        <h3>Staff Training on Data Collection Consent Necessary</h3>
+        <!--<p>
+          Define and document retention periods for each data category in alignment with applicable obligations and clinical requirements. Apply schedules consistently across all systems.
+        </p>-->
+        <p><strong>Improvement Recommended</strong></p>
+      </article>
+
+      <article class="priority-high">
+        <h3>Unnecessary Data Collection Should Cease</h3>
+        <!--<p>
+          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
+      </article>
+
+      <article class="priority-high">
+        <h3>Review Data Retention Schedule</h3>
+        <!--<p>
+          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
+      </article>
+
+      <article class="priority-high">
+        <h3>Enable Automatic Deletion</h3>
+        <!--<p>
+          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
+        </p>-->
+        <p><strong>Priority Attention Suggested</strong></p>
+      </article>
+    </section>
+    </div>
+
+    <!-- Cost Reduction -->
+    <div class="container">
+    <section class="cost-reduction">
+
+      <h2>Estimated Cost Reduction</h2>
+
+      <p>
+        Data minimisation can help organisations reduce operational costs by limiting unnecessary data storage and administrative work. The estimates below show potential annual savings.
+      </p>
+
+      <div class="cost-cards">
+
+        <div class="cost-card">
+          <h3>$8,000 - $12,000</h3>
+          <p class="cost-title">Data Storage Optimisation</p>
+          <p class="cost-desc">
+            Reducing unnecessary data collection and applying retention controls can lower database storage, cloud infrastructure, and backup costs.
+          </p>
+        </div>
+
+        <div class="cost-card">
+          <h3>$5,000 - $7,000</h3>
+          <p class="cost-title">Administrative Efficiency</p>
+          <p class="cost-desc">
+            Reducing unnecessary data fields can decrease staff time required for data entry and verification.
+          </p>
+        </div>
+
+        <div class="cost-card">
+          <h3>$20,000+</h3>
+          <p class="cost-title">Reduced Regulatory Risk</p>
+          <p class="cost-desc">
+           Storing less personal data can reduce the impact of privacy breaches and help avoid regulatory penalties and investigation costs.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="container">
+    <section class="report-disclaimer">
+      <h3>Disclaimer</h3>
+      <p>
+        This report is an academic assessment based on a review of provided materials and publicly available information.
+        It does not constitute legal, regulatory, or professional compliance advice. Findings and recommendations are
+        indicative in nature and should be independently validated by qualified professionals before implementation.
+      </p>
+    </section>
+    </div>
+
+</main>
+
+  </main>
+</body>
+</html>
