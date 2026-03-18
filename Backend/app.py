@@ -53,5 +53,10 @@ def report():
     """Report"""
     return render_template('pages/report.html')
 
+@app.route('/report')
+def report():
+    """Report"""
+    return render_template('pages/report.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
