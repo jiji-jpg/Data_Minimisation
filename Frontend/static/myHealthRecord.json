@@ -33,7 +33,6 @@
 
   {
     "retentionSpecialCircumstances": {
-      "violation": ["no"]
       "unsure": ["unsure"]
     },
     "MyHealthRecordSection": "My Health Records Act 2012 - Part 2 Section 16"
