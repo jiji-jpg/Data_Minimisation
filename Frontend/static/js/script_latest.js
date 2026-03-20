@@ -7,30 +7,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]);
 
     const data = await answerRes.json();
-    const mhrRules = await mhrRes.json();
-    const privacyRules = await privacyRes.json();
+    const mhrAct = await mhrRes.json();
+    const privacyAct = await privacyRes.json();
 
 
-    // purpose (MHR)
-    const purposeResult = calculateFromRules(data, mhrRules, "purpose");
+    // purpose violation MHR Act
+    const purposeResult = calculateFromRules(data, mhrAct, "purpose");
     document.getElementById("mhr-result").textContent =
         `${purposeResult.violation}% of your data violates the purpose of My Health Record Act.`;
 
+    // purpose = unsure
     document.getElementById("purpose-unsure-result").textContent =
         `${purposeResult.unsure}% of your data collection purpose is unknown.`;
 
-    // consent
-    const consentResult = calculateFromRules(data, mhrRules, "consent");
+    // consent = no
+    const consentResult = calculateFromRules(data, mhrAct, "consent");
     document.getElementById("consent-result").textContent =
         `${consentResult.violation}% of data was collected without patient consent, while ${consentResult.unsure}% are unsure.`;
 
-    // lessDetailed
-    const lessDetailedResult = calculateFromRules(data, privacyRules, "lessDetailed");
+    // less details = yes
+    const lessDetailedResult = calculateFromRules(data, privacyAct, "lessDetailed");
     document.getElementById("less-detailed-result").textContent =
         `${lessDetailedResult.violation}% of attributes can have less detailed version collected, while ${lessDetailedResult.unsure}% are unsure.`;
 
-    // essential
-    const essentialResult = calculateFromRules(data, privacyRules, "essential");
+    // essential = no
+    const essentialResult = calculateFromRules(data, privacyAct, "essential");
     document.getElementById("non-essential-result").textContent =
         `${essentialResult.violation}% of attributes are not essential, while ${essentialResult.unsure}% are unsure.`;
 });
@@ -42,7 +43,7 @@ function calculateFromRules(data, rules, field) {
     let violationCount = 0;
     let unsureCount = 0;
 
-    // find rule in json files
+    // find violation in json files
     const ruleObj = rules.find(r => r[field] !== undefined);
     if (!ruleObj) return { violation: 0, unsure: 0 };
 
@@ -54,7 +55,7 @@ function calculateFromRules(data, rules, field) {
 
         let obj;
 
-        // the percentage of "unsure" is calculated individually in purpose section
+        // the percentage of unsure is calculated individually in purpose section
         if (field === "purpose") {
             obj = details.find(item => item.collectionPurpose !== undefined);
         } else {
