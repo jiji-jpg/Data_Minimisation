@@ -115,7 +115,7 @@
         </select>
       </div>
     </div>
-<!-- Level of Data Details -->
+    <!-- Level of Data Details -->
     <div class="form-question">
       <div class="text-emphasis">Level of Data Details</div>
     <div class="form-question">
@@ -239,91 +239,14 @@
         </div>
     </div>
 
-
+  
     <div class="btn-container">
        <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
-      <a href="{{ url_for('HA2') }}" class="btn btn-secondary">Continue</a>
+      <a href="{{ url_for('HA2') }}" class="btn btn-secondary" id="continueBtn">Continue</a>
     </div>
   </main>
 
   <script src="../static/js/tooltip.js"></script>
-  <script>
-    // Elements to persist
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-const radios = document.querySelectorAll('input[type="radio"]');
-const selects = document.querySelectorAll('select');
-
-// Auto-save all elements on change
-checkboxes.forEach(cb => cb.addEventListener('change', saveAll));
-radios.forEach(r => r.addEventListener('change', saveAll));
-selects.forEach(s => s.addEventListener('change', saveAll));
-
-// Restore function (unified)
-function restoreAllProgress() {
-  if (typeof(Storage) !== 'undefined') {
-    const saved = sessionStorage.getItem('dataMinFullProgress');
-    if (saved) {
-      const data = JSON.parse(saved);
-      
-      // Restore checkboxes by id
-      checkboxes.forEach(cb => {
-        if (data.checkboxes && data.checkboxes[cb.id] !== undefined) {
-          cb.checked = data.checkboxes[cb.id];
-        }
-      });
-      
-      // Restore radios by name group
-      radios.forEach(r => {
-        if (data.radios && data.radios[r.name] && data.radios[r.name] === r.value) {
-          r.checked = true;
-        }
-      });
-      
-      // Restore selects by id (better than index)
-      selects.forEach(s => {
-        if (s.id && data.selects && data.selects[s.id]) {
-          s.value = data.selects[s.id];
-        }
-      });
-    }
-  }
-}
-
-// Save all elements
-function saveAll() {
-  if (typeof(Storage) !== 'undefined') {
-    const data = {
-      checkboxes: {},
-      radios: {},
-      selects: {}
-    };
-    
-    // Save checkboxes
-    checkboxes.forEach(cb => {
-      data.checkboxes[cb.id] = cb.checked;
-    });
-    
-    // Save radios (only selected value per group)
-    radios.forEach(r => {
-      if (r.checked) {
-        data.radios[r.name] = r.value;
-      }
-    });
-    
-    // Save selects by id
-    selects.forEach(s => {
-      if (s.id) {
-        data.selects[s.id] = s.value;
-      }
-    });
-    
-    sessionStorage.setItem('dataMinFullProgress', JSON.stringify(data));
-  }
-}
-
-// Init on load
-restoreAllProgress();
-
-  </script>
+  <script src="../static/js/validation.js"></script>
 </body>
 </html>
