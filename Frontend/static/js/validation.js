@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function validateToggles() {
     var hasError = false;
-    if (!getRadioValue('choice1')) { showError(document.getElementById('toggle1'), '* Please select an answer.'); hasError = true; }
     if (!getRadioValue('choice2')) { showError(document.getElementById('toggle2'), '* Please select an answer.'); hasError = true; }
     if (!getRadioValue('choice3')) { showError(document.getElementById('toggle3'), '* Please select an answer.'); hasError = true; }
     if (!getRadioValue('choice4')) { showError(document.getElementById('toggle4'), '* Please select an answer.'); hasError = true; }
