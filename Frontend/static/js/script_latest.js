@@ -34,6 +34,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     const essentialResult = calculateFromRules(data, privacyAct, "essential");
     document.getElementById("non-essential-result").textContent =
         `${essentialResult.violation}% of attributes are not essential, while ${essentialResult.unsure}% are unsure.`;
+
+    // retention period voilates MyHealthAct/no special circumstances
+    const retentionResult = calculateRetentionIssues(data, mhrAct);
+    document.getElementById("retention-result").textContent =
+        `${retentionResult.violation}% of retention periods violate My Health Record Act and have no special circumstances.`;
+
+    // retention period = unknown
+    document.getElementById("retention-unknown-result").textContent =
+        `${retentionResult.unsure}% of retention periods are undefined or uncertain.`;
+
+    // manual deletion enforced
+    document.getElementById("manual-delete-result").textContent =
+        `${retentionResult.manualDeleted}% of enforcement measures rely on manual deletion.`;
     
     // == End of Key Findings == 
 
@@ -212,12 +225,11 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         }
 
         // check enforcement measure 
-        if ("enforcementMeasure" in item && item.enforcementMeasure == "manually deleted" || item.enforcementMeasure == "unsure"){
+        if ("enforcementMeasure" in item && 
+            (item.enforcementMeasure == "manually deleted" || item.enforcementMeasure == "unsure")) {
             createElement("p", "These attributes are manually deleted after retention period or have unknown enforcement measure.", container)
             violationNumber ++;
-
         }
-    
     
     }
     
@@ -288,10 +300,10 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
         }
 
         // Get MHR Act retention purpose 
-        const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriod"]["violation"]
+        const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriod"]["violation"].map(v => v.toLowerCase().trim().replace(/\.$/, ""));
         const RETENTION_SECTION = MHRAct[2]["MyHealthRecordSection"]
 
-        const RETENTION_PERIOD = categoryDetails[1]["collectionPurpose"].toLowerCase()
+        const RETENTION_PERIOD = categoryDetails[5]["retentionPeriodForMHR"].toLowerCase().trim().replace(/\.$/, "")
         
         if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD)){
             createElement("p", `My Health Record Act 2012 advises against ${BAD_RETENTION_PERIOD.join(", ")}`, container);
@@ -366,5 +378,70 @@ function calculateFromRules(data, rules, field) {
     return {
         violation: total === 0 ? 0 : Math.round((violationCount / total) * 100),
         unsure: total === 0 ? 0 : Math.round((unsureCount / total) * 100)
+    };
+}
+
+function calculateRetentionIssues(data, mhrAct) {
+    const categories = data[1][0].personalDataAsset;
+
+    let total = 0;
+    let violationCount = 0;
+    let unsureCount = 0;
+    let manualDeletedCount = 0;
+
+    // rule values from myHealthRecord.json
+    const badRetentionValues =
+        mhrAct[2]?.retentionPeriod?.violation?.map(v => v.toLowerCase().trim().replace(/\.$/, "")) || [];
+
+    const unsureRetentionValues =
+        mhrAct[2]?.retentionPeriod?.unsure?.map(v => v.toLowerCase().trim()) || [];
+
+    categories.forEach(categoryObj => {
+        const details = categoryObj[Object.keys(categoryObj)[0]];
+
+        const retentionObj = details.find(item => item.retentionPeriodForMHR !== undefined);
+        const specialObj = details.find(item => item.specialCircumtance !== undefined);
+        const enforcementObj = details.find(item => item.enforcementMeasure !== undefined);
+
+        if (retentionObj) {
+            total++;
+
+            const retentionValue = retentionObj.retentionPeriodForMHR
+                .toLowerCase()
+                .trim()
+                .replace(/\.$/, "");
+
+            const specialValue = specialObj
+                ? specialObj.specialCircumtance.toLowerCase().trim()
+                : "";
+
+            const noSpecialCircumstances =
+                specialValue === "" ||
+                specialValue === "no" ||
+                specialValue === "unsure" ||
+                specialValue === "unknown";
+
+            if (badRetentionValues.includes(retentionValue) && noSpecialCircumstances) {
+                violationCount++;
+            }
+
+            if (unsureRetentionValues.includes(retentionValue) || retentionValue === "") {
+                unsureCount++;
+            }
+        }
+
+        if (enforcementObj) {
+            const enforcementValue = enforcementObj.enforcementMeasure.toLowerCase().trim();
+
+            if (enforcementValue === "manually deleted") {
+                manualDeletedCount++;
+            }
+        }
+    });
+
+    return {
+        violation: total === 0 ? 0 : Math.round((violationCount / total) * 100),
+        unsure: total === 0 ? 0 : Math.round((unsureCount / total) * 100),
+        manualDeleted: total === 0 ? 0 : Math.round((manualDeletedCount / total) * 100)
     };
 }
