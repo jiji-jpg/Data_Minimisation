@@ -1,0 +1,50 @@
+[
+    {"collectMyHealthRecord": "Yes"}, 
+    [
+        {"personalDataAsset":
+            [
+                {"personalDetailsAndContactDetails": 
+                    [
+                    {"attributeCollected": ["Name", "DOB", "Phone number", "Email", "Address"]}, 
+                    {"collectionPurpose": "Legal Obligation"}, 
+                    {"consent": "yes"}, 
+                    {"essential": "no"}, 
+                    {"lessDetailed": "yes"}, 
+                    {"retentionPeriodForMHR": "unsure"}, 
+                    {"retentionPeriod": "Information is kept indefinitely"}, 
+                    {"specialCircumtance": "unsure"}, 
+                    {"enforcementMeasure": "manually deleted"}
+                    ]
+                }, 
+                {"Government-issued identifiers": 
+                    [
+                    {"attributeCollected": ["Medical Number", "ABN", "ACN"]}, 
+                    {"collectionPurpose": "Operational or Business Operation"}, 
+                    {"consent": "unsure"}, 
+                    {"essential": "unsure"}, 
+                    {"lessDetailed": "no"}, 
+                    {"retentionPeriodForMHR": "Up to 30 years after death"}, 
+                    {"retentionPeriod": "Information is not kept once no longer needed."}, 
+                    {"specialCircumtance": "yes"}, 
+                    {"enforcementMeasure": "unsure"}
+                    ]
+                }, 
+                {"Sensitive Information": 
+                    [
+                    {"attributeCollected": ["Indigenous status", "Date of death", "Cultural identity"]}, 
+                    {"collectionPurpose": "Marketing"}, 
+                    {"consent": "no"}, 
+                    {"essential": "yes"}, 
+                    {"lessDetailed": "no"}, 
+                    {"retentionPeriodForMHR": "unsure"}, 
+                    {"retentionPeriod": "Information is kept as long as required by law."}, 
+                    {"specialCircumtance": "Yes, for research or statistical purpose"}, 
+                    {"enforcementMeasure": "upon patient request"}
+                    ]
+                }
+
+            ]
+        }
+        
+    ]
+]

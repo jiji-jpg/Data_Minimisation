@@ -97,29 +97,94 @@
     
     <div class="form-question">
       <div class="text-emphasis">Data Collection Purpose</div>
-      <div class="text-small">Why did your organisation collect the selected category(s) of data?</div>
-      <div class="custom-select">
-        <select id="DataCollectionPurpose-2B">
-          <option value="">Select</option>
-          <option value="Clinical Care">Clinical Care</option>
-          <option value="System Management Audit">System Management and Audit</option>
-          <option value="Legal Obligation">Legal Obligation</option>
-          <option value="Court Order">Court Order</option>
-          <option value="Serious Threat or Emergency">Serious Threat or Emergency</option>
-          <option value="Insurance Indemnity or Professional Liability Only">Insurance Indemnity or Professional Liability Only</option>
-          <option value="Marketing">Marketing</option>
-          <option value="Operational or Business Operation">Operational or Business Operation</option>
-          <option value="Human Resource">Human Resource</option>
-          <option value="General Insurance">General Insurance</option>
-          <option value="Unsure">Unsure</option>
-        </select>
-      </div>
+      <div class="text-small">Why did your organisation collect the selected category(s) of data?<br>You may select more than one:</div>
+    <br>
+    <div class="checkbox-grid">
+      <label class="checkbox-label">
+        <input type="checkbox" id="ClinicalCare-1A"/>
+        <span class="label-text">
+          <span class="text-small">Clinical Care</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="SystemManagement-1A" />
+        <span class="label-text">
+          <span class="text-small">System Management and Audit</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="LegalObligation-1A" />
+        <span class="label-text">
+          <span class="text-small">Legal Obligation</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="CourtOrder-1A" />
+        <span class="label-text">
+          <span class="text-small">Court Order</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="SeriousThreat-1A" />
+        <span class="label-text">
+          <span class="text-small">Serious Threat or Emergency</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="InsuranceIndemnity-1A" />
+        <span class="label-text">
+          <span class="text-small">Insurance Indemnity or Professional Liability Only</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="Marketing-1A" />
+        <span class="label-text">
+          <span class="text-small">Marketing</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="Operational-1A" />
+        <span class="label-text">
+          <span class="text-small">Operational or Business Operation</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="HumanResource-1A" />
+        <span class="label-text">
+          <span class="text-small">Human Resource</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="GeneralInsurance-1A" />
+        <span class="label-text">
+          <span class="text-small">General Insurance</span>
+        </span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="UnsurePurpose-1A" />
+        <span class="label-text">
+          <span class="text-small">Unsure</span>
+        </span>
+      </label>
     </div>
-    <!-- Level of Data Details -->
+
+<!-- Level of Data Details -->
     <div class="form-question">
       <div class="text-emphasis">Level of Data Details</div>
-    <div class="form-question">
       <div class="text-small">1. Is recipient's consent obtained before collecting or uploading information?</div>
+      <div class="toggle-small" id="toggle1">
+        <input type="radio" id="toggle1-yes" name="choice1" value="yes" class="sr-only">
+        <label for="toggle1-yes" class="toggle-label">Yes</label>
+        <input type="radio" id="toggle1-no" name="choice1" value="no" class="sr-only">
+        <label for="toggle1-no" class="toggle-label">No</label>
+        <input type="radio" id="toggle1-unsure" name="choice1" value="unsure" class="sr-only">
+        <label for="toggle1-unsure" class="toggle-label">Unsure</label>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+
+    <div class="form-question">
+      <div class="text-small">2. Is the selected category(s) information collected essential for your organisation's operation?</div>
       <div class="toggle-small" id="toggle2">
         <input type="radio" id="toggle2-yes" name="choice2" value="yes" class="sr-only">
         <label for="toggle2-yes" class="toggle-label">Yes</label>
@@ -132,7 +197,7 @@
     </div>
 
     <div class="form-question">
-      <div class="text-small">2. Is the selected category(s) information collected essential for your organisation's operation?</div>
+      <div class="text-small">3. Can a less detailed version of the selected category(s) information be collected or used instead?</div>
       <div class="toggle-small" id="toggle3">
         <input type="radio" id="toggle3-yes" name="choice3" value="yes" class="sr-only">
         <label for="toggle3-yes" class="toggle-label">Yes</label>
@@ -143,110 +208,97 @@
         <span class="toggle-slider"></span>
       </div>
     </div>
-
-    <div class="form-question">
-      <div class="text-small">3. Can a less detailed version of the selected category(s) information be collected or used instead?</div>
-      <div class="toggle-small" id="toggle4">
-        <input type="radio" id="toggle4-yes" name="choice4" value="yes" class="sr-only">
-        <label for="toggle4-yes" class="toggle-label">Yes</label>
-        <input type="radio" id="toggle4-no" name="choice4" value="no" class="sr-only">
-        <label for="toggle4-no" class="toggle-label">No</label>
-        <input type="radio" id="toggle4-unsure" name="choice4" value="unsure" class="sr-only">
-        <label for="toggle4-unsure" class="toggle-label">Unsure</label>
-        <span class="toggle-slider"></span>
-      </div>
-    </div>
   <!-- Retention Period-->
-   <div class="text-emphasis">Retention Period</div>
-    <div class="form-question">
+    <div class="form-question"> 
+      <div class="text-emphasis">Retention Period</div>
+      
       <div class="text-small">1. What is the usual retention period for My Health Record information?</div>
       <div class="custom-select">
-        <select id="Question1-2B">
+        <select id="Question1-1A">
           <option value="">Select</option>
-        <option value="Up to 30 Years After Death" id="30YearsAD">Up to 30 Years After Death</option>
-        <option value="Up to 130 Years After Birth" id="130YearsAB">Up to 130 Years After Birth</option>
-        <option value="Unsure" id="Unsure">Unsure</option>
+          <option value="Up to 30 Years After Death">Up to 30 Years After Death</option>
+          <option value="Up to 130 Years After Birth">Up to 130 Years After Birth</option>
+          <option value="Unsure">Unsure</option>
         </select>
       </div>
-    </div>
-    <div class="form-question">
-      <div class="text-small">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
+      
+      <div class="text-small" style="margin-top: 1rem;">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
       <div class="custom-select">
-        <select id="Question2-2B">
-         <option value="">Select</option>
-        <option value="Information is not kept once it is no longer needed" id="NotKeptIfNotNeeded">Information is not kept once it is no longer needed.</option>
-        <option value="Information is kept as long as required by law" id="KeptByLaw">Information is kept as long as required by law.</option>
-        <option value="Information is kept indefinetly." id="Indefinetly">Information is kept indefinetly.</option>
-        <option value="Unsure" id="Unsure">Unsure</option>
+        <select id="Question2-1A">
+          <option value="">Select</option>
+          <option value="Information is not kept once it is no longer needed">Information is not kept once it is no longer needed.</option>
+          <option value="Information is kept as long as required by law">Information is kept as long as required by law.</option>
+          <option value="Information is kept indefinetly.">Information is kept indefinetly.</option>
+          <option value="Unsure">Unsure</option>
+        </select>
+      </div>
+
+      <div class="text-small" style="margin-top: 1rem;">3. Are there special circumstances where information may be retained beyond the standard limit?</div>
+      <div class="custom-select">
+        <select id="Question3-1A">
+          <option value="">Select</option>
+          <option value="Yes, for legal or audit requirements">Yes, for legal or audit requirements.</option>
+          <option value="Yes, for research or statistical purposes">Yes, for research or statistical purposes.</option>
+          <option value="Yes, as part of government/institutional records">Yes, as part of government/institutional records.</option>
+          <option value="No, informationis deleted/de-identified once it is not required.">No</option>
+          <option value="Unsure">Unsure</option>
         </select>
       </div>
     </div>
 
-    <div class="form-question">
-      <div class="text-small">3. Are there special circumstances where information may be retained beyond the standard limit?</div>
-      <div class="custom-select">
-        <select id="Question3-2B">
-        <option value="">Select</option>
-        <option value="Yes, for legal or audit requirements" id="LegalAudit">Yes, for legal or audit requirements.</option>
-        <option value="Yes, for research or statistical purposes" id="ResearchStatistical">Yes, for research or statistical purposes.</option>
-        <option value="Yes, as part of government/institutional records" id="Indefinetly">Yes, as part of government/institutional records.</option>
-        <option value="No, informationis deleted/de-identified once it is not required." id="No">No, informationis deleted/de-identified once it is not required.</option>
-        <option value="Unsure" id="Unsure">Unsure</option>
-        </select>
-      </div>
-    </div>
   <!-- Enforcement Measure / Deletion Mechanism-->
     <div class="form-question">
       <span class="text-emphasis">Enforcement Measure / Deletion Mechanism </span><br>
       <span class="text-small">How is the selected category(s) information deleted from the system?<br>You may select more than one:</span><br><br>
         <div class="checkbox-grid">
           <label class="checkbox-label">
-            <input type="checkbox" id="AutomaticallyDeleted-2B"/>
+            <input type="checkbox" id="AutomaticallyDeleted-1A"/>
             <span class="label-text">
-              <span class="label-desc">Automatically deleted</span>
+              <span class="text-small">Automatically deleted</span>
             </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="SecurelyDestroyed-2B" />
+            <input type="checkbox" id="SecurelyDestroyedP-1A" />
             <span class="label-text">
-              <span class="label-desc">Securely destroyed</span>
+              <span class="text-small">Securely destroyed</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="ManualDeletion-2B" />
+            <input type="checkbox" id="ManualDeletion-1A" />
             <span class="label-text">
-              <span class="label-desc">Manually deleted or archived by authorised staff</span>
+              <span class="text-small">Manually deleted or archived by authorised staff</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="UponPR-2B" />
+            <input type="checkbox" id="UponPR-1A" />
             <span class="label-text">
-              <span class="label-desc">Upon patient request</span>
+              <span class="text-small">Upon patient request</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="DeIdentified-2B" />
+            <input type="checkbox" id="DeIdentified-1A" />
             <span class="label-text">
-              <span class="label-desc">De-identified (personal details removed but data kept for analysis)</span>
+              <span class="text-small">De-identified</span>
+              <span class="label-desc">(personal details removed but data kept for analysis)</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="Unsure-2B" />
+            <input type="checkbox" id="Unsure-1A" />
             <span class="label-text">
-              <span class="label-desc">Unsure</span>
+              <span class="text-small">Unsure</span>
               </span>
           </label>
         </div>
     </div>
-
   
     <div class="btn-container">
       <a href="{{ url_for('HA1') }}" class="btn btn-primary">Back</a>
-      <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary">Continue</a>
+      <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary" id="continueBtn">Continue</a>
     </div>
   </main>
 
   <script src="../static/js/tooltip.js"></script>
-    <script src="../static/js/actions.js"></script>
+  <script src="../static/js/actions.js"></script>
+  <script src="../static/js/validation.js"></script>
 </body>
 </html>
