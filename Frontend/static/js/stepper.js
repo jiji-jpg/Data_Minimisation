@@ -1,5 +1,4 @@
 // stepper.js - Checks form completion status and updates stepper icons
-// Place in static/js/stepper.js
 // Uses sessionStorage (clears when browser tab closes)
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -36,4 +35,18 @@ document.addEventListener('DOMContentLoaded', function () {
   // Step 3: Government Data Asset — requires GA1
   var ga1Done = sessionStorage.getItem('GA1_completed') === 'true';
   updateStep(steps[2], ga1Done);
+
+  // Step 4: Consumer-Contributed Health Data Assets — requires CA1 (and CA2 if applicable)
+  var ca1Done = sessionStorage.getItem('CA1_completed') === 'true';
+  var ca2Done = sessionStorage.getItem('CA2_completed');
+  // If CA2 exists in storage, both must be done; otherwise just CA1
+  if (ca2Done !== null) {
+    updateStep(steps[3], ca1Done && ca2Done === 'true');
+  } else {
+    updateStep(steps[3], ca1Done);
+  }
+
+  // Step 5: Child Health Data Assets — requires CH1
+  var ch1Done = sessionStorage.getItem('CH1_completed') === 'true';
+  updateStep(steps[4], ch1Done);
 });

@@ -96,7 +96,7 @@ const FormValidator = {
     
     toggleGroups.forEach(group => {
       const radios = document.querySelectorAll(`input[name="${group.name}"]`);
-      if (radios.length === 0) return; // Group doesn't exist
+      if (radios.length === 0) return; // Group doesn't exist on this page
       
       const hasSelection = Array.from(radios).some(radio => radio.checked);
       if (!hasSelection) {
@@ -194,29 +194,45 @@ const FormValidator = {
   }
 };
 
+// --- Detect which form page we are on and assign a sessionStorage key ---
+function getFormKey() {
+  // Check for page-specific elements using the Data Collection Purpose suffix
+  if (document.getElementById('ClinicalCare-1A') || document.getElementById('DataCollectionPurpose-1A')) return 'DA1_completed';
+  if (document.getElementById('ClinicalCare-1B') || document.getElementById('DataCollectionPurpose-1B')) return 'DA2_completed';
+  if (document.getElementById('ClinicalCare-2A') || document.getElementById('DataCollectionPurpose-2A')) return 'HA1_completed';
+  if (document.getElementById('ClinicalCare-2B') || document.getElementById('DataCollectionPurpose-2B')) return 'HA2_completed';
+  if (document.getElementById('ClinicalCare-3A') || document.getElementById('DataCollectionPurpose-3A')) return 'GA1_completed';
+  if (document.getElementById('ClinicalCare-4A') || document.getElementById('DataCollectionPurpose-4A')) return 'CA1_completed';
+  if (document.getElementById('ClinicalCare-4B') || document.getElementById('DataCollectionPurpose-4B')) return 'CA2_completed';
+  if (document.getElementById('ClinicalCare-5A') || document.getElementById('DataCollectionPurpose-5A')) return 'CH1_completed';
+  return null;
+}
+
 // Initialize validation on page load
 document.addEventListener('DOMContentLoaded', function() {
+  var formKey = getFormKey();
+
   // Find the Continue button
-  const continueButton = document.querySelector('a.btn-secondary[href*="DA"], a.btn-secondary[href*="HA"], a.btn-secondary[href*="GA"], a.btn-secondary[href*="sub_landing"]');
-  
-  if (continueButton) {
+  var continueButton = document.getElementById('continueBtn');
+
+  if (continueButton && formKey) {
     continueButton.addEventListener('click', function(e) {
-      // Only validate if this is a "Continue" button
-      if (this.textContent.trim() === 'Continue') {
-        const isValid = FormValidator.validateForm();
-        
-        if (!isValid) {
-          e.preventDefault(); // Stop navigation
-          FormValidator.scrollToFirstError();
-          return false;
-        }
+      var isValid = FormValidator.validateForm();
+
+      if (!isValid) {
+        e.preventDefault(); // Stop navigation
+        FormValidator.scrollToFirstError();
+        return false;
+      } else {
+        // Mark this form page as completed so the stepper can update
+        sessionStorage.setItem(formKey, 'true');
       }
     });
   }
 
-  // Remove error when user makes changes
-  const formInputs = document.querySelectorAll('input, select');
-  formInputs.forEach(input => {
+  // Remove errors when user makes changes
+  var formInputs = document.querySelectorAll('input, select');
+  formInputs.forEach(function(input) {
     input.addEventListener('change', function() {
       FormValidator.clearErrors();
     });
