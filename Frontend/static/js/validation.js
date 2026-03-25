@@ -3,6 +3,7 @@
  * Uses inline error messages matching the original validation style
  */
 
+// ---- VALIDATION METHOD ----
 const FormValidator = {
   // Clear all existing errors
   clearErrors: function() {
@@ -138,9 +139,16 @@ const FormValidator = {
     };
   },
 
-  // Validate entire form
+  // ---- VALIDATION FOR ENTIRE FORM STARTS HERE ---- 
   validateForm: function() {
     this.clearErrors();
+
+    // If SKIP is selected, bypass all validation
+    var skipCheckbox = document.getElementById('skipSection');
+    if (skipCheckbox && skipCheckbox.checked) {
+      return true;
+    }
+
     let hasError = false;
 
     // Check category checkboxes (first checkbox grid in panel)
