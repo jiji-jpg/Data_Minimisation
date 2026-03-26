@@ -257,6 +257,24 @@ a.btn.btn-small:focus {
   color: white;
 }
 
+.btn-small.btn-disabled {
+  background: #9CA3AF;
+  color: #ffffff;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.btn-small.btn-ready {
+  background: #10B981;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.btn-small.btn-ready:hover {
+  background: #059669;
+}
+
 /* ==================== MAIN CONTENT ==================== */
 body main {
   max-width: 80%;
@@ -345,13 +363,14 @@ body main h2 {
 .stepper-container {
   background: #ffffff;
   border-radius: 16px;
-  padding: 40px 60px;
+  padding: 40px 40px;
   margin: 30px 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: left;
   position: relative;
+  flex-wrap: wrap;
+  row-gap: 3rem;
 }
 
 .stepper-step {
@@ -359,11 +378,13 @@ body main h2 {
   flex-direction: column;
   align-items: center;
   position: relative;
-  flex: 1;
+  flex: 0 0 calc(33.333% - 1rem);
+  max-width: calc(33.333% - 1rem);
 }
 
-.stepper-step:not(:last-child) {
-  margin-right: 20px;
+.stepper-step:nth-child(3) .stepper-line,
+.stepper-step:nth-child(6) .stepper-line {
+  display: none;
 }
 
 .stepper-circle {
@@ -444,7 +465,7 @@ body main h2 {
   color: #111827;
   margin-bottom: 8px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 6px;
 }
@@ -744,6 +765,28 @@ input[type="checkbox"]:checked::after {
 
 input[type="checkbox"]:hover {
   border-color: #527DFF;
+}
+
+.skip-section-label input[type="checkbox"] {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 2px solid #FF002F;
+  border-radius: 4px;
+  position: relative;
+  margin: 0;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.skip-section-label input[type="checkbox"]:checked {
+  background: #FF002F;
+  border-color: #FF002F;
+}
+
+.skip-section-label input[type="checkbox"]:hover {
+  border-color: #FF002F;
 }
 
 /* ==================== DROPDOWN SELECT ==================== */
