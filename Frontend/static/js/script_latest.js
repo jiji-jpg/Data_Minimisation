@@ -60,6 +60,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // - Loop through categories
     const categories = data[1][0].personalDataAsset;
+
+    // - Get total number of unnecessary attributes collected for cost reduction 
+    let NUMBER_OF_ATTRIBUTES = 0;
+    let NUMBER_OF_CATEGORIES = 0;
     
     
     for (const category of categories){
@@ -82,13 +86,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         getCategoryLabel(violation, container)
 
         // - Add to counter for category with violation
+        // - Get number of attributes and add to total of attributes
         if (violation > 0){
             badCategoryCount ++;
+            NUMBER_OF_ATTRIBUTES = NUMBER_OF_ATTRIBUTES + categoryDetails[0]["attributeCollected"].length
         } 
+
+        
+        
     }
 
     // == End of Detailed Findings by Categories == 
     // ------------------------------------- 
+    // == Cost Reduction Section == 
+    let storageCost = 0;
+    let administrationCost = 0;
+    let regulatoryCost = 0;
+
+    const PERCENTAGE_OF_BAD_CATEGORIES = badCategoryCount / NUMBER_OF_CATEGORIES
+    
+    [storageCost, administrationCost, regulatoryCost] = calculateCost(NUMBER_OF_ATTRIBUTES, PERCENTAGE_OF_BAD_CATEGORIES)
+    createElement("p", `storage cost: ${storageCost}`, container)
+    createElement("p", `regulartory cost: ${regulatoryCost}`, container)
+    createElement("p", `administration cost: ${administrationCost}`, container)
+
     
 
 });
@@ -367,4 +388,69 @@ function calculateFromRules(data, rules, field) {
         violation: total === 0 ? 0 : Math.round((violationCount / total) * 100),
         unsure: total === 0 ? 0 : Math.round((unsureCount / total) * 100)
     };
+}
+
+// -------------------------------------------------
+
+// == Functions for Cost Reduction == 
+
+function calculateCost(numberOfAttributes, percentageOfBadCategories){
+    var storageCost = 0;
+    var administrationCost = 0;
+    var regulatoryCost = 0;
+
+    const TOTAL_PATIENTS = 10000;
+    const ATTRIBUTE_SIZE_IN_MB = 3;
+    // attributes size in MB * number of attributes * total patients * (1 original + log size) / 1000 (to convert to GB) * weekly backup
+    const STORAGE_IN_GB = ATTRIBUTE_SIZE_IN_MB * numberOfAttributes * TOTAL_PATIENTS * (1 + 0.3) * 52 / 1000
+
+    // storage cost variables 
+    const MONTHLY_STORAGE_COST_PER_GB = 0.115;
+    const MONTHLY_LOG_COST_PER_GB = 0.115
+    const MONTHLY_RESTORE_PER_GB = 0.24
+    const LONG_TERM_BACKUP_RETENTION_PERGB = 0.06
+    const MONTHLY_COMPUTE_COST = 410.41
+
+    storageCost = (MONTHLY_COMPUTE_COST + (STORAGE_IN_GB * 
+        (MONTHLY_STORAGE_COST_PER_GB + MONTHLY_LOG_COST_PER_GB + MONTHLY_RESTORE_PER_GB + LONG_TERM_BACKUP_RETENTION_PERGB)))
+        * 12
+
+    const FORMATTED_STORAGE_COST = new Intl.NumberFormat('en-AU', {
+    style: 'currency',
+    currency: 'AUD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+    }).format(Math.floor(storageCost));
+    
+    // admin cost variable
+    const YEARLY_ADMIN_COST_PER_GB = 0.25;
+
+    administrationCost = YEARLY_ADMIN_COST_PER_GB * STORAGE_IN_GB 
+
+    const FORMATTED_AMIN_COST = new Intl.NumberFormat('en-AU', {
+    style: 'currency',
+    currency: 'AUD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+    }).format(Math.floor(administrationCost));
+
+    // regulatory cost variable 
+    // USD 185 per record breach 
+    // % to be saved = unnecessary categories / all categories collected 
+    // 185 USD = 270 AUD 
+    // total amount saved = 270 * patient number * % to be saved 
+    const YEARLY_BREACH_COST_PER_RECORD = 270;
+
+    regulatoryCost = 270 * TOTAL_PATIENTS * percentageOfBadCategories 
+
+    const FORMATTED_REG_COST = new Intl.NumberFormat('en-AU', {
+    style: 'currency',
+    currency: 'AUD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+    }).format(Math.floor(regulatoryCost));
+    
+    return [FORMATTED_STORAGE_COST, FORMATTED_AMIN_COST, FORMATTED_REG_COST]
+
+
 }
