@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mhrAct = await mhrRes.json();
     const privacyAct = await privacyRes.json();
 
+    const useMHR = checkMHR(data[0]["collectMyHealthRecord"]);
+
     // == Key Findings == 
     // purpose violation MHR Act
     const purposeResult = calculateFromRules(data, mhrAct, "purpose");
@@ -35,18 +37,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("non-essential-result").textContent =
         `${essentialResult.violation}% of attributes are not essential, while ${essentialResult.unsure}% are unsure.`;
 
+    ///RETENTION
     // retention period voilates MyHealthAct/no special circumstances
-    const retentionResult = calculateRetentionIssues(data, mhrAct);
-    document.getElementById("retention-result").textContent =
-        `${retentionResult.violation}% of retention periods violate My Health Record Act and have no special circumstances.`;
+    const retentionResult = calculateRetentionIssues(data, mhrAct, privacyAct);
+    if (useMHR) {
+        document.getElementById("retention-result").textContent =
+            `${retentionResult.violation}% of retention periods violate My Health Record Act and have no special circumstances.`;
+    } else {
+        document.getElementById("retention-result").textContent =
+            `${retentionResult.unsure}% of your data retention period is unsure.`;
+    }
 
-    // retention period = unknown
+    // retention period = unsure
     document.getElementById("retention-unknown-result").textContent =
-        `${retentionResult.unsure}% of retention periods are undefined or uncertain.`;
+        `${retentionResult.unsure}% of your data retention period is unsure.`;
 
     // manual deletion enforced
     document.getElementById("manual-delete-result").textContent =
-        `${retentionResult.manualDeleted}% of enforcement measures rely on manual deletion.`;
+        `${retentionResult.enforcementUnsure}% of enforcement measures are unsure.`;
     
     // == End of Key Findings == 
 
@@ -241,15 +249,19 @@ function checkGenericRules (categoryDetails, violationNumber, container){
 function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNumber, container){
     
     // check collection purpose and consent against Privacy Act
-    const BAD_PURPOSE = privacyAct[0]["purpose"]["violation"][0].toLowerCase()
+    const BAD_PURPOSE = privacyAct[0]["purpose"]["violation"].map(p => p.toLowerCase())
     const BAD_PURPOSE_CONSENT1 = privacyAct[0]["consent"]["violation"][0].toLowerCase()
     const BAD_PURPOSE_CONSENT2 = privacyAct[0]["consent"]["unsure"][0].toLowerCase()
 
-    const COLLECTION_PURPOSE = categoryDetails[1]["collectionPurpose"].toLowerCase()
+    const rawPurpose = categoryDetails[1]["collectionPurpose"];
+    const COLLECTION_PURPOSE = Array.isArray(rawPurpose)
+    ? rawPurpose.map(p => p.toLowerCase().trim())
+    : [rawPurpose.toLowerCase().trim()];
+
     const CONSENT = categoryDetails[2]["consent"].toLowerCase()
 
     
-    if (COLLECTION_PURPOSE == BAD_PURPOSE && 
+    if (COLLECTION_PURPOSE.some(p => BAD_PURPOSE.includes(p)) && 
         (CONSENT == BAD_PURPOSE_CONSENT1 || 
         CONSENT == BAD_PURPOSE_CONSENT2)
     ){
@@ -286,14 +298,17 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
 
         // Get MHR Act purpose 
         const BAD_PURPOSE = MHRAct[1]["purpose"]["violation"]
-        BAD_PURPOSE.push(MHRAct[1]["purpose"]["unsure"])
         const PURPOSE_SECTION = MHRAct[1]["MyHealthRecordSection"]
 
         // Get collection purpose from answer
-        const COLLECTION_PURPOSE = categoryDetails[1]["collectionPurpose"].toLowerCase()
+        const rawPurpose = categoryDetails[1]["collectionPurpose"];
+
+        const COLLECTION_PURPOSE = Array.isArray(rawPurpose)
+            ? rawPurpose.map(p => p.toLowerCase().trim())
+            : [rawPurpose.toLowerCase().trim()];
         
         // Check if collection purpose violates MHR Act 
-        if (BAD_PURPOSE.includes(COLLECTION_PURPOSE)){
+        if (COLLECTION_PURPOSE.some(p => BAD_PURPOSE.includes(p))){
             createElement("p", `My Health Record Act 2012 advises against collecting data with the purpose of ${BAD_PURPOSE.join(", ")}`, container)
             createElement("a", PURPOSE_SECTION, container)
             violationNumber ++; 
@@ -334,6 +349,7 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
 // -------------------------------------------------
 
 // == Functions for Key Findings == 
+// Data collection Issue
 function calculateFromRules(data, rules, field) {
     const categories = data[1][0].personalDataAsset;
 
@@ -363,15 +379,27 @@ function calculateFromRules(data, rules, field) {
         if (obj) {
             total++;
 
-            const value = field === "purpose"
-                ? obj.collectionPurpose.toLowerCase()
-                : obj[field].toLowerCase();
+        let values;
 
-            if (violationValues.includes(value)) {
-                violationCount++;
-            } else if (unsureValues.includes(value)) {
-                unsureCount++;
-            }
+        if (field === "purpose") {
+            const raw = obj.collectionPurpose;
+
+            values = Array.isArray(raw)
+                ? raw.map(v => v.toLowerCase().trim())
+                : [raw.toLowerCase().trim()];
+        } else {
+            values = [obj[field].toLowerCase()];
+        }
+
+        // violation
+        if (values.some(v => violationValues.includes(v))) {
+            violationCount++;
+        }
+
+        // unsure
+        if (values.some(v => unsureValues.includes(v))) {
+            unsureCount++;
+        }
         }
     });
 
@@ -381,67 +409,154 @@ function calculateFromRules(data, rules, field) {
     };
 }
 
-function calculateRetentionIssues(data, mhrAct) {
+// Retention period issue
+function calculateRetentionIssues(data, mhrAct, privacyAct) {
+
     const categories = data[1][0].personalDataAsset;
+    const useMHR = checkMHR(data[0]["collectMyHealthRecord"]);
 
     let total = 0;
     let violationCount = 0;
     let unsureCount = 0;
-    let manualDeletedCount = 0;
+    let enforcementUnsureCount = 0;
 
-    // rule values from myHealthRecord.json
-    const badRetentionValues =
-        mhrAct[2]?.retentionPeriod?.violation?.map(v => v.toLowerCase().trim().replace(/\.$/, "")) || [];
+    let badRetentionValues = [];
+    let unsureRetentionValues = [];
 
-    const unsureRetentionValues =
-        mhrAct[2]?.retentionPeriod?.unsure?.map(v => v.toLowerCase().trim()) || [];
+    if (useMHR) {
+        const retentionRule = mhrAct.find(r => r.retentionPeriod !== undefined);
+
+        badRetentionValues =
+            retentionRule?.retentionPeriod?.violation?.map(v => v.toLowerCase().trim()) || [];
+
+        unsureRetentionValues =
+            retentionRule?.retentionPeriod?.unsure?.map(v => v.toLowerCase().trim()) || [];
+    }
 
     categories.forEach(categoryObj => {
+
         const details = categoryObj[Object.keys(categoryObj)[0]];
 
         const retentionObj = details.find(item => item.retentionPeriodForMHR !== undefined);
-        const specialObj = details.find(item => item.specialCircumtance !== undefined);
+        const specialObj = details.find(item => item.specialCircumstance !== undefined);
         const enforcementObj = details.find(item => item.enforcementMeasure !== undefined);
 
-        if (retentionObj) {
-            total++;
+        if (!retentionObj) return;
 
-            const retentionValue = retentionObj.retentionPeriodForMHR
-                .toLowerCase()
-                .trim()
-                .replace(/\.$/, "");
+        total++;
 
-            const specialValue = specialObj
-                ? specialObj.specialCircumtance.toLowerCase().trim()
-                : "";
+        const retentionValue = retentionObj.retentionPeriodForMHR.toLowerCase().trim();
+        const specialValue = specialObj ? specialObj.specialCircumstance.toLowerCase().trim() : "";
 
-            const noSpecialCircumstances =
-                specialValue === "" ||
-                specialValue === "no" ||
-                specialValue === "unsure" ||
-                specialValue === "unknown";
+        if (useMHR) {
 
-            if (badRetentionValues.includes(retentionValue) && noSpecialCircumstances) {
+            const isViolation = badRetentionValues.includes(retentionValue) 
+            const isUnsure = retentionValue === "unsure";
+
+            const hasSpecial =
+                specialValue.includes("yes");
+
+            const noSpecial = !hasSpecial;
+
+            if (isViolation && noSpecial) {
                 violationCount++;
             }
 
-            if (unsureRetentionValues.includes(retentionValue) || retentionValue === "") {
+            if (isUnsure && noSpecial) {
+                violationCount++;
+            }
+
+            if (isUnsure) {
+                unsureCount++;
+            }
+
+        } else {
+
+            if (retentionValue === "unsure") {
                 unsureCount++;
             }
         }
 
         if (enforcementObj) {
-            const enforcementValue = enforcementObj.enforcementMeasure.toLowerCase().trim();
+            const values = Array.isArray(enforcementObj.enforcementMeasure)
+                ? enforcementObj.enforcementMeasure.map(v => v.toLowerCase().trim())
+                : [enforcementObj.enforcementMeasure.toLowerCase().trim()];
 
-            if (enforcementValue === "manually deleted") {
-                manualDeletedCount++;
+            if (values.includes("unsure")) {
+                enforcementUnsureCount++;
             }
         }
+
     });
 
     return {
         violation: total === 0 ? 0 : Math.round((violationCount / total) * 100),
         unsure: total === 0 ? 0 : Math.round((unsureCount / total) * 100),
-        manualDeleted: total === 0 ? 0 : Math.round((manualDeletedCount / total) * 100)
+        enforcementUnsure: total === 0 ? 0 : Math.round((enforcementUnsureCount / total) * 100)
     };
 }
+
+// function calculateRetentionIssues(data, mhrAct) {
+//     const categories = data[1][0].personalDataAsset;
+
+//     let total = 0;
+//     let violationCount = 0;
+//     let unsureCount = 0;
+//     let manualDeletedCount = 0;
+
+//     // rule values from myHealthRecord.json
+//     const badRetentionValues =
+//         mhrAct[2]?.retentionPeriod?.violation?.map(v => v.toLowerCase().trim().replace(/\.$/, "")) || [];
+
+//     const unsureRetentionValues =
+//         mhrAct[2]?.retentionPeriod?.unsure?.map(v => v.toLowerCase().trim()) || [];
+
+//     categories.forEach(categoryObj => {
+//         const details = categoryObj[Object.keys(categoryObj)[0]];
+
+//         const retentionObj = details.find(item => item.retentionPeriodForMHR !== undefined);
+//         const specialObj = details.find(item => item.specialCircumtance !== undefined);
+//         const enforcementObj = details.find(item => item.enforcementMeasure !== undefined);
+
+//         if (retentionObj) {
+//             total++;
+
+//             const retentionValue = retentionObj.retentionPeriodForMHR
+//                 .toLowerCase()
+//                 .trim()
+//                 .replace(/\.$/, "");
+
+//             const specialValue = specialObj
+//                 ? specialObj.specialCircumtance.toLowerCase().trim()
+//                 : "";
+
+//             const noSpecialCircumstances =
+//                 specialValue === "" ||
+//                 specialValue === "no" ||
+//                 specialValue === "unsure" ||
+//                 specialValue === "unknown";
+
+//             if (badRetentionValues.includes(retentionValue) && noSpecialCircumstances) {
+//                 violationCount++;
+//             }
+
+//             if (unsureRetentionValues.includes(retentionValue) || retentionValue === "") {
+//                 unsureCount++;
+//             }
+//         }
+
+//         if (enforcementObj) {
+//             const enforcementValue = enforcementObj.enforcementMeasure.toLowerCase().trim();
+
+//             if (enforcementValue === "manually deleted") {
+//                 manualDeletedCount++;
+//             }
+//         }
+//     });
+
+//     return {
+//         violation: total === 0 ? 0 : Math.round((violationCount / total) * 100),
+//         unsure: total === 0 ? 0 : Math.round((unsureCount / total) * 100),
+//         manualDeleted: total === 0 ? 0 : Math.round((manualDeletedCount / total) * 100)
+//     };
+// }
