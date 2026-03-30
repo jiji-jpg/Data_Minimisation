@@ -10,52 +10,92 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mhrAct = await mhrRes.json();
     const privacyAct = await privacyRes.json();
 
+    // - Loop through categories
+    const categories = data[1][0].personalDataAsset;
+
+    let badCategoryCount = 0;
+
     // == Key Findings == 
     // purpose violation MHR Act
     const purposeResult = calculateFromRules(data, mhrAct, "purpose");
+    const consentResult = calculateFromRules(data, mhrAct, "consent");
+    const lessDetailedResult = calculateFromRules(data, privacyAct, "lessDetailed");
+    const essentialResult = calculateFromRules(data, privacyAct, "essential");
+    const retentionResult = calculateRetentionIssues(data, mhrAct);
+    
+    if (document.getElementById("mhr-result")) {
     document.getElementById("mhr-result").textContent =
         `${purposeResult.violation}% of your data violates the purpose of My Health Record Act.`;
 
-    // purpose = unsure
     document.getElementById("purpose-unsure-result").textContent =
         `${purposeResult.unsure}% of your data collection purpose is unknown.`;
 
-    // consent = no
-    const consentResult = calculateFromRules(data, mhrAct, "consent");
     document.getElementById("consent-result").textContent =
         `${consentResult.violation}% of data was collected without patient consent, while ${consentResult.unsure}% are unsure.`;
 
-    // less details = yes
-    const lessDetailedResult = calculateFromRules(data, privacyAct, "lessDetailed");
     document.getElementById("less-detailed-result").textContent =
         `${lessDetailedResult.violation}% of attributes can have less detailed version collected, while ${lessDetailedResult.unsure}% are unsure.`;
 
-    // essential = no
-    const essentialResult = calculateFromRules(data, privacyAct, "essential");
     document.getElementById("non-essential-result").textContent =
         `${essentialResult.violation}% of attributes are not essential, while ${essentialResult.unsure}% are unsure.`;
 
-    // retention period voilates MyHealthAct/no special circumstances
-    const retentionResult = calculateRetentionIssues(data, mhrAct);
     document.getElementById("retention-result").textContent =
         `${retentionResult.violation}% of retention periods violate My Health Record Act and have no special circumstances.`;
 
-    // retention period = unknown
     document.getElementById("retention-unknown-result").textContent =
         `${retentionResult.unsure}% of retention periods are undefined or uncertain.`;
 
-    // manual deletion enforced
     document.getElementById("manual-delete-result").textContent =
         `${retentionResult.manualDeleted}% of enforcement measures rely on manual deletion.`;
+    }
     
     // == End of Key Findings == 
 
     // ------------------------------------- 
     
     // == Executive Summary == 
+    // Total categories assessed
+    const totalCategoriesEl = document.getElementById("total-categories");
+        if (totalCategoriesEl) {
+            totalCategoriesEl.textContent = categories.length;
+        }
 
-    // - Create counter for category with violations
-    let badCategoryCount = 0;
+    // Recommendations count (static for now)
+    const recommendationsEl = document.getElementById("recommendations-count");
+        if (recommendationsEl) {
+            const recommendationCards = document.querySelectorAll(".recommended-actions article");
+            recommendationsEl.textContent = recommendationCards.length;
+        }
+
+    // Score labels (Medium / High)
+    function getScoreLabel(score) {
+        if (score > 20/3) return "High";
+        if (score > 10/3) return "Medium";
+        return "Low";
+    }
+
+    function getScoreColor(score) {
+        if (score > 20/3) return "#1bb273"; // green
+        if (score > 10/3) return "#f39c12"; // orange
+        return "#ff002f"; // red
+    }
+
+    // Calculation for Minimisation & Retention Scores
+    const minimisationScore = calculateMinimisationScore(data);
+    const retentionScore = calculateRetentionScore(data);
+
+    const minimisationScoreEl = document.getElementById("minimisation-score");
+        if (minimisationScoreEl) {
+            minimisationScoreEl.textContent = getScoreLabel(minimisationScore);
+            minimisationScoreEl.style.color = getScoreColor(minimisationScore);
+        }
+
+    const retentionScoreEl = document.getElementById("retention-score");
+        if (retentionScoreEl) {
+            retentionScoreEl.textContent = getScoreLabel(retentionScore);
+            retentionScoreEl.style.color = getScoreColor(retentionScore);
+        }
+
     // == End of Executive Summary 
     
     // ------------------------------------- 
@@ -63,18 +103,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     // == Detailed Findings by Categories == 
     const container = document.getElementById("findingsByCategories")
 
-    
+    if (container)
+    {
     // - Get if collect MHR
     const MHR_COLLECTED = checkMHR(data[0]["collectMyHealthRecord"])
 
     // - Get Data Asset Name 
     const DATA_ASSET = Object.keys(data[1][0])[0]
-    createElement("h1", DATA_ASSET, container)
+    createElement("h1", DATA_ASSET, container)    
 
-    // - Loop through categories
-    const categories = data[1][0].personalDataAsset;
-    
-    
     for (const category of categories){
         const [categoryName, categoryDetails] = Object.entries(category)[0];
 
@@ -97,8 +134,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         // - Add to counter for category with violation
         if (violation > 0){
             badCategoryCount ++;
-        } 
+        }
     }
+}
+    // Areas requiring action
+    // Reflecting number of categories listed in Detailed Assessments
+    const areasActionEl = document.getElementById("areas-action");
+        if (areasActionEl) {
+            areasActionEl.textContent = badCategoryCount;
+        }
 
     // == End of Detailed Findings by Categories == 
     // ------------------------------------- 
@@ -445,3 +489,221 @@ function calculateRetentionIssues(data, mhrAct) {
         manualDeleted: total === 0 ? 0 : Math.round((manualDeletedCount / total) * 100)
     };
 }
+
+// == Scoring Helper Functions ==
+function getCategoryFieldValue(categoryDetails, key) {
+    const item = categoryDetails.find(obj => Object.prototype.hasOwnProperty.call(obj, key));
+    return item ? String(item[key]).toLowerCase().trim() : "";
+}
+
+function normalizeScore(score, minScore, maxScore) {
+    if (maxScore === minScore) return 0;
+    return (score - minScore) / (maxScore - minScore);
+}
+
+function calculateWeightedThreeLevelScore(values, weights) {
+    let score = 0;
+    let total = 0;
+
+    values.forEach(value => {
+        if (weights.hasOwnProperty(value)) {
+            score += weights[value];
+            total++;
+        }
+    });
+
+    if (total === 0) return 0;
+
+    const weightValues = Object.values(weights);
+    const minWeight = Math.min(...weightValues);
+    const maxWeight = Math.max(...weightValues);
+
+    const minScore = minWeight * total;
+    const maxScore = maxWeight * total;
+
+    return normalizeScore(score, minScore, maxScore);
+}
+
+// == Scoring Functions ==
+// Minimisation Score Function
+
+function calculateMinimisationScore(data) {
+    const categories = data[1][0].personalDataAsset;
+
+    const lessDetailedValues = [];
+    const consentValues = [];
+    const essentialValues = [];
+    const purposeValues = [];
+
+    categories.forEach(categoryObj => {
+        const categoryDetails = Object.entries(categoryObj)[0][1];
+
+        const lessDetailed = getCategoryFieldValue(categoryDetails, "lessDetailed");
+        const consent = getCategoryFieldValue(categoryDetails, "consent");
+        const essential = getCategoryFieldValue(categoryDetails, "essential");
+        const purpose = getCategoryFieldValue(categoryDetails, "collectionPurpose");
+
+        lessDetailedValues.push(lessDetailed);
+        consentValues.push(consent);
+        essentialValues.push(essential);
+        purposeValues.push(purpose);
+    });
+
+    // a = lessDetailed
+    // yes = bad, no = good, unsure = middle
+    const a = calculateWeightedThreeLevelScore(lessDetailedValues, {
+        "yes": -1,
+        "no": 2,
+        "unsure": 1
+    });
+
+    // b = consent
+    const b = calculateWeightedThreeLevelScore(consentValues, {
+        "yes": 2,
+        "no": -1,
+        "unsure": 1
+    });
+
+    // c = essential
+    const c = calculateWeightedThreeLevelScore(essentialValues, {
+        "yes": 2,
+        "no": -1,
+        "unsure": 1
+    });
+
+    // d = purpose
+    // any purpose other than unsure/unknown = good
+    let knownPurposeCount = 0;
+    let unknownPurposeCount = 0;
+
+    purposeValues.forEach(value => {
+        if (value === "unsure" || value === "unknown" || value === "") {
+            unknownPurposeCount++;
+        } else {
+            knownPurposeCount++;
+        }
+    });
+
+    const totalPurpose = knownPurposeCount + unknownPurposeCount;
+    let d = 0;
+
+    if (totalPurpose > 0) {
+        const purposeScore = (1 * knownPurposeCount) + (-1 * unknownPurposeCount);
+        const purposeMin = -1 * totalPurpose;
+        const purposeMax = 1 * totalPurpose;
+        d = normalizeScore(purposeScore, purposeMin, purposeMax);
+    }
+
+    const finalScore = ((a + b + c + d) / 4) * 10;
+    return Number(finalScore.toFixed(1));
+}
+
+// Retention Score Function
+
+function calculateRetentionScore(data) {
+    const categories = data[1][0].personalDataAsset;
+
+    let totalCategoryCount = 0;
+    let categoryPoint = 0;
+
+    const deletionValues = [];
+    const retentionValues = [];
+
+    categories.forEach(categoryObj => {
+        const categoryDetails = Object.entries(categoryObj)[0][1];
+
+        const retentionPeriodForMHR = getCategoryFieldValue(categoryDetails, "retentionPeriodForMHR");
+        const specialCircumstance = getCategoryFieldValue(categoryDetails, "specialCircumtance");
+        const enforcementMeasure = getCategoryFieldValue(categoryDetails, "enforcementMeasure");
+        const retentionPeriod = getCategoryFieldValue(categoryDetails, "retentionPeriod");
+
+        // a: category point logic
+        if (
+            retentionPeriodForMHR === "up to 30 years after death" ||
+            retentionPeriodForMHR === "100 years"
+        ) {
+            categoryPoint += 1;
+            totalCategoryCount++;
+        } else if (
+            retentionPeriodForMHR === "unsure" &&
+            specialCircumstance === "no"
+        ) {
+            categoryPoint += 0;
+            totalCategoryCount++;
+        } else if (
+            retentionPeriodForMHR === "unsure" &&
+            specialCircumstance === "unsure"
+        ) {
+            categoryPoint += 0.5;
+            totalCategoryCount++;
+        } else {
+            categoryPoint += 1;
+            totalCategoryCount++;
+        }
+
+        // b: deletion / enforcement
+        // clarified rules:
+        // manually deleted = manual bad
+        // unsure = manual bad
+        // upon patient request = good
+        
+        if (
+            enforcementMeasure === "manually deleted" ||
+            enforcementMeasure === "unsure"
+        ) {
+            deletionValues.push("manual");
+        } else if (enforcementMeasure === "upon patient request") {
+            deletionValues.push("good");
+        } else {
+            deletionValues.push("good");
+        }
+
+        // c: retention period
+        retentionValues.push(retentionPeriod);
+    });
+
+    const a = totalCategoryCount === 0 ? 0 : categoryPoint / totalCategoryCount;
+
+    // b
+    let deletionScore = 0;
+    let deletionCount = 0;
+
+    deletionValues.forEach(value => {
+        if (value === "good") {
+            deletionScore += 2;
+            deletionCount++;
+        } else if (value === "manual") {
+            deletionScore += 1;
+            deletionCount++;
+        }
+    });
+
+    const b = deletionCount === 0
+        ? 0
+        : normalizeScore(deletionScore, 1 * deletionCount, 2 * deletionCount);
+
+    // c
+    let retentionScoreRaw = 0;
+    let retentionCount = 0;
+
+    retentionValues.forEach(value => {
+        if (value === "information is kept indefinitely") {
+            retentionScoreRaw += -1;
+            retentionCount++;
+        } else if (value === "unsure" || value === "unknown" || value === "") {
+            retentionScoreRaw += 1;
+            retentionCount++;
+        } else {
+            retentionScoreRaw += 2;
+            retentionCount++;
+        }
+    });
+
+    const c = retentionCount === 0
+        ? 0
+        : normalizeScore(retentionScoreRaw, -1 * retentionCount, 2 * retentionCount);
+
+    const finalScore = ((a + b + c) / 3) * 10;
+    return Number(finalScore.toFixed(1));
+}
+
