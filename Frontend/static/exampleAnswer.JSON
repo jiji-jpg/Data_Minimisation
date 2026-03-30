@@ -12,7 +12,7 @@
                     {"lessDetailed": "yes"}, 
                     {"retentionPeriodForMHR": "unsure"}, 
                     {"retentionPeriod": "Information is kept indefinitely"}, 
-                    {"specialCircumtance": "unsure"}, 
+                    {"specialCircumstance": "unsure"}, 
                     {"enforcementMeasure": "manually deleted"}
                     ]
                 }, 
@@ -25,7 +25,7 @@
                     {"lessDetailed": "no"}, 
                     {"retentionPeriodForMHR": "Up to 30 years after death"}, 
                     {"retentionPeriod": "Information is not kept once no longer needed."}, 
-                    {"specialCircumtance": "yes"}, 
+                    {"specialCircumstance": "yes"}, 
                     {"enforcementMeasure": "unsure"}
                     ]
                 }, 
@@ -38,7 +38,7 @@
                     {"lessDetailed": "no"}, 
                     {"retentionPeriodForMHR": "unsure"}, 
                     {"retentionPeriod": "Information is kept as long as required by law."}, 
-                    {"specialCircumtance": "Yes, for research or statistical purpose"}, 
+                    {"specialCircumstance": "Yes, for research or statistical purpose"}, 
                     {"enforcementMeasure": "upon patient request"}
                     ]
                 }
