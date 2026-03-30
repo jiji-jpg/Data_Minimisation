@@ -173,7 +173,6 @@ function listAttributes(categoryDetails, container){
 }
 
 
-
 function checkGenericRules (categoryDetails, violationNumber, container){
     // check items that do not need to be compared against MHR Act or Privacy Act
     // Arg: 
@@ -207,9 +206,11 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         // check if consent is no or unsure 
         if ("consent" in item && (item.consent == "no" || item.consent == "unsure")){
             createElement("p", "These attributes may be collected with no consent. Collecting data after acquiring consent is advised by My Health Act 2012.", container)
-            createElement("a", "My Health Records Act 2012 - Part 3 - Registration", container)
+            createElement("a", "My Health Records Act 2012 - Part 3 - Registratgit puion", container)
             violationNumber ++;
+
         }
+
 
         // check if less detailed version can be collected 
         if ("lessDetailed" in item && (item.lessDetailed == "yes" || item.lessDetailed == "unsure")){
