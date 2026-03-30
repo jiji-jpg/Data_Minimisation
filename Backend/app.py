@@ -1,37 +1,73 @@
 from flask import Flask, render_template
 
-app = Flask(__name__, template_folder="../Frontend/pages")
+app = Flask(__name__, 
+            template_folder='../Frontend/templates',
+            static_folder='../Frontend/static')
 
-# Setting different pages as different routes for now for faster implementation
-@app.get("/")
-def home():
-    return render_template("index.html")
+@app.route('/')
+def landing():
+    """Landing page"""
+    return render_template('pages/landing.html')
 
+@app.route('/privacy')
+def privacy():
+    """Terms & Conditions"""
+    return render_template('pages/privacy.html')
 
-@app.get("/data_minimisation")
-def data_minimisation():
-    return render_template("data_minimisation.html")
+@app.route('/backgroundcheck')
+def backgroundcheck():
+    return render_template('pages/backgroundcheck.html')
 
-@app.get("/report")
+@app.route('/sub_landing')
+def sub_landing():
+    """Sublanding"""
+    return render_template('pages/0_Sublanding.html')
+
+@app.route('/DA1')
+def DA1():
+    """Personal Data Asset Questionnaire (Part 1)"""
+    return render_template('pages/1A_PersonalAssetQ.html')
+
+@app.route('/DA2')
+def DA2():
+    """Personal Data Asset Questionnaire (Part 2)"""
+    return render_template('pages/1B_PersonalAssetQ.html')
+
+@app.route('/HA1')
+def HA1():
+    """Health Data Asset Questionnaire (Part 1)"""
+    return render_template('pages/2A_HealthAssetQ.html')
+
+@app.route('/HA2')
+def HA2():
+    """Health Data Asset Questionnaire (Part 2)"""
+    return render_template('pages/2B_HealthAssetQ.html')
+
+@app.route('/GA1')
+def GA1():
+    """Government Data Asset Questionnaire (Part 1)"""
+    return render_template('pages/3A_GovAssetQ.html')
+
+@app.route('/CA1')
+def CA1():
+    """Consumer-Contributed Health Data Assets"""
+    return render_template('pages/4A_Consumer.html')
+
+@app.route('/CH1')
+def CH1():
+    """Child Health Data Assets"""
+    return render_template('pages/5A_ChildHealth.html')
+
+@app.route('/report')
 def report():
-    return render_template("report.html")
+    """Report"""
+    return render_template('pages/report.html')
+
+@app.route('/test')
+def test():
+    """test"""
+    return render_template('pages/test.html')
 
 
-@app.get("/privacyNotice")
-def q_privacyNotice():
-    return render_template("q_privacyNotice.html")
-
-@app.get("/backgroundCheck")
-def q_backgroundCheck():
-    return render_template("q_backgroundCheck.html")
-
-@app.get("/personalDataAsset")
-def q_dataAsset_personalDataAsset():
-    return render_template("q_dataAsset_personalDataAsset.html")
-
-@app.get("/contactDetail")
-def q_questionnaire_personalDataAsset_contact():
-    return render_template("q_questionnaire_personalDataAsset_contact.html")
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True, port=8000)
