@@ -81,6 +81,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // - Loop through categories
     const categories = data[1][0].personalDataAsset;
+
+    // - Get total number of unnecessary attributes collected for cost reduction 
+    let NUMBER_OF_ATTRIBUTES = 0;
+    let NUMBER_OF_CATEGORIES = 0;
     
     
     for (const category of categories){
@@ -103,13 +107,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         getCategoryLabel(violation, container)
 
         // - Add to counter for category with violation
+        // - Get number of attributes and add to total of attributes
         if (violation > 0){
             badCategoryCount ++;
+            NUMBER_OF_ATTRIBUTES = NUMBER_OF_ATTRIBUTES + categoryDetails[0]["attributeCollected"].length
         } 
+
+        
+        
     }
 
     // == End of Detailed Findings by Categories == 
     // ------------------------------------- 
+    // == Cost Reduction Section == 
+    let storageCost = 0;
+    let administrationCost = 0;
+    let regulatoryCost = 0;
+
+    const PERCENTAGE_OF_BAD_CATEGORIES = badCategoryCount / NUMBER_OF_CATEGORIES;
+    
+    [storageCost, administrationCost, regulatoryCost] = calculateCost(NUMBER_OF_ATTRIBUTES, PERCENTAGE_OF_BAD_CATEGORIES)
+    createElement("p", `storage cost: ${storageCost}`, container)
+    createElement("p", `regulartory cost: ${regulatoryCost}`, container)
+    createElement("p", `administration cost: ${administrationCost}`, container)
+
     
 
 });
@@ -173,7 +194,6 @@ function listAttributes(categoryDetails, container){
 }
 
 
-
 function checkGenericRules (categoryDetails, violationNumber, container){
     // check items that do not need to be compared against MHR Act or Privacy Act
     // Arg: 
@@ -207,9 +227,11 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         // check if consent is no or unsure 
         if ("consent" in item && (item.consent == "no" || item.consent == "unsure")){
             createElement("p", "These attributes may be collected with no consent. Collecting data after acquiring consent is advised by My Health Act 2012.", container)
-            createElement("a", "My Health Records Act 2012 - Part 3 - Registration", container)
+            createElement("a", "My Health Records Act 2012 - Part 3 - Registratgit puion", container)
             violationNumber ++;
+
         }
+
 
         // check if less detailed version can be collected 
         if ("lessDetailed" in item && (item.lessDetailed == "yes" || item.lessDetailed == "unsure")){
@@ -560,3 +582,69 @@ function calculateRetentionIssues(data, mhrAct, privacyAct) {
 //         manualDeleted: total === 0 ? 0 : Math.round((manualDeletedCount / total) * 100)
 //     };
 // }
+
+// -------------------------------------------------
+
+// == Functions for Cost Reduction == 
+
+function calculateCost(numberOfAttributes, percentageOfBadCategories){
+    var storageCost = 0;
+    var administrationCost = 0;
+    var regulatoryCost = 0;
+
+    const TOTAL_PATIENTS = 10000;
+    const ATTRIBUTE_SIZE_IN_MB = 3;
+    // attributes size in MB * number of attributes * total patients * (1 original + log size) / 1000 (to convert to GB) 
+    const STORAGE_IN_GB = ATTRIBUTE_SIZE_IN_MB * numberOfAttributes * TOTAL_PATIENTS * (1 + 0.3) / 1000
+
+    // storage cost variables 
+    const MONTHLY_STORAGE_COST_PER_GB = 0.194;
+    const MONTHLY_BACKUP_PER_GB = 0.338
+    const LONG_TERM__RETENTION_PER_GB = 0.084
+    const MONTHLY_COMPUTE_COST = 372.01
+
+    const COST_A = STORAGE_IN_GB * MONTHLY_STORAGE_COST_PER_GB
+    const COST_B = STORAGE_IN_GB * MONTHLY_BACKUP_PER_GB
+    const COST_C = STORAGE_IN_GB * 52 * LONG_TERM__RETENTION_PER_GB 
+
+    storageCost = (COST_A + COST_B + COST_C + MONTHLY_COMPUTE_COST) * 12
+
+    const FORMATTED_STORAGE_COST = new Intl.NumberFormat('en-AU', {
+    style: 'currency',
+    currency: 'AUD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+    }).format(Math.floor(storageCost));
+    
+    // admin cost variable
+    const YEARLY_ADMIN_COST_PER_GB = 0.5;
+
+    administrationCost = YEARLY_ADMIN_COST_PER_GB * STORAGE_IN_GB 
+
+    const FORMATTED_AMIN_COST = new Intl.NumberFormat('en-AU', {
+    style: 'currency',
+    currency: 'AUD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+    }).format(Math.floor(administrationCost));
+
+    // regulatory cost variable 
+    // USD 185 per record breach 
+    // % to be saved = unnecessary categories / all categories collected 
+    // 185 USD = 270 AUD 
+    // total amount saved = 270 * patient number * % to be saved 
+    const YEARLY_BREACH_COST_PER_RECORD = 270;
+
+    regulatoryCost = 270 * TOTAL_PATIENTS * percentageOfBadCategories 
+
+    const FORMATTED_REG_COST = new Intl.NumberFormat('en-AU', {
+    style: 'currency',
+    currency: 'AUD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+    }).format(Math.floor(regulatoryCost));
+    
+    return [FORMATTED_STORAGE_COST, FORMATTED_AMIN_COST, FORMATTED_REG_COST]
+
+
+}
