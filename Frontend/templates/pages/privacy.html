@@ -48,10 +48,42 @@
         <li>No data is transmitted to or stored on external servers</li>
       </ul>
     </div>
+    
+    <div class="form-question">
+      <label class="checkbox-label">
+        <input type="checkbox" id="privacyAcknowledge" />
+        <span class="label-text">
+          <span class="label-title">I have read and understood the Privacy Notice above.</span>
+        </span>
+      </label>
+      <div id="privacyError"></div>
+    </div>
 
     <div class="btn-container">
-      <a href="{{ url_for('backgroundcheck') }}" class="btn btn-primary">Begin</a>
+      <a href="{{ url_for('backgroundcheck') }}" class="btn btn-primary" id="privacyBeginBtn">Begin</a>
     </div>
+
   </main>
+
+  <script>
+  document.getElementById('privacyBeginBtn').addEventListener('click', function(e) {
+    var checkbox = document.getElementById('privacyAcknowledge');
+    var errorDiv = document.getElementById('privacyError');
+    errorDiv.innerHTML = '';
+
+    if (!checkbox.checked) {
+      e.preventDefault();
+      var err = document.createElement('div');
+      err.className = 'inline-validation-error';
+      err.style.cssText = 'color:#DC2626;font-size:13px;font-weight:500;margin-top:6px;margin-bottom:2px;';
+      err.textContent = '* Please acknowledge the Privacy Notice to continue.';
+      errorDiv.appendChild(err);
+    }
+  });
+
+  document.getElementById('privacyAcknowledge').addEventListener('change', function() {
+    document.getElementById('privacyError').innerHTML = '';
+  });
+  </script>
 </body>
 </html>

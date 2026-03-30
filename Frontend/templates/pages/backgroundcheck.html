@@ -36,16 +36,36 @@
       </div>
     </div>
     
+    <div id="toggleError"></div>
+
     <div class="btn-container">
       <a href="{{ url_for('privacy') }}" class="btn btn-secondary">Back</a>
-      <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Continue</a>
+      <a href="{{ url_for('sub_landing') }}" class="btn btn-primary" id="bgContinueBtn">Continue</a>
     </div>
   </main>
 
   <script>
-    document.getElementById('toggle').addEventListener('change', function() {
-      this.classList.add('selected');
-    });
+  document.getElementById('toggle').addEventListener('change', function() {
+    this.classList.add('selected');
+    document.getElementById('toggleError').innerHTML = '';
+  });
+
+  document.getElementById('bgContinueBtn').addEventListener('click', function(e) {
+    var errorDiv = document.getElementById('toggleError');
+    errorDiv.innerHTML = '';
+
+    var radios = document.querySelectorAll('input[name="choice"]');
+    var hasSelection = Array.from(radios).some(function(r) { return r.checked; });
+
+    if (!hasSelection) {
+      e.preventDefault();
+      var err = document.createElement('div');
+      err.className = 'inline-validation-error';
+      err.style.cssText = 'color:#DC2626;font-size:13px;font-weight:500;margin-top:6px;margin-bottom:2px;';
+      err.textContent = '* Please select an answer before continuing.';
+      errorDiv.appendChild(err);
+    }
+  });
   </script>
 </body>
 </html>
