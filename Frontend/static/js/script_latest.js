@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     
     for (const category of categories){
+        NUMBER_OF_CATEGORIES ++;
         const [categoryName, categoryDetails] = Object.entries(category)[0];
 
         // - List category name 
