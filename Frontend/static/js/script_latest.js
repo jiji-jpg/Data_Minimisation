@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let administrationCost = 0;
     let regulatoryCost = 0;
 
-    const PERCENTAGE_OF_BAD_CATEGORIES = badCategoryCount / NUMBER_OF_CATEGORIES
+    const PERCENTAGE_OF_BAD_CATEGORIES = badCategoryCount / NUMBER_OF_CATEGORIES;
     
     [storageCost, administrationCost, regulatoryCost] = calculateCost(NUMBER_OF_ATTRIBUTES, PERCENTAGE_OF_BAD_CATEGORIES)
     createElement("p", `storage cost: ${storageCost}`, container)
@@ -401,19 +401,20 @@ function calculateCost(numberOfAttributes, percentageOfBadCategories){
 
     const TOTAL_PATIENTS = 10000;
     const ATTRIBUTE_SIZE_IN_MB = 3;
-    // attributes size in MB * number of attributes * total patients * (1 original + log size) / 1000 (to convert to GB) * weekly backup
-    const STORAGE_IN_GB = ATTRIBUTE_SIZE_IN_MB * numberOfAttributes * TOTAL_PATIENTS * (1 + 0.3) * 52 / 1000
+    // attributes size in MB * number of attributes * total patients * (1 original + log size) / 1000 (to convert to GB) 
+    const STORAGE_IN_GB = ATTRIBUTE_SIZE_IN_MB * numberOfAttributes * TOTAL_PATIENTS * (1 + 0.3) / 1000
 
     // storage cost variables 
-    const MONTHLY_STORAGE_COST_PER_GB = 0.115;
-    const MONTHLY_LOG_COST_PER_GB = 0.115
-    const MONTHLY_RESTORE_PER_GB = 0.24
-    const LONG_TERM_BACKUP_RETENTION_PERGB = 0.06
-    const MONTHLY_COMPUTE_COST = 410.41
+    const MONTHLY_STORAGE_COST_PER_GB = 0.194;
+    const MONTHLY_BACKUP_PER_GB = 0.338
+    const LONG_TERM__RETENTION_PER_GB = 0.084
+    const MONTHLY_COMPUTE_COST = 372.01
 
-    storageCost = (MONTHLY_COMPUTE_COST + (STORAGE_IN_GB * 
-        (MONTHLY_STORAGE_COST_PER_GB + MONTHLY_LOG_COST_PER_GB + MONTHLY_RESTORE_PER_GB + LONG_TERM_BACKUP_RETENTION_PERGB)))
-        * 12
+    const COST_A = STORAGE_IN_GB * MONTHLY_STORAGE_COST_PER_GB
+    const COST_B = STORAGE_IN_GB * MONTHLY_BACKUP_PER_GB
+    const COST_C = STORAGE_IN_GB * 52 * LONG_TERM__RETENTION_PER_GB 
+
+    storageCost = (COST_A + COST_B + COST_C + MONTHLY_COMPUTE_COST) * 12
 
     const FORMATTED_STORAGE_COST = new Intl.NumberFormat('en-AU', {
     style: 'currency',
@@ -423,7 +424,7 @@ function calculateCost(numberOfAttributes, percentageOfBadCategories){
     }).format(Math.floor(storageCost));
     
     // admin cost variable
-    const YEARLY_ADMIN_COST_PER_GB = 0.25;
+    const YEARLY_ADMIN_COST_PER_GB = 0.5;
 
     administrationCost = YEARLY_ADMIN_COST_PER_GB * STORAGE_IN_GB 
 
