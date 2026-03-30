@@ -362,65 +362,15 @@
       </div>
 
     </article> -->
-
-    <!-- Recommended Actions -->
     <div class="container">
-    <section class="recommended-actions">
-      <h2>Recommended Actions</h2>
-      <p>
-          The following actions are prioritised to reduce regulatory and cybersecurity risk while maintaining operational continuity. Timeframes reflect practical implementation effort and risk severity.
-      </p>
-
-      <article class="priority-high">
-        <h3>Display Records of Why Each Data Category was Collected</h3>
-        <!--<p>
-          Conduct a structured review of all patient intake and administrative forms to confirm the necessity of each data field. 
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-
-      <article class="priority-high">
-        <h3>Data Collection for the Following Should Cease</h3>
-        <!--<p>
-          Introduce consistent consent capture mechanisms for sensitive and non-essential personal data. Ensure consent evidence is securely stored and auditable.
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-
-      <article class="priority-medium">
-        <h3>Staff Training on Data Collection Consent Necessary</h3>
-        <!--<p>
-          Define and document retention periods for each data category in alignment with applicable obligations and clinical requirements. Apply schedules consistently across all systems.
-        </p>-->
-        <p><strong>Improvement Recommended</strong></p>
-      </article>
-
-      <article class="priority-high">
-        <h3>Unnecessary Data Collection Should Cease</h3>
-        <!--<p>
-          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-
-      <article class="priority-high">
-        <h3>Review Data Retention Schedule</h3>
-        <!--<p>
-          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-
-      <article class="priority-high">
-        <h3>Enable Automatic Deletion</h3>
-        <!--<p>
-          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-    </section>
+        <section class="recommended-actions" id="recommended-actions">
+          <h2>Recommended Actions</h2>
+          <p>
+            The following actions are prioritised to reduce regulatory and cybersecurity risk while maintaining operational continuity.
+          </p>
+          <div id="recommended-actions-list"></div>
+        </section>
     </div>
-
     <!-- Cost Reduction -->
     <div class="container">
     <section class="cost-reduction">
@@ -475,5 +425,6 @@
     </div>
 
 <script src="../../../Backend/functions.js"></script>
+  <script src="{{ url_for('static', filename='recomendedActions.js') }}"></script>
 </body>
 </html>
