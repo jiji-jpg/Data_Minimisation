@@ -41,6 +41,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("non-essential-result").textContent =
         `${essentialResult.violation}% of attributes are not essential, while ${essentialResult.unsure}% are unsure.`;
 
+    document.getElementById("retention-result").textContent =
+        `${retentionResult.violation}% of retention periods violate My Health Record Act and have no special circumstances.`;
     ///RETENTION
     // retention period voilates MyHealthAct/no special circumstances
     const retentionResult = calculateRetentionIssues(data, mhrAct, privacyAct);
@@ -52,11 +54,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             `${retentionResult.unsure}% of your data retention period is unsure.`;
     }
 
-    // retention period = unknown
+    // retention period = unsure
     document.getElementById("retention-unknown-result").textContent =
-        `${retentionResult.unsure}% of your data retention period is unsure.`;
+        `${retentionResult.unsure}% of retention periods are undefined or uncertain.`;
 
     document.getElementById("manual-delete-result").textContent =
+        `${retentionResult.manualDeleted}% of enforcement measures rely on manual deletion.`;
+    }
         `${retentionResult.enforcementUnsure}% of enforcement measures are unsure.`;
     
     // == End of Key Findings == 
@@ -295,19 +299,15 @@ function checkGenericRules (categoryDetails, violationNumber, container){
 function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNumber, container){
     
     // check collection purpose and consent against Privacy Act
-    const BAD_PURPOSE = privacyAct[0]["purpose"]["violation"].map(p => p.toLowerCase())
+    const BAD_PURPOSE = privacyAct[0]["purpose"]["violation"][0].toLowerCase()
     const BAD_PURPOSE_CONSENT1 = privacyAct[0]["consent"]["violation"][0].toLowerCase()
     const BAD_PURPOSE_CONSENT2 = privacyAct[0]["consent"]["unsure"][0].toLowerCase()
 
-    const rawPurpose = categoryDetails[1]["collectionPurpose"];
-    const COLLECTION_PURPOSE = Array.isArray(rawPurpose)
-    ? rawPurpose.map(p => p.toLowerCase().trim())
-    : [rawPurpose.toLowerCase().trim()];
-
+    const COLLECTION_PURPOSE = categoryDetails[1]["collectionPurpose"].toLowerCase()
     const CONSENT = categoryDetails[2]["consent"].toLowerCase()
 
     
-    if (COLLECTION_PURPOSE.some(p => BAD_PURPOSE.includes(p)) && 
+    if (COLLECTION_PURPOSE == BAD_PURPOSE && 
         (CONSENT == BAD_PURPOSE_CONSENT1 || 
         CONSENT == BAD_PURPOSE_CONSENT2)
     ){
@@ -344,17 +344,14 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
 
         // Get MHR Act purpose 
         const BAD_PURPOSE = MHRAct[1]["purpose"]["violation"]
+        BAD_PURPOSE.push(MHRAct[1]["purpose"]["unsure"])
         const PURPOSE_SECTION = MHRAct[1]["MyHealthRecordSection"]
 
         // Get collection purpose from answer
-        const rawPurpose = categoryDetails[1]["collectionPurpose"];
-
-        const COLLECTION_PURPOSE = Array.isArray(rawPurpose)
-            ? rawPurpose.map(p => p.toLowerCase().trim())
-            : [rawPurpose.toLowerCase().trim()];
+        const COLLECTION_PURPOSE = categoryDetails[1]["collectionPurpose"].toLowerCase()
         
         // Check if collection purpose violates MHR Act 
-        if (COLLECTION_PURPOSE.some(p => BAD_PURPOSE.includes(p))){
+        if (BAD_PURPOSE.includes(COLLECTION_PURPOSE)){
             createElement("p", `My Health Record Act 2012 advises against collecting data with the purpose of ${BAD_PURPOSE.join(", ")}`, container)
             createElement("a", PURPOSE_SECTION, container)
             violationNumber ++; 
@@ -395,7 +392,6 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
 // -------------------------------------------------
 
 // == Functions for Key Findings == 
-// Data collection Issue
 function calculateFromRules(data, rules, field) {
     const categories = data[1][0].personalDataAsset;
 
@@ -425,27 +421,15 @@ function calculateFromRules(data, rules, field) {
         if (obj) {
             total++;
 
-        let values;
+            const value = field === "purpose"
+                ? obj.collectionPurpose.toLowerCase()
+                : obj[field].toLowerCase();
 
-        if (field === "purpose") {
-            const raw = obj.collectionPurpose;
-
-            values = Array.isArray(raw)
-                ? raw.map(v => v.toLowerCase().trim())
-                : [raw.toLowerCase().trim()];
-        } else {
-            values = [obj[field].toLowerCase()];
-        }
-
-        // violation
-        if (values.some(v => violationValues.includes(v))) {
-            violationCount++;
-        }
-
-        // unsure
-        if (values.some(v => unsureValues.includes(v))) {
-            unsureCount++;
-        }
+            if (violationValues.includes(value)) {
+                violationCount++;
+            } else if (unsureValues.includes(value)) {
+                unsureCount++;
+            }
         }
     });
 
@@ -455,84 +439,62 @@ function calculateFromRules(data, rules, field) {
     };
 }
 
-// Retention period issue
-function calculateRetentionIssues(data, mhrAct, privacyAct) {
-
+function calculateRetentionIssues(data, mhrAct) {
     const categories = data[1][0].personalDataAsset;
-    const useMHR = checkMHR(data[0]["collectMyHealthRecord"]);
 
     let total = 0;
     let violationCount = 0;
     let unsureCount = 0;
-    let enforcementUnsureCount = 0;
+    let manualDeletedCount = 0;
 
-    let badRetentionValues = [];
-    let unsureRetentionValues = [];
+    // rule values from myHealthRecord.json
+    const badRetentionValues =
+        mhrAct[2]?.retentionPeriod?.violation?.map(v => v.toLowerCase().trim().replace(/\.$/, "")) || [];
 
-    if (useMHR) {
-        const retentionRule = mhrAct.find(r => r.retentionPeriod !== undefined);
-
-        badRetentionValues =
-            retentionRule?.retentionPeriod?.violation?.map(v => v.toLowerCase().trim()) || [];
-
-        unsureRetentionValues =
-            retentionRule?.retentionPeriod?.unsure?.map(v => v.toLowerCase().trim()) || [];
-    }
+    const unsureRetentionValues =
+        mhrAct[2]?.retentionPeriod?.unsure?.map(v => v.toLowerCase().trim()) || [];
 
     categories.forEach(categoryObj => {
-
         const details = categoryObj[Object.keys(categoryObj)[0]];
 
         const retentionObj = details.find(item => item.retentionPeriodForMHR !== undefined);
-        const specialObj = details.find(item => item.specialCircumstance !== undefined);
+        const specialObj = details.find(item => item.specialCircumtance !== undefined);
         const enforcementObj = details.find(item => item.enforcementMeasure !== undefined);
 
-        if (!retentionObj) return;
+        if (retentionObj) {
+            total++;
 
-        total++;
+            const retentionValue = retentionObj.retentionPeriodForMHR
+                .toLowerCase()
+                .trim()
+                .replace(/\.$/, "");
 
-        const retentionValue = retentionObj.retentionPeriodForMHR.toLowerCase().trim();
-        const specialValue = specialObj ? specialObj.specialCircumstance.toLowerCase().trim() : "";
+            const specialValue = specialObj
+                ? specialObj.specialCircumtance.toLowerCase().trim()
+                : "";
 
-        if (useMHR) {
+            const noSpecialCircumstances =
+                specialValue === "" ||
+                specialValue === "no" ||
+                specialValue === "unsure" ||
+                specialValue === "unknown";
 
-            const isViolation = badRetentionValues.includes(retentionValue) 
-            const isUnsure = retentionValue === "unsure";
-
-            const hasSpecial =
-                specialValue.includes("yes");
-
-            const noSpecial = !hasSpecial;
-
-            if (isViolation && noSpecial) {
+            if (badRetentionValues.includes(retentionValue) && noSpecialCircumstances) {
                 violationCount++;
             }
 
-            if (isUnsure && noSpecial) {
-                violationCount++;
-            }
-
-            if (isUnsure) {
-                unsureCount++;
-            }
-
-        } else {
-
-            if (retentionValue === "unsure") {
+            if (unsureRetentionValues.includes(retentionValue) || retentionValue === "") {
                 unsureCount++;
             }
         }
 
         if (enforcementObj) {
-            const values = Array.isArray(enforcementObj.enforcementMeasure)
-                ? enforcementObj.enforcementMeasure.map(v => v.toLowerCase().trim())
-                : [enforcementObj.enforcementMeasure.toLowerCase().trim()];
+            const enforcementValue = enforcementObj.enforcementMeasure.toLowerCase().trim();
 
-            if (values.includes("unsure")) {
-                enforcementUnsureCount++;
+            if (enforcementValue === "manually deleted") {
+                manualDeletedCount++;
             }
         }
-
     });
 
     return {
@@ -540,4 +502,221 @@ function calculateRetentionIssues(data, mhrAct, privacyAct) {
         unsure: total === 0 ? 0 : Math.round((unsureCount / total) * 100),
         manualDeleted: total === 0 ? 0 : Math.round((manualDeletedCount / total) * 100)
     };
+}
+
+// == Scoring Helper Functions ==
+function getCategoryFieldValue(categoryDetails, key) {
+    const item = categoryDetails.find(obj => Object.prototype.hasOwnProperty.call(obj, key));
+    return item ? String(item[key]).toLowerCase().trim() : "";
+}
+
+function normalizeScore(score, minScore, maxScore) {
+    if (maxScore === minScore) return 0;
+    return (score - minScore) / (maxScore - minScore);
+}
+
+function calculateWeightedThreeLevelScore(values, weights) {
+    let score = 0;
+    let total = 0;
+
+    values.forEach(value => {
+        if (weights.hasOwnProperty(value)) {
+            score += weights[value];
+            total++;
+        }
+    });
+
+    if (total === 0) return 0;
+
+    const weightValues = Object.values(weights);
+    const minWeight = Math.min(...weightValues);
+    const maxWeight = Math.max(...weightValues);
+
+    const minScore = minWeight * total;
+    const maxScore = maxWeight * total;
+
+    return normalizeScore(score, minScore, maxScore);
+}
+
+// == Scoring Functions ==
+// Minimisation Score Function
+
+function calculateMinimisationScore(data) {
+    const categories = data[1][0].personalDataAsset;
+
+    const lessDetailedValues = [];
+    const consentValues = [];
+    const essentialValues = [];
+    const purposeValues = [];
+
+    categories.forEach(categoryObj => {
+        const categoryDetails = Object.entries(categoryObj)[0][1];
+
+        const lessDetailed = getCategoryFieldValue(categoryDetails, "lessDetailed");
+        const consent = getCategoryFieldValue(categoryDetails, "consent");
+        const essential = getCategoryFieldValue(categoryDetails, "essential");
+        const purpose = getCategoryFieldValue(categoryDetails, "collectionPurpose");
+
+        lessDetailedValues.push(lessDetailed);
+        consentValues.push(consent);
+        essentialValues.push(essential);
+        purposeValues.push(purpose);
+    });
+
+    // a = lessDetailed
+    // yes = bad, no = good, unsure = middle
+    const a = calculateWeightedThreeLevelScore(lessDetailedValues, {
+        "yes": -1,
+        "no": 2,
+        "unsure": 1
+    });
+
+    // b = consent
+    const b = calculateWeightedThreeLevelScore(consentValues, {
+        "yes": 2,
+        "no": -1,
+        "unsure": 1
+    });
+
+    // c = essential
+    const c = calculateWeightedThreeLevelScore(essentialValues, {
+        "yes": 2,
+        "no": -1,
+        "unsure": 1
+    });
+
+    // d = purpose
+    // any purpose other than unsure/unknown = good
+    let knownPurposeCount = 0;
+    let unknownPurposeCount = 0;
+
+    purposeValues.forEach(value => {
+        if (value === "unsure" || value === "unknown" || value === "") {
+            unknownPurposeCount++;
+        } else {
+            knownPurposeCount++;
+        }
+    });
+
+    const totalPurpose = knownPurposeCount + unknownPurposeCount;
+    let d = 0;
+
+    if (totalPurpose > 0) {
+        const purposeScore = (1 * knownPurposeCount) + (-1 * unknownPurposeCount);
+        const purposeMin = -1 * totalPurpose;
+        const purposeMax = 1 * totalPurpose;
+        d = normalizeScore(purposeScore, purposeMin, purposeMax);
+    }
+
+    const finalScore = ((a + b + c + d) / 4) * 10;
+    return Number(finalScore.toFixed(1));
+}
+
+// Retention Score Function
+
+function calculateRetentionScore(data) {
+    const categories = data[1][0].personalDataAsset;
+
+    let totalCategoryCount = 0;
+    let categoryPoint = 0;
+
+    const deletionValues = [];
+    const retentionValues = [];
+
+    categories.forEach(categoryObj => {
+        const categoryDetails = Object.entries(categoryObj)[0][1];
+
+        const retentionPeriodForMHR = getCategoryFieldValue(categoryDetails, "retentionPeriodForMHR");
+        const specialCircumstance = getCategoryFieldValue(categoryDetails, "specialCircumtance");
+        const enforcementMeasure = getCategoryFieldValue(categoryDetails, "enforcementMeasure");
+        const retentionPeriod = getCategoryFieldValue(categoryDetails, "retentionPeriod");
+
+        // a: category point logic
+        if (
+            retentionPeriodForMHR === "up to 30 years after death" ||
+            retentionPeriodForMHR === "100 years"
+        ) {
+            categoryPoint += 1;
+            totalCategoryCount++;
+        } else if (
+            retentionPeriodForMHR === "unsure" &&
+            specialCircumstance === "no"
+        ) {
+            categoryPoint += 0;
+            totalCategoryCount++;
+        } else if (
+            retentionPeriodForMHR === "unsure" &&
+            specialCircumstance === "unsure"
+        ) {
+            categoryPoint += 0.5;
+            totalCategoryCount++;
+        } else {
+            categoryPoint += 1;
+            totalCategoryCount++;
+        }
+
+        // b: deletion / enforcement
+        // clarified rules:
+        // manually deleted = manual bad
+        // unsure = manual bad
+        // upon patient request = good
+
+        if (
+            enforcementMeasure === "manually deleted" ||
+            enforcementMeasure === "unsure"
+        ) {
+            deletionValues.push("manual");
+        } else if (enforcementMeasure === "upon patient request") {
+            deletionValues.push("good");
+        } else {
+            deletionValues.push("good");
+        }
+
+        // c: retention period
+        retentionValues.push(retentionPeriod);
+    });
+
+    const a = totalCategoryCount === 0 ? 0 : categoryPoint / totalCategoryCount;
+
+    // b
+    let deletionScore = 0;
+    let deletionCount = 0;
+
+    deletionValues.forEach(value => {
+        if (value === "good") {
+            deletionScore += 2;
+            deletionCount++;
+        } else if (value === "manual") {
+            deletionScore += 1;
+            deletionCount++;
+        }
+    });
+
+    const b = deletionCount === 0
+        ? 0
+        : normalizeScore(deletionScore, 1 * deletionCount, 2 * deletionCount);
+
+    // c
+    let retentionScoreRaw = 0;
+    let retentionCount = 0;
+
+    retentionValues.forEach(value => {
+        if (value === "information is kept indefinitely") {
+            retentionScoreRaw += -1;
+            retentionCount++;
+        } else if (value === "unsure" || value === "unknown" || value === "") {
+            retentionScoreRaw += 1;
+            retentionCount++;
+        } else {
+            retentionScoreRaw += 2;
+            retentionCount++;
+        }
+    });
+
+    const c = retentionCount === 0
+        ? 0
+        : normalizeScore(retentionScoreRaw, -1 * retentionCount, 2 * retentionCount);
+
+    const finalScore = ((a + b + c) / 3) * 10;
+    return Number(finalScore.toFixed(1));
 }
