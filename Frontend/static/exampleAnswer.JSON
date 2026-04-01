@@ -8,12 +8,12 @@
                     {"attributeCollected": ["Name", "DOB", "Phone number", "Email", "Address"]}, 
                     {"collectionPurpose": "Legal Obligation"}, 
                     {"consent": "yes"}, 
-                    {"essential": "no"}, 
-                    {"lessDetailed": "yes"}, 
-                    {"retentionPeriodForMHR": "unsure"}, 
-                    {"retentionPeriod": "Information is kept indefinitely"}, 
-                    {"specialCircumstance": "unsure"}, 
-                    {"enforcementMeasure": "manually deleted"}
+                    {"essential": "yes"}, 
+                    {"lessDetailed": "no"}, 
+                    {"retentionPeriodForMHR": "Up to 30 years after death"}, 
+                    {"retentionPeriod": "Information is not kept once no longer needed."}, 
+                    {"specialCircumstance": "yes"}, 
+                    {"enforcementMeasure": "automantically deleted"}
                     ]
                 }, 
                 {"Government-issued identifiers": 
@@ -37,9 +37,9 @@
                     {"essential": "yes"}, 
                     {"lessDetailed": "no"}, 
                     {"retentionPeriodForMHR": "unsure"}, 
-                    {"retentionPeriod": "Information is kept as long as required by law."}, 
-                    {"specialCircumstance": "Yes, for research or statistical purpose"}, 
-                    {"enforcementMeasure": "upon patient request"}
+                    {"retentionPeriod": "Information is kept indefinitely"}, 
+                    {"specialCircumstance": "unsure"}, 
+                    {"enforcementMeasure": "manually deleted"}
                     ]
                 }
 

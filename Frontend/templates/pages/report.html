@@ -61,20 +61,20 @@
 
       <div class="summary-scores">
         <div class="score-card">
-          <h3 class="high-score-collection">Medium</h3>
+          <h3 id="minimisation-score" class="high-score-collection"></h3>
           <p>Minimisation Score</p>
         </div>
 
         <div class="score-card">
-          <h3 class="high-score-retention">High</h3>
+          <h3 id="retention-score" class="high-score-retention"></h3>
           <p>Retention Score</p>
         </div>
       </div>
 
       <div class="summary-status">
-        <p><strong>8</strong> Data Asset Categories Assessed</p>
-        <p><strong>3</strong> Areas Requiring Action</p>
-        <p><strong>4</strong> Recommendations Provided</p>
+        <p><strong id="total-categories"></strong> Data Asset Categories Assessed</p>
+        <p><strong id="areas-action"></strong> Areas Requiring Action</p>
+        <p><strong id="recommendations-count"></strong> Recommendations Provided</p>
       </div>
     </section>
     </div>
@@ -161,12 +161,13 @@
 
     <!-- Detailed Assessment by Category -->
     <div class="container">
-    <section class="detailed-assessment">
+    <section class="detailed-assessment" id="findingsByCategories">
       <h2>Detailed Assessment by Category</h2>
       <p>
         Each data category is assessed against data minimisation, consent, retention, and documentation controls. Items are flagged to indicate compliance status and areas requiring review.
       </p>
 
+  <!--
     <article class="category">
 
       <div class="category-header">
@@ -232,6 +233,7 @@
       </div>
 
     </article>
+  -->
     </section>
     </div>
 
@@ -474,6 +476,7 @@
     </section>
     </div>
 
-<script src="../../../Backend/functions.js"></script>
+    <script src="{{ url_for('static', filename='js/script_latest.js') }}"></script>
+
 </body>
 </html>
