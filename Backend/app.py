@@ -48,6 +48,16 @@ def GA1():
     """Government Data Asset Questionnaire (Part 1)"""
     return render_template('pages/3A_GovAssetQ.html')
 
+@app.route('/CA1')
+def CA1():
+    """Consumer-Contributed Health Data Assets"""
+    return render_template('pages/4A_Consumer.html')
+
+@app.route('/CH1')
+def CH1():
+    """Child Health Data Assets"""
+    return render_template('pages/5A_ChildHealth.html')
+
 @app.route('/report')
 def report():
     """Report"""

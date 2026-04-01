@@ -124,9 +124,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // - Get Data Asset Name 
     const DATA_ASSET = Object.keys(data[1][0])[0]
-    createElement("h1", DATA_ASSET, container)    
+    createElement("h1", DATA_ASSET, container)
 
+    // - Loop through categories
+    const categories = data[1][0].personalDataAsset;
+
+    // - Get total number of unnecessary attributes collected for cost reduction 
+    let NUMBER_OF_ATTRIBUTES = 0;
+    let NUMBER_OF_CATEGORIES = 0;
+    
+    
     for (const category of categories){
+        NUMBER_OF_CATEGORIES ++;
         const [categoryName, categoryDetails] = Object.entries(category)[0];
 
         // - List category name 
@@ -146,9 +155,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         getCategoryLabel(violation, container)
 
         // - Add to counter for category with violation
+        // - Get number of attributes and add to total of attributes
         if (violation > 0){
             badCategoryCount ++;
+            NUMBER_OF_ATTRIBUTES = NUMBER_OF_ATTRIBUTES + categoryDetails[0]["attributeCollected"].length
         }
+
+        
+        
     }
 }
     // Areas requiring action
@@ -160,6 +174,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // == End of Detailed Findings by Categories == 
     // ------------------------------------- 
+    // == Cost Reduction Section == 
+    let storageCost = 0;
+    let administrationCost = 0;
+    let regulatoryCost = 0;
+
+    const PERCENTAGE_OF_BAD_CATEGORIES = badCategoryCount / NUMBER_OF_CATEGORIES;
+    
+    [storageCost, administrationCost, regulatoryCost] = calculateCost(NUMBER_OF_ATTRIBUTES, PERCENTAGE_OF_BAD_CATEGORIES)
+    createElement("p", `storage cost: ${storageCost}`, container)
+    createElement("p", `regulartory cost: ${regulatoryCost}`, container)
+    createElement("p", `administration cost: ${administrationCost}`, container)
+
     
 
 });
@@ -223,7 +249,6 @@ function listAttributes(categoryDetails, container){
 }
 
 
-
 function checkGenericRules (categoryDetails, violationNumber, container){
     // check items that do not need to be compared against MHR Act or Privacy Act
     // Arg: 
@@ -257,9 +282,11 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         // check if consent is no or unsure 
         if ("consent" in item && (item.consent == "no" || item.consent == "unsure")){
             createElement("p", "These attributes may be collected with no consent. Collecting data after acquiring consent is advised by My Health Act 2012.", container)
-            createElement("a", "My Health Records Act 2012 - Part 3 - Registration", container)
+            createElement("a", "My Health Records Act 2012 - Part 3 - Registratgit puion", container)
             violationNumber ++;
+
         }
+
 
         // check if less detailed version can be collected 
         if ("lessDetailed" in item && (item.lessDetailed == "yes" || item.lessDetailed == "unsure")){

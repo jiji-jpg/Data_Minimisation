@@ -8,11 +8,10 @@
 </head>
 <body>
   {% include 'components/header.html' %}
-
   <main>
     <h1>Data Minimisation for Healthcare providers</h1>
     
-    <div class="page-subtitle">Personal Data Asset / Personal Details and Contact Details</div>
+    <div class="page-subtitle">Heath Data Asset  / Consumer-Contributed Health Data Assets</div>
     
     <div class="text-body">
       Please select and answer all that applies to your organisation for a detailed analysis.<br>
@@ -21,81 +20,82 @@
     
     <div class="panel panel-padded"> 
       <div class="form-section">
-        <h2>Personal Details</h2>
-        
         <div class="checkbox-grid">
+             <h2>Uploaded Personal Details</h2>
+             <h2>Self-Reported Health Information</h2>
           <label class="checkbox-label">
-            <input type="checkbox" id="Name"/>
+            <input type="checkbox" id="ContactEmergencyDetails"/>
             <span class="label-text">
-              <span class="label-title">Name</span>
-              <span class="label-desc">eg. First name, Last name, Full name, Maiden name, Middle name, Nickname, etc.</span>
+              <span class="label-title">Contact & Emergency Details</span>
+              <span class="label-desc"></span>
             </span>
           </label>
-          
           <label class="checkbox-label">
-            <input type="checkbox" id="Phone" />
+            <input type="checkbox" id="CurrentMedicines" />
             <span class="label-text">
-              <span class="label-title">Phone Number</span>
-              <span class="label-desc">eg. Home phone number, mobile phone number, work phone number, etc.</span>
+              <span class="label-title">Current Medicines</span>
+              <span class="label-desc"></span>
             </span>
           </label>
-          
           <label class="checkbox-label">
-            <input type="checkbox" id="DOB" />
+            <input type="checkbox" id="PreferredLanguage"/>
             <span class="label-text">
-              <span class="label-title">Date of Birth</span>
-              <span class="label-desc">eg. Full D.O.B, only birth month, only birth year, etc.</span>
+              <span class="label-title">Preferred Language</span>
+              <span class="label-desc"></span>
             </span>
           </label>
-          
           <label class="checkbox-label">
-            <input type="checkbox" id="Email" />
+            <input type="checkbox" id="AllergyInformation" />
             <span class="label-text">
-              <span class="label-title">Email</span>
-              <span class="label-desc">eg. Work email, personal email, etc.</span>
+              <span class="label-title">Allergy Information</span>
+              <span class="label-desc"></span>
             </span>
           </label>
-          
           <label class="checkbox-label">
-            <input type="checkbox" id="Gender" />
+            <input type="checkbox" id="COB"/>
             <span class="label-text">
-              <span class="label-title">Gender</span>
-              <span class="label-desc">eg. Male, Female, Non-binary, etc.</span>
+              <span class="label-title">Country of Birth</span>
+              <span class="label-desc"></span>
             </span>
           </label>
-          
           <label class="checkbox-label">
-            <input type="checkbox" id="PostAddress" />
+            <input type="checkbox" id="PersonalHealthNotes" />
             <span class="label-text">
-              <span class="label-title">Postal Address</span>
-              <span class="label-desc">eg. Delivery address</span>
+              <span class="label-title">Personal Health Notes</span>
+              <span class="label-desc"></span>
             </span>
           </label>
-          
-          <label class="checkbox-label">
-            <input type="checkbox" id="Address" />
+        </div>        
+            <br>
+          <h2>Identity & Care Preferences</h2>
+         <label class="checkbox-label">
+            <input type="checkbox" id="Indigenous" />
             <span class="label-text">
-              <span class="label-title">Address</span>
-              <span class="label-desc">eg. Home address, work address, etc.</span>
+              <span class="label-title">Indigenous</span>
+              <span class="label-desc"></span>
+            </span>
+          </label><br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="VeteranStatus" />
+            <span class="label-text">
+              <span class="label-title">Veteran Status</span>
+              <span class="label-desc"></span>
+            </span>
+          </label><br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="AdvanceCarePlan" />
+            <span class="label-text">
+              <span class="label-title">Advance Care Plan</span>
+              <span class="label-desc"></span>
+            </span>
+          </label><br>
+          <label class="checkbox-label">
+            <input type="checkbox" id="CustodianDetails" />
+            <span class="label-text">
+              <span class="label-title">Custodian Details</span>
+              <span class="label-desc"></span>
             </span>
           </label>
-          
-          <label class="checkbox-label">
-            <input type="checkbox" id="Fax" />
-            <span class="label-text">
-              <span class="label-title">Fax</span>
-              <span class="label-desc">eg. Work fax, home fax, etc.</span>
-            </span>
-          </label>
-          
-          <label class="checkbox-label">
-            <input type="checkbox" id="Sign" />
-            <span class="label-text">
-              <span class="label-title">Signature</span>
-              <span class="label-desc">eg. Penned/digital signature, initials, finger prints, etc.</span>
-            </span>
-          </label>
-        </div>
       </div>
         <label class="checkbox-label skip-section-label">
           <input type="checkbox" id="skipSection" />
@@ -112,67 +112,67 @@
     <br>
     <div class="checkbox-grid">
       <label class="checkbox-label">
-        <input type="checkbox" id="ClinicalCare-1A"/>
+        <input type="checkbox" id="ClinicalCare-4A"/>
         <span class="label-text">
           <span class="text-small">Clinical Care</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="SystemManagement-1A" />
+        <input type="checkbox" id="SystemManagement-4A" />
         <span class="label-text">
           <span class="text-small">System Management and Audit</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="LegalObligation-1A" />
+        <input type="checkbox" id="LegalObligation-4A" />
         <span class="label-text">
           <span class="text-small">Legal Obligation</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="CourtOrder-1A" />
+        <input type="checkbox" id="CourtOrder-4A" />
         <span class="label-text">
           <span class="text-small">Court Order</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="SeriousThreat-1A" />
+        <input type="checkbox" id="SeriousThreat-4A" />
         <span class="label-text">
           <span class="text-small">Serious Threat or Emergency</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="InsuranceIndemnity-1A" />
+        <input type="checkbox" id="InsuranceIndemnity-4A" />
         <span class="label-text">
           <span class="text-small">Insurance Indemnity or Professional Liability Only</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="Marketing-1A" />
+        <input type="checkbox" id="Marketing-4A" />
         <span class="label-text">
           <span class="text-small">Marketing</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="Operational-1A" />
+        <input type="checkbox" id="Operational-4A" />
         <span class="label-text">
           <span class="text-small">Operational or Business Operation</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="HumanResource-1A" />
+        <input type="checkbox" id="HumanResource-4A" />
         <span class="label-text">
           <span class="text-small">Human Resource</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="GeneralInsurance-1A" />
+        <input type="checkbox" id="GeneralInsurance-4A" />
         <span class="label-text">
           <span class="text-small">General Insurance</span>
         </span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="UnsurePurpose-1A" />
+        <input type="checkbox" id="UnsurePurpose-4A" />
         <span class="label-text">
           <span class="text-small">Unsure</span>
         </span>
@@ -225,7 +225,7 @@
       
       <div class="text-small">1. What is the usual retention period for My Health Record information?</div>
       <div class="custom-select">
-        <select id="Question1-1A">
+        <select id="Question1-4A">
           <option value="">Select</option>
           <option value="Up to 30 Years After Death">Up to 30 Years After Death</option>
           <option value="Up to 130 Years After Birth">Up to 130 Years After Birth</option>
@@ -235,7 +235,7 @@
       
       <div class="text-small" style="margin-top: 1rem;">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
       <div class="custom-select">
-        <select id="Question2-1A">
+        <select id="Question2-4A">
           <option value="">Select</option>
           <option value="Information is not kept once it is no longer needed">Information is not kept once it is no longer needed.</option>
           <option value="Information is kept as long as required by law">Information is kept as long as required by law.</option>
@@ -246,7 +246,7 @@
 
       <div class="text-small" style="margin-top: 1rem;">3. Are there special circumstances where information may be retained beyond the standard limit?</div>
       <div class="custom-select">
-        <select id="Question3-1A">
+        <select id="Question3-4A">
           <option value="">Select</option>
           <option value="Yes, for legal or audit requirements">Yes, for legal or audit requirements.</option>
           <option value="Yes, for research or statistical purposes">Yes, for research or statistical purposes.</option>
@@ -263,38 +263,38 @@
       <span class="text-small">How is the selected category(s) information deleted from the system?<br>You may select more than one:</span><br><br>
         <div class="checkbox-grid">
           <label class="checkbox-label">
-            <input type="checkbox" id="AutomaticallyDeleted-1A"/>
+            <input type="checkbox" id="AutomaticallyDeleted-4A"/>
             <span class="label-text">
               <span class="text-small">Automatically deleted</span>
             </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="SecurelyDestroyedP-1A" />
+            <input type="checkbox" id="SecurelyDestroyedP-4A" />
             <span class="label-text">
               <span class="text-small">Securely destroyed</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="ManualDeletion-1A" />
+            <input type="checkbox" id="ManualDeletion-4A" />
             <span class="label-text">
               <span class="text-small">Manually deleted or archived by authorised staff</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="UponPR-1A" />
+            <input type="checkbox" id="UponPR-4A" />
             <span class="label-text">
               <span class="text-small">Upon patient request</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="DeIdentified-1A" />
+            <input type="checkbox" id="DeIdentified-4A" />
             <span class="label-text">
               <span class="text-small">De-identified</span>
               <span class="label-desc">(personal details removed but data kept for analysis)</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="Unsure-1A" />
+            <input type="checkbox" id="Unsure-4A" />
             <span class="label-text">
               <span class="text-small">Unsure</span>
               </span>
@@ -302,10 +302,9 @@
         </div>
     </div>
 
-
     <div class="btn-container">
-      <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
-      <a href="{{ url_for('DA2') }}" class="btn btn-secondary" id="continueBtn">Continue</a>
+       <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
+      <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary" id="continueBtn">Continue</a>
     </div>
   </main>
 
