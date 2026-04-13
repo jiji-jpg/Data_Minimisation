@@ -9,7 +9,7 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
     if (container) {
 
         // - Get Data Asset Name
-        const DATA_ASSET = Object.keys(data[1][0])[0];
+        const DATA_ASSET = Object.keys(data["data"][1])[0];
         createElement("h1", DATA_ASSET, container);
 
         // - Loop through categories
