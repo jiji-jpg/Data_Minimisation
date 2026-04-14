@@ -35,7 +35,7 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             violation = checkGenericRules(categoryDetails, violation, container);
             violation = checkPrivacyAct(categoryName, privacyAct, categoryDetails, violation, container);
             violation = checkMHRAct(useMHR, violation, categoryDetails, mhrAct, container);
-
+            console.log("violation", violation)
             // - Attach label to the category 
             getCategoryLabel(violation, container);
 
@@ -43,7 +43,9 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             // - Get number of attributes and add to total of attributes
             if (violation > 0) {
                 badCategoryCount++;
+                
                 NUMBER_OF_ATTRIBUTES += categoryDetails[0]["attributeCollected"].length;
+                
             }
             
         }

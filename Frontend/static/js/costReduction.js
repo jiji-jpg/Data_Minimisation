@@ -1,5 +1,5 @@
 function renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_CATEGORIES) {
-
+    
     const container = document.getElementById("findingsByCategories");
 
     let storageCost = 0;

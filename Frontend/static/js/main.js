@@ -21,15 +21,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     let NUMBER_OF_ATTRIBUTES = 0;
 
     
+    
+    
+    // renderExecutiveSummary(data, categories, result.badCategoryCount);
+    // renderKeyFindings(data, mhrAct, privacyAct, useMHR);
     const result = renderFindingsByCategory(data, mhrAct, privacyAct, useMHR);
-    renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_CATEGORIES);
-    renderExecutiveSummary(data, categories, result.badCategoryCount);
-    renderKeyFindings(data, mhrAct, privacyAct, useMHR);
-
+    
     badCategoryCount = result.badCategoryCount;
     NUMBER_OF_CATEGORIES = result.NUMBER_OF_CATEGORIES;
     NUMBER_OF_ATTRIBUTES = result.NUMBER_OF_ATTRIBUTES;
-
+    renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_CATEGORIES);
     
 
 });
