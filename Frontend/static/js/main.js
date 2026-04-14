@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const useMHR = checkMHR(data["data"][0]["collectMyHealthRecord"]);
 
     // - Loop through categories
-    const categories = data["data"][1][0].personalDataAsset;
+    // const categories = data["data"][1][0].personalDataAsset;
 
     let badCategoryCount = 0;
     let NUMBER_OF_CATEGORIES = 0;
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     
     // renderExecutiveSummary(data, categories, result.badCategoryCount);
-    // renderKeyFindings(data, mhrAct, privacyAct, useMHR);
+    renderKeyFindings(data, mhrAct, privacyAct, useMHR);
     const result = renderFindingsByCategory(data, mhrAct, privacyAct, useMHR);
     
     badCategoryCount = result.badCategoryCount;
