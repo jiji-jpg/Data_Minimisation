@@ -8,13 +8,15 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
 
     if (container) {
 
+        const dataAssets = Object.entries(data["data"][1][0]);
+        
+        for (const [DATA_ASSET, categories] of dataAssets){
+
+        
+        
         // - Get Data Asset Name
-        const DATA_ASSET = Object.keys(data["data"][1])[0];
         createElement("h1", DATA_ASSET, container);
-
-        // - Loop through categories
-        const categories = data[1][0].personalDataAsset;
-
+        
         // - Get total number of unnecessary attributes collected for cost reduction
 
 
@@ -43,7 +45,9 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
                 badCategoryCount++;
                 NUMBER_OF_ATTRIBUTES += categoryDetails[0]["attributeCollected"].length;
             }
+            
         }
+    }
     }
 
     return {
@@ -107,7 +111,7 @@ function createElement(elementType, text, container){
 
 function listAttributes(categoryDetails, container){
     const ATTRIBUTES_COLLECTED = categoryDetails[0]["attributeCollected"]
-    createElement("p", `attributes collected: ${ATTRIBUTES_COLLECTED.join(", ")}`, container)
+    createElement("p", `Attributes collected: ${ATTRIBUTES_COLLECTED.join(", ")}`, container)
 
 }
 
@@ -251,7 +255,7 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
         const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriod"]["violation"].map(v => v.toLowerCase().trim().replace(/\.$/, ""));
         const RETENTION_SECTION = MHRAct[2]["MyHealthRecordSection"]
 
-        const RETENTION_PERIOD = categoryDetails[5]["retentionPeriodForMHR"].toLowerCase().trim().replace(/\.$/, "")
+        const RETENTION_PERIOD = categoryDetails[5]["retentionPeriodMHR"].toLowerCase().trim().replace(/\.$/, "")
         
         if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD)){
             createElement("p", `My Health Record Act 2012 advises against ${BAD_RETENTION_PERIOD.join(", ")}`, container);
