@@ -61,20 +61,20 @@
 
       <div class="summary-scores">
         <div class="score-card">
-          <h3 class="high-score-collection">Medium</h3>
+          <h3 id="minimisation-score" class="high-score-collection"></h3>
           <p>Minimisation Score</p>
         </div>
 
         <div class="score-card">
-          <h3 class="high-score-retention">High</h3>
+          <h3 id="retention-score" class="high-score-retention"></h3>
           <p>Retention Score</p>
         </div>
       </div>
 
       <div class="summary-status">
-        <p><strong>8</strong> Data Asset Categories Assessed</p>
-        <p><strong>3</strong> Areas Requiring Action</p>
-        <p><strong>4</strong> Recommendations Provided</p>
+        <p><strong id="total-categories"></strong> Data Asset Categories Assessed</p>
+        <p><strong id="areas-action"></strong> Areas Requiring Action</p>
+        <p><strong id="recommendations-count"></strong> Recommendations Provided</p>
       </div>
     </section>
     </div>
@@ -161,12 +161,13 @@
 
     <!-- Detailed Assessment by Category -->
     <div class="container">
-    <section class="detailed-assessment">
+    <section class="detailed-assessment" id="findingsByCategories">
       <h2>Detailed Assessment by Category</h2>
       <p>
         Each data category is assessed against data minimisation, consent, retention, and documentation controls. Items are flagged to indicate compliance status and areas requiring review.
       </p>
 
+  <!--
     <article class="category">
 
       <div class="category-header">
@@ -232,6 +233,7 @@
       </div>
 
     </article>
+  -->
     </section>
     </div>
 
@@ -365,62 +367,14 @@
 
     <!-- Recommended Actions -->
     <div class="container">
-    <section class="recommended-actions">
-      <h2>Recommended Actions</h2>
-      <p>
-          The following actions are prioritised to reduce regulatory and cybersecurity risk while maintaining operational continuity. Timeframes reflect practical implementation effort and risk severity.
-      </p>
-
-      <article class="priority-high">
-        <h3>Display Records of Why Each Data Category was Collected</h3>
-        <!--<p>
-          Conduct a structured review of all patient intake and administrative forms to confirm the necessity of each data field. 
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-
-      <article class="priority-high">
-        <h3>Data Collection for the Following Should Cease</h3>
-        <!--<p>
-          Introduce consistent consent capture mechanisms for sensitive and non-essential personal data. Ensure consent evidence is securely stored and auditable.
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-
-      <article class="priority-medium">
-        <h3>Staff Training on Data Collection Consent Necessary</h3>
-        <!--<p>
-          Define and document retention periods for each data category in alignment with applicable obligations and clinical requirements. Apply schedules consistently across all systems.
-        </p>-->
-        <p><strong>Improvement Recommended</strong></p>
-      </article>
-
-      <article class="priority-high">
-        <h3>Unnecessary Data Collection Should Cease</h3>
-        <!--<p>
-          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-
-      <article class="priority-high">
-        <h3>Review Data Retention Schedule</h3>
-        <!--<p>
-          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-
-      <article class="priority-high">
-        <h3>Enable Automatic Deletion</h3>
-        <!--<p>
-          Introduce automated deletion or archiving processes linked to approved retention schedules to reduce reliance on manual intervention and improve enforcement consistency.
-        </p>-->
-        <p><strong>Priority Attention Suggested</strong></p>
-      </article>
-    </section>
+      <section class="recommended-actions">
+          <h2>Recommended Actions</h2>
+          <p>
+              The following actions are prioritised to reduce regulatory and cybersecurity risk while maintaining operational continuity. Timeframes reflect practical implementation effort and risk severity.
+          </p>
+          <div id="recommended-actions-list"></div>
+      </section>
     </div>
-
     <!-- Cost Reduction -->
     <div class="container">
     <section class="cost-reduction">
@@ -474,6 +428,17 @@
     </section>
     </div>
 
-<script src="../../../Backend/functions.js"></script>
+    <!-- OLD
+    <script src="{{ url_for('static', filename='js/script_latest.js') }}"></script>
+    -->
+
+    <!--NEW-->
+    <script src="{{ url_for('static', filename='js/functions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/keyFinding.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/executiveSummary.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/findingsByCategory.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/costReduction.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='recommendedActions.js') }}"></script>
 </body>
 </html>

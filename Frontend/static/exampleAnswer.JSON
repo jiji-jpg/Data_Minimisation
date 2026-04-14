@@ -1,50 +1,270 @@
-[
-    {"collectMyHealthRecord": "Yes"}, 
+{
+  "data": [
+    {
+      "collectMyHealthRecord": "unsure"
+    },
     [
-        {"personalDataAsset":
-            [
-                {"personalDetailsAndContactDetails": 
-                    [
-                    {"attributeCollected": ["Name", "DOB", "Phone number", "Email", "Address"]}, 
-                    {"collectionPurpose": "Legal Obligation"}, 
-                    {"consent": "yes"}, 
-                    {"essential": "no"}, 
-                    {"lessDetailed": "yes"}, 
-                    {"retentionPeriodForMHR": "unsure"}, 
-                    {"retentionPeriod": "Information is kept indefinitely"}, 
-                    {"specialCircumtance": "unsure"}, 
-                    {"enforcementMeasure": "manually deleted"}
-                    ]
-                }, 
-                {"Government-issued identifiers": 
-                    [
-                    {"attributeCollected": ["Medical Number", "ABN", "ACN"]}, 
-                    {"collectionPurpose": "Operational or Business Operation"}, 
-                    {"consent": "unsure"}, 
-                    {"essential": "unsure"}, 
-                    {"lessDetailed": "no"}, 
-                    {"retentionPeriodForMHR": "Up to 30 years after death"}, 
-                    {"retentionPeriod": "Information is not kept once no longer needed."}, 
-                    {"specialCircumtance": "yes"}, 
-                    {"enforcementMeasure": "unsure"}
-                    ]
-                }, 
-                {"Sensitive Information": 
-                    [
-                    {"attributeCollected": ["Indigenous status", "Date of death", "Cultural identity"]}, 
-                    {"collectionPurpose": "Marketing"}, 
-                    {"consent": "no"}, 
-                    {"essential": "yes"}, 
-                    {"lessDetailed": "no"}, 
-                    {"retentionPeriodForMHR": "unsure"}, 
-                    {"retentionPeriod": "Information is kept as long as required by law."}, 
-                    {"specialCircumtance": "Yes, for research or statistical purpose"}, 
-                    {"enforcementMeasure": "upon patient request"}
-                    ]
-                }
-
+      {
+        "Personal Data Asset": [
+          {
+            "Personal Details": [
+              {
+                "attributeCollected": [
+                  "Name",
+                  "Date of Birth",
+                  "Gender",
+                  "Address"
+                ]
+              },
+              {
+                "collectionPurpose": "Clinical Care"
+              },
+              {
+                "consent": "yes"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "Up to 30 Years After Death"
+              },
+              {
+                "retentionPeriod": "Information is not kept once it is no longer needed."
+              }, 
+              {
+                "enforcementMeasure": "manually deleted"
+              }
             ]
-        }
-        
+          },
+          {
+            "Government-issued identifiers and Sensitive Information": [
+              {
+                "attributeCollected": [
+                  "ABN",
+                  "AutomaticallyDeleted-1B",
+                  "LegalObligation-1B",
+                  "Marketing-1B",
+                  "Medicare",
+                  "SeriousThreat-1B",
+                  "VFN"
+                ]
+              },
+              {
+                "collectionPurpose": "Legal Obligation"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "unsure"
+              },
+              {
+                "retentionPeriodMHR": "Up to 30 Years After Death"
+              },
+              {
+                "retentionPeriod": "Information is not kept once it is no longer needed."
+              }, 
+              {
+                "enforcementMeasure": "automatically deleted"
+              }
+            ]
+          }], 
+        "Health Data Asset": [
+          
+          {
+            "Clinical Health Data": [
+              {
+                "attributeCollected": [
+                  "ABN",
+                  "AutomaticallyDeleted-1B",
+                  "LegalObligation-1B",
+                  "Marketing-1B",
+                  "Medicare",
+                  "SeriousThreat-1B",
+                  "VFN"
+                ]
+              },
+              {
+                "collectionPurpose": "Legal Obligation"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "unsure"
+              },
+              {
+                "retentionPeriodMHR": "Up to 30 Years After Death"
+              },
+              {
+                "retentionPeriod": "Information is not kept once it is no longer needed."
+              }, 
+              {
+                "enforcementMeasure": "automatically deleted"
+              }
+            ]
+          },
+          {
+            "Clinical Records & Prescriptions": [
+              {
+                "attributeCollected": [
+                  "ABN",
+                  "AutomaticallyDeleted-1B",
+                  "LegalObligation-1B",
+                  "Marketing-1B",
+                  "Medicare",
+                  "SeriousThreat-1B",
+                  "VFN"
+                ]
+              },
+              {
+                "collectionPurpose": "Legal Obligation"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "unsure"
+              },
+              {
+                "retentionPeriodMHR": "Up to 30 Years After Death"
+              },
+              {
+                "retentionPeriod": "Information is not kept once it is no longer needed."
+              }, 
+              {
+                "enforcementMeasure": "automatically deleted"
+              }
+            ]
+          }], 
+          "Government Data Asset": [
+          {
+            "Government Health Data": [
+              {
+                "attributeCollected": [
+                  "ABN",
+                  "AutomaticallyDeleted-1B",
+                  "LegalObligation-1B",
+                  "Marketing-1B",
+                  "Medicare",
+                  "SeriousThreat-1B",
+                  "VFN"
+                ]
+              },
+              {
+                "collectionPurpose": "Legal Obligation"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "unsure"
+              },
+              {
+                "retentionPeriodMHR": "Up to 30 Years After Death"
+              },
+              {
+                "retentionPeriod": "Information is not kept once it is no longer needed."
+              }, 
+              {
+                "enforcementMeasure": "automatically deleted"
+              }
+            ]
+          }], 
+          "Consumer-Contributed Health Data Asset": [
+          {
+            "Consumer Contributed Data": [
+              {
+                "attributeCollected": [
+                  "ABN",
+                  "AutomaticallyDeleted-1B",
+                  "LegalObligation-1B",
+                  "Marketing-1B",
+                  "Medicare",
+                  "SeriousThreat-1B",
+                  "VFN"
+                ]
+              },
+              {
+                "collectionPurpose": "Legal Obligation"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "unsure"
+              },
+              {
+                "retentionPeriodMHR": "Up to 30 Years After Death"
+              },
+              {
+                "retentionPeriod": "Information is not kept once it is no longer needed."
+              }, 
+              {
+                "enforcementMeasure": "automatically deleted"
+              }
+            ]
+          }], 
+          "Child Health Data Asset": [
+          {
+            "Child Health Data": [
+              {
+                "attributeCollected": [
+                  "ABN",
+                  "AutomaticallyDeleted-1B",
+                  "LegalObligation-1B",
+                  "Marketing-1B",
+                  "Medicare",
+                  "SeriousThreat-1B",
+                  "VFN"
+                ]
+              },
+              {
+                "collectionPurpose": "Legal Obligation"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "unsure"
+              },
+              {
+                "retentionPeriodMHR": "Up to 30 Years After Death"
+              },
+              {
+                "retentionPeriod": "Information is not kept once it is no longer needed."
+              }, 
+              {
+                "enforcementMeasure": "automatically deleted"
+              }
+            ]
+          }
+        ]
+      }
     ]
-]
+  ],
+  "ok": true,
+  "session_id": "20260331122435885212",
+  "updated_at": "2026-03-31T23:42:44.014042+00:00"
+}

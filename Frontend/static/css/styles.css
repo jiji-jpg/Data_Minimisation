@@ -1387,11 +1387,10 @@ input[type="checkbox"]:hover {
 }
 
 .cost-reduction > p {
-  max-width: 100%
+  max-width: 100%;
   line-height: 1.6;
   margin-bottom: 40px;
 }
-
 /* Cost cards layout */
 
 .cost-cards {
@@ -1484,6 +1483,164 @@ input[type="checkbox"]:hover {
   font-size: 12px;
   font-weight: 600;
   margin-top: 10px;
+}
+
+/* ------------------- Recommended Actions - New UI ------------------- */
+.action-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px 25px 25px 50px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.action-card::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: -25px;
+    width: 3px;
+    background-color: #111111;
+}
+
+.action-card::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 30px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #3f6fd8;
+}
+
+.action-card:last-child::before {
+    bottom: 50%;
+}
+
+.action-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.action-card-header h3 {
+    color: #1f3c88;
+    font-size: 16px;
+    margin: 0;
+}
+
+.action-priority-badge {
+    display: inline-block;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: white;
+    white-space: nowrap;
+}
+
+.priority-high .action-priority-badge {
+    background-color: #ff002f;
+}
+
+.priority-medium .action-priority-badge {
+    background-color: #ff7700;
+}
+
+.priority-low .action-priority-badge {
+    background-color: #1bb273;
+}
+
+.action-intro {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.action-group-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 12px 0 6px;
+}
+
+.action-group-label.label-warn {
+    color: #854f0b;
+}
+
+.action-group-label.label-danger {
+    color: #a32d2d;
+}
+
+.action-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.action-tag {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #e1e5ee;
+    color: #555;
+    background: #f8f9fb;
+}
+
+.action-tag.tag-warn {
+    background: #fff8f0;
+    border-color: #fcd9a8;
+    color: #854f0b;
+}
+
+.action-tag.tag-danger {
+    background: #fff0f0;
+    border-color: #fbb;
+    color: #a32d2d;
+}
+
+.action-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #e1e5ee;
+}
+
+.action-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1f3c88;
+    background-color: transparent;
+    border: 1.5px solid #1f3c88;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.action-links a::before {
+    content: "↗";
+    font-size: 11px;
+}
+
+.action-links a:hover {
+    background-color: #1f3c88;
+    color: white;
 }
 
 /* ==================== DISCLAIMER ==================== */

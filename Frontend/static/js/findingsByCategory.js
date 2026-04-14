@@ -1,97 +1,63 @@
-document.addEventListener("DOMContentLoaded", async () => {
+function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
 
-    const [answerRes, mhrRes, privacyRes] = await Promise.all([
-        fetch("/static/exampleAnswer.json"),
-        fetch("/static/myHealthRecord.json"),
-        fetch("/static/privacyAct.json")
-    ]);
+    const container = document.getElementById("findingsByCategories");
 
-    const data = await answerRes.json();
-    const mhrAct = await mhrRes.json();
-    const privacyAct = await privacyRes.json();
-
-    // == Key Findings == 
-    // purpose violation MHR Act
-    const purposeResult = calculateFromRules(data, mhrAct, "purpose");
-    document.getElementById("mhr-result").textContent =
-        `${purposeResult.violation}% of your data violates the purpose of My Health Record Act.`;
-
-    // purpose = unsure
-    document.getElementById("purpose-unsure-result").textContent =
-        `${purposeResult.unsure}% of your data collection purpose is unknown.`;
-
-    // consent = no
-    const consentResult = calculateFromRules(data, mhrAct, "consent");
-    document.getElementById("consent-result").textContent =
-        `${consentResult.violation}% of data was collected without patient consent, while ${consentResult.unsure}% are unsure.`;
-
-    // less details = yes
-    const lessDetailedResult = calculateFromRules(data, privacyAct, "lessDetailed");
-    document.getElementById("less-detailed-result").textContent =
-        `${lessDetailedResult.violation}% of attributes can have less detailed version collected, while ${lessDetailedResult.unsure}% are unsure.`;
-
-    // essential = no
-    const essentialResult = calculateFromRules(data, privacyAct, "essential");
-    document.getElementById("non-essential-result").textContent =
-        `${essentialResult.violation}% of attributes are not essential, while ${essentialResult.unsure}% are unsure.`;
-    
-    // == End of Key Findings == 
-
-    // ------------------------------------- 
-    
-    // == Executive Summary == 
-
-    // - Create counter for category with violations
     let badCategoryCount = 0;
-    // == End of Executive Summary 
-    
-    // ------------------------------------- 
-    
-    // == Detailed Findings by Categories == 
-    const container = document.getElementById("findingsByCategories")
+    let NUMBER_OF_CATEGORIES = 0;
+    let NUMBER_OF_ATTRIBUTES = 0;
 
-    
-    // - Get if collect MHR
-    const MHR_COLLECTED = checkMHR(data[0]["collectMyHealthRecord"])
+    if (container) {
 
-    // - Get Data Asset Name 
-    const DATA_ASSET = Object.keys(data[1][0])[0]
-    createElement("h1", DATA_ASSET, container)
-
-    // - Loop through categories
-    const categories = data[1][0].personalDataAsset;
-    
-    
-    for (const category of categories){
-        const [categoryName, categoryDetails] = Object.entries(category)[0];
-
-        // - List category name 
-        createElement("h2", categoryName, container)
+        const dataAssets = Object.entries(data["data"][1][0]);
         
-        // - List attributes collected for the category 
-        listAttributes(categoryDetails, container)
+        for (const [DATA_ASSET, categories] of dataAssets){
+
         
-        // - Check violation
-        let violation = 0;
-        violation = checkGenericRules(categoryDetails, violation, container)
-        violation = checkPrivacyAct(categoryName, privacyAct, categoryDetails, violation, container)
-        violation = checkMHRAct(MHR_COLLECTED, violation, categoryDetails, mhrAct, container)
-    
+        
+        // - Get Data Asset Name
+        createElement("h1", DATA_ASSET, container);
+        
+        // - Get total number of unnecessary attributes collected for cost reduction
 
-        // - Attach label to the category 
-        getCategoryLabel(violation, container)
 
-        // - Add to counter for category with violation
-        if (violation > 0){
-            badCategoryCount ++;
-        } 
+        for (const category of categories) {
+            NUMBER_OF_CATEGORIES++;
+            const [categoryName, categoryDetails] = Object.entries(category)[0];
+
+            // - List category name 
+            createElement("h2", categoryName, container);
+
+            // - List attributes collected for the category 
+            listAttributes(categoryDetails, container);
+
+            // - Check violation
+            let violation = 0;
+            violation = checkGenericRules(categoryDetails, violation, container);
+            violation = checkPrivacyAct(categoryName, privacyAct, categoryDetails, violation, container);
+            violation = checkMHRAct(useMHR, violation, categoryDetails, mhrAct, container);
+            console.log("violation", violation)
+            // - Attach label to the category 
+            getCategoryLabel(violation, container);
+
+            // - Add to counter for category with violation
+            // - Get number of attributes and add to total of attributes
+            if (violation > 0) {
+                badCategoryCount++;
+                
+                NUMBER_OF_ATTRIBUTES += categoryDetails[0]["attributeCollected"].length;
+                
+            }
+            
+        }
+    }
     }
 
-    // == End of Detailed Findings by Categories == 
-    // ------------------------------------- 
-    
-
-});
+    return {
+        badCategoryCount,
+        NUMBER_OF_CATEGORIES,
+        NUMBER_OF_ATTRIBUTES
+    };
+}
 
 // == Functions for Detailed Assessment by Category ==
 
@@ -147,10 +113,9 @@ function createElement(elementType, text, container){
 
 function listAttributes(categoryDetails, container){
     const ATTRIBUTES_COLLECTED = categoryDetails[0]["attributeCollected"]
-    createElement("p", `attributes collected: ${ATTRIBUTES_COLLECTED.join(", ")}`, container)
+    createElement("p", `Attributes collected: ${ATTRIBUTES_COLLECTED.join(", ")}`, container)
 
 }
-
 
 
 function checkGenericRules (categoryDetails, violationNumber, container){
@@ -179,16 +144,18 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         
         // check if purpose is unsure 
         if ("collectionPurpose" in item && item.collectionPurpose === "unsure"){
-            createElement("p", "These attributes have unknown collection purpose.")
+            createElement("p", "These attributes have unknown collection purpose.",container)
             violationNumber ++;
         }
         
         // check if consent is no or unsure 
         if ("consent" in item && (item.consent == "no" || item.consent == "unsure")){
             createElement("p", "These attributes may be collected with no consent. Collecting data after acquiring consent is advised by My Health Act 2012.", container)
-            createElement("a", "My Health Records Act 2012 - Part 3 - Registration", container)
+            createElement("a", "My Health Records Act 2012 - Part 3 - Registratgit puion", container)
             violationNumber ++;
+
         }
+
 
         // check if less detailed version can be collected 
         if ("lessDetailed" in item && (item.lessDetailed == "yes" || item.lessDetailed == "unsure")){
@@ -212,12 +179,11 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         }
 
         // check enforcement measure 
-        if ("enforcementMeasure" in item && item.enforcementMeasure == "manually deleted" || item.enforcementMeasure == "unsure"){
+        if ("enforcementMeasure" in item && 
+            (item.enforcementMeasure == "manually deleted" || item.enforcementMeasure == "unsure")) {
             createElement("p", "These attributes are manually deleted after retention period or have unknown enforcement measure.", container)
             violationNumber ++;
-
         }
-    
     
     }
     
@@ -288,10 +254,10 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
         }
 
         // Get MHR Act retention purpose 
-        const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriod"]["violation"]
+        const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriod"]["violation"].map(v => v.toLowerCase().trim().replace(/\.$/, ""));
         const RETENTION_SECTION = MHRAct[2]["MyHealthRecordSection"]
 
-        const RETENTION_PERIOD = categoryDetails[1]["collectionPurpose"].toLowerCase()
+        const RETENTION_PERIOD = categoryDetails[5]["retentionPeriodMHR"].toLowerCase().trim().replace(/\.$/, "")
         
         if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD)){
             createElement("p", `My Health Record Act 2012 advises against ${BAD_RETENTION_PERIOD.join(", ")}`, container);
@@ -318,53 +284,3 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
 
 
 // == End of Functions for Detailed Assessment == 
-
-// -------------------------------------------------
-
-// == Functions for Key Findings == 
-function calculateFromRules(data, rules, field) {
-    const categories = data[1][0].personalDataAsset;
-
-    let total = 0;
-    let violationCount = 0;
-    let unsureCount = 0;
-
-    // find violation in json files
-    const ruleObj = rules.find(r => r[field] !== undefined);
-    if (!ruleObj) return { violation: 0, unsure: 0 };
-
-    const violationValues = ruleObj[field].violation?.map(v => v.toLowerCase()) || [];
-    const unsureValues = ruleObj[field].unsure?.map(v => v.toLowerCase()) || [];
-
-    categories.forEach(categoryObj => {
-        const details = categoryObj[Object.keys(categoryObj)[0]];
-
-        let obj;
-
-        // the percentage of unsure is calculated individually in purpose section
-        if (field === "purpose") {
-            obj = details.find(item => item.collectionPurpose !== undefined);
-        } else {
-            obj = details.find(item => item[field] !== undefined);
-        }
-
-        if (obj) {
-            total++;
-
-            const value = field === "purpose"
-                ? obj.collectionPurpose.toLowerCase()
-                : obj[field].toLowerCase();
-
-            if (violationValues.includes(value)) {
-                violationCount++;
-            } else if (unsureValues.includes(value)) {
-                unsureCount++;
-            }
-        }
-    });
-
-    return {
-        violation: total === 0 ? 0 : Math.round((violationCount / total) * 100),
-        unsure: total === 0 ? 0 : Math.round((unsureCount / total) * 100)
-    };
-}

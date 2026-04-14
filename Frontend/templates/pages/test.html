@@ -8,16 +8,32 @@
 
   <h1 id="key-finding-title"> Key Findings</h1>
   <h2> Data Collection Granularity Issues </h2>
-
   <p id="mhr-result"></p>
   <p id="purpose-unsure-result"></p>
   <p id="consent-result"></p>
   <p id="less-detailed-result"></p>
   <p id="non-essential-result"></p>
+
+  <h2> Retention Period Issues </h2>
+  <p id="retention-result"></p>
+  <p id="retention-unknown-result"></p>
+  <p id="manual-delete-result"></p>
+
+  
   <div id="findingsByCategories">
   </div>
 
+  <!--OLD
   <script src="{{ url_for('static', filename='js/script_latest.js') }}"></script>
+  -->
+
+  <!--NEW-->
+  
+  <script src="{{ url_for('static', filename='js/keyFinding.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/executiveSummary.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/findingsByCategory.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/costReduction.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </body>
 </html>
