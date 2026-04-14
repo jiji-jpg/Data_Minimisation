@@ -1,0 +1,169 @@
+{
+  "sessions": {
+    "20260414125514702959": {
+      "session_id": "20260414125514702959",
+      "updated_at": "2026-04-14T15:26:54.361163+00:00",
+      "steps": {
+        "_DA1": {
+          "checkboxes": {
+            "Address": false,
+            "AutomaticallyDeleted-1A": true,
+            "ClinicalCare-1A": true,
+            "CourtOrder-1A": false,
+            "DOB": true,
+            "DeIdentified-1A": false,
+            "Email": false,
+            "Fax": false,
+            "Gender": false,
+            "GeneralInsurance-1A": false,
+            "HumanResource-1A": false,
+            "InsuranceIndemnity-1A": false,
+            "LegalObligation-1A": false,
+            "ManualDeletion-1A": false,
+            "Marketing-1A": true,
+            "Name": true,
+            "Operational-1A": false,
+            "Phone": false,
+            "PostAddress": true,
+            "SecurelyDestroyedP-1A": false,
+            "SeriousThreat-1A": true,
+            "Sign": false,
+            "SystemManagement-1A": false,
+            "Unsure-1A": false,
+            "UnsurePurpose-1A": false,
+            "UponPR-1A": false,
+            "skipSection": false
+          },
+          "radios": {
+            "choice1": "no",
+            "choice2": "no",
+            "choice3": "no"
+          },
+          "selects": {
+            "Question1-1A": "Up to 130 Years After Birth",
+            "Question2-1A": "Information is kept indefinetly.",
+            "Question3-1A": "Yes, for research or statistical purposes"
+          }
+        },
+        "_DA2": {
+          "checkboxes": {
+            "ABN": true,
+            "ACN": true,
+            "AutomaticallyDeleted-1B": false,
+            "ClinicalCare-1B": true,
+            "CourtOrder-1B": false,
+            "CulturalIdentity": false,
+            "DOD": false,
+            "DeIdentified-1B": false,
+            "GeneralInsurance-1B": false,
+            "HumanResource-1B": false,
+            "IndigenousStatus": false,
+            "InsuranceIndemnity-1B": false,
+            "LegalObligation-1B": true,
+            "ManualDeletion-1B": true,
+            "Marketing-1B": true,
+            "Medicare": true,
+            "Operational-1B": false,
+            "Racial": false,
+            "SecurelyDestroyedP-1B": false,
+            "SeriousThreat-1B": true,
+            "SystemManagement-1B": false,
+            "Unsure-1B": false,
+            "UnsurePurpose-1B": false,
+            "UponPR-1B": false,
+            "VFN": false,
+            "skipSection": false
+          },
+          "radios": {
+            "choice1": "yes",
+            "choice2": "yes",
+            "choice3": "yes"
+          },
+          "selects": {
+            "Question1-1B": "Up to 130 Years After Birth",
+            "Question2-1B": "Information is not kept once it is no longer needed",
+            "Question3-1B": "Yes, as part of government/institutional records"
+          }
+        },
+        "_HA1": {
+          "checkboxes": {
+            "Allergies": false,
+            "AutomaticallyDeleted-2A": true,
+            "ClinicalCare-2A": false,
+            "CourtOrder-2A": false,
+            "DeIdentified-2A": true,
+            "Diagnostic": true,
+            "Discharge": true,
+            "EventSummary": false,
+            "GeneralInsurance-2A": false,
+            "Goals": false,
+            "HealthSummary": false,
+            "HumanResource-2A": false,
+            "InsuranceIndemnity-2A": false,
+            "LegalObligation-2A": true,
+            "ManualDeletion-2A": false,
+            "Marketing-2A": true,
+            "Operational-2A": false,
+            "PathologyReoprts": true,
+            "SecurelyDestroyedP-2A": false,
+            "SeriousThreat-2A": true,
+            "SpecialistLetter": true,
+            "SystemManagement-2A": false,
+            "Unsure-2A": false,
+            "UnsurePurpose-2A": false,
+            "UponPR-2A": false,
+            "e-Referrals": false,
+            "skipSection": false
+          },
+          "radios": {
+            "choice1": "unsure",
+            "choice2": "unsure",
+            "choice3": "unsure"
+          },
+          "selects": {
+            "Question1-2A": "Up to 130 Years After Birth",
+            "Question2-2A": "Information is not kept once it is no longer needed",
+            "Question3-2A": "Yes, for legal or audit requirements"
+          }
+        },
+        "_HA2": {
+          "checkboxes": {
+            "PharmacistShared": false,
+            "Prescription": false,
+            "Immunisations": false,
+            "Discharge": false,
+            "SpecialistLetter": true,
+            "HealthSummary": false,
+            "EventSummary": true,
+            "e-Referrals": true,
+            "Goals": false,
+            "skipSection": false,
+            "ClinicalCare-2B": false,
+            "SystemManagement-2B": false,
+            "LegalObligation-2B": false,
+            "CourtOrder-2B": false,
+            "SeriousThreat-2B": false,
+            "InsuranceIndemnity-2B": false,
+            "Marketing-2B": false,
+            "Operational-2B": false,
+            "HumanResource-2B": false,
+            "GeneralInsurance-2B": false,
+            "UnsurePurpose-2B": false,
+            "AutomaticallyDeleted-2B": false,
+            "SecurelyDestroyedP-2B": false,
+            "ManualDeletion-2B": false,
+            "UponPR-2B": false,
+            "DeIdentified-2B": false,
+            "Unsure-2B": false
+          },
+          "radios": {},
+          "selects": {
+            "Question1-2B": "",
+            "Question2-2B": "",
+            "Question3-2B": ""
+          }
+        }
+      }
+    }
+  }
+}
