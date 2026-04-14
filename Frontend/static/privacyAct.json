@@ -1,0 +1,45 @@
+[
+  {
+    "purpose": {
+      "violation": ["marketing"]
+    },
+    "consent": {
+      "violation": ["no"],
+      "unsure": ["unsure"]
+    },
+    "PrivacyActSection": "Privacy Act 7.1 - 7.4"
+  },
+
+  {
+    "lessDetailed": {
+      "violation": ["yes"],
+      "unsure": ["unsure"]
+    },
+    "PrivacyActSection": "Privacy Act 3.1 - 3.2"
+  },
+
+  {
+    "category": "sensitive information",
+    "consent": {
+      "violation": ["no"],
+      "unsure": ["unsure"]
+    },
+    "PrivacyActSection": "Privacy Act 3.3 - 3.4"
+  },
+
+  {
+    "retentionPeriod": {
+      "violation": ["information is kept indefinitely"],
+      "unsure": ["unsure"]
+    },
+    "PrivacyActSection": "Privacy Act 11.2"
+  },
+
+    {
+    "essential": {
+      "violation": ["no"],
+      "unsure": ["unsure"]
+    },
+    "PrivacyActSection": "Privacy Act 3.3 - 3.4"
+  }
+]

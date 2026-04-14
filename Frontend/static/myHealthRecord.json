@@ -1,0 +1,41 @@
+[
+  {
+    "consent": {
+      "violation": ["no"],
+      "unsure": ["unsure"]
+    },
+    "MyHealthRecordSection": "My Health Records Act 2012 - Part 3 - Registration"
+  },
+
+  {
+    "purpose": {
+      "violation": [
+        "marketing",
+        "operational or business operation",
+        "human resource",
+        "general insurance"
+      ],
+      "unsure": ["unsure"]
+    },
+    "MyHealthRecordSection": "My Health Records Act 2012 - Part 4 Division 2 (Sections 61-63)"
+  },
+
+  {
+    "retentionPeriod": {
+      "violation": ["information is kept indefinitely."],
+      "unsure": ["unsure"]
+  },
+    "retentionSpecialCircumstances": {
+      "violation":["no"],
+      "unsure": ["unsure"]
+  },
+    "MyHealthRecordSection": "My Health Records Act 2012 - Part 2 Section 16"
+},
+
+  {
+    "deletionMethod": {
+      "unsure": ["unsure"]
+    },
+    "MyHealthRecordSection": "My Health Records Act 2012 - Part 2, Division 1, Section 17 (Retention and destruction of records)"
+  }
+]
