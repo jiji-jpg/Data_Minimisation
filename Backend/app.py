@@ -58,6 +58,33 @@ def _truthy_checked_ids(page):
         if bool(v) and k != "skipSection"
     ]
 
+def _extract_attribute_checked_ids(checked):
+    excluded_prefixes = {
+        "clinicalcare",
+        "systemmanagement",
+        "legalobligation",
+        "courtorder",
+        "seriousthreat",
+        "insuranceindemnity",
+        "marketing",
+        "operational",
+        "humanresource",
+        "generalinsurance",
+        "unsurepurpose",
+        "automaticallydeleted",
+        "securelydestroyed",
+        "manualdeletion",
+        "uponpr",
+        "deidentified",
+    }
+
+    attrs = []
+    for c in checked:
+        key = c.lower().split("-")[0]
+        if key not in excluded_prefixes:
+            attrs.append(c)
+    return attrs
+
 def _first_non_empty(mapping, default="Unsure"):
     for _, v in (mapping or {}).items():
         if isinstance(v, str) and v.strip():
@@ -67,9 +94,6 @@ def _first_non_empty(mapping, default="Unsure"):
     return default
 
 def _normalize_purpose(v):
-    if not v:
-        return "unsure"
-    s = str(v).strip().lower()
     purpose_map = {
         "clinical care": "clinical care",
         "system management": "system management",
@@ -88,6 +112,20 @@ def _normalize_purpose(v):
         "general insurance purpose": "general insurance purpose",
         "unsure": "unsure",
     }
+
+    if not v:
+        return "unsure"
+
+    if isinstance(v, list):
+        normalized = []
+        for item in v:
+            s = str(item).strip().lower()
+            mapped = purpose_map.get(s, s)
+            if mapped not in normalized:
+                normalized.append(mapped)
+        return normalized if normalized else ["unsure"]
+
+    s = str(v).strip().lower()
     return purpose_map.get(s, s)
 
 def _normalize_consent(v):
@@ -107,6 +145,14 @@ def _normalize_retention(v):
     if s == "unsure":
         return "unsure"
     return str(v).strip()
+
+def _normalize_binary(v):
+    if not v:
+        return "unsure"
+    s = str(v).strip().lower()
+    if s in {"yes", "no", "unsure"}:
+        return s
+    return "unsure"
 
 def _normalize_enforcement_from_checked(checked):
     lowered = [c.lower() for c in checked]
@@ -153,10 +199,9 @@ def _extract_purpose_from_checked(checked):
             extracted.append(mapped)
 
     if not extracted:
-        return "unsure"
+        return ["unsure"]
 
-    # keep single string for compatibility with existing report logic
-    return extracted[0]
+    return extracted
 
 def _extract_retention_fields(selects):
     # explicit retention selects used on questionnaire pages
@@ -168,13 +213,20 @@ def _extract_retention_fields(selects):
     retention_exception = q3 if q3 else "Unsure"
     return retention_period, retention_exception
 
+def _extract_essential_lessdetailed(radios):
+    essential = radios.get("choice2", "unsure")
+    less_detailed = radios.get("choice3", "unsure")
+    return essential, less_detailed
+
 def _category_from_step(step_key, page):
     checked = _truthy_checked_ids(page)
+    attribute_checked = _extract_attribute_checked_ids(checked)
     selects = page.get("selects", {}) or {}
     radios = page.get("radios", {}) or {}
 
     purpose_raw = _extract_purpose_from_checked(checked)
     consent_raw = _first_non_empty(radios, "Unsure")
+    essential_raw, less_detailed_raw = _extract_essential_lessdetailed(radios)
     retention_raw, retention_exception_raw = _extract_retention_fields(selects)
 
     label_map = {
@@ -190,11 +242,11 @@ def _category_from_step(step_key, page):
 
     return {
         label: [
-            {"attributeCollected": checked if checked else ["none selected"]},
+            {"attributeCollected": attribute_checked if attribute_checked else ["none selected"]},
             {"collectionPurpose": _normalize_purpose(purpose_raw)},
             {"consent": _normalize_consent(consent_raw)},
-            {"lessDetailed": "unsure"},
-            {"essential": "unsure"},
+            {"lessDetailed": _normalize_binary(less_detailed_raw)},
+            {"essential": _normalize_binary(essential_raw)},
             {"retentionPeriod": _normalize_retention(retention_raw)},
             {"retentionException": _normalize_retention(retention_exception_raw)},
             {"enforcementMeasure": _normalize_enforcement_from_checked(checked)},
