@@ -802,7 +802,7 @@ input[type="checkbox"]:hover {
   appearance: none;
   width: 100%;
   height: 40px;
-  padding: 10px 36px 10px 16px;
+  padding: 10px 30px 10px 15px;
   border: 1px solid #d0d0d0;
   border-radius: 10px;
   background: #fafafa;
@@ -814,13 +814,14 @@ input[type="checkbox"]:hover {
 }
 
 .custom-select::after {
-  content: "▼";
+  font-family: "bootstrap-icons";
+  content: "\F282";
   position: absolute;
   top: 50%;
-  right: 12px;
+  right: 10px;
   transform: translateY(-50%);
   pointer-events: none;
-  font-size: 12.5px;
+  font-size: 13px;
   color: #666;
 }
 
@@ -828,6 +829,11 @@ input[type="checkbox"]:hover {
 .custom-select select:focus {
   border-color: #999;
   outline: none;
+}
+
+
+.conditional-question {
+  display: none;
 }
 
 /* ==================== REPORT PAGE ==================== */
@@ -1791,4 +1797,25 @@ input[type="checkbox"]:hover {
   .recommended-actions article {
     padding-left: 45px;
   }
+}
+
+/*show more*/
+.action-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.action-group-header .action-group-label { margin: 0; }
+.action-show-more {
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #404040;
+    background: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
 }
