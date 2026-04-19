@@ -1,7 +1,4 @@
 (function () {
-    let myHealthRecordRules = [];
-    let privacyActRules = [];
-
     function normalize(value) {
         return String(value || "")
             .trim()
@@ -17,14 +14,6 @@
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
-    }
-
-    async function loadJson(url) {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Failed to load ${url}: ${response.status} ${response.statusText}`);
-        }
-        return response.json();
     }
 
     function extractCategories(answerJson) {
@@ -60,38 +49,37 @@
         return { categories };
     }
 
-    function getMyHealthRuleByKey(key) {
+    function getMyHealthRuleByKey(key, myHealthRecordRules) {
         return myHealthRecordRules.find(rule => Object.prototype.hasOwnProperty.call(rule, key)) || {};
     }
 
-    function getPrivacyRuleByKey(key) {
+    function getPrivacyRuleByKey(key, privacyActRules) {
         return privacyActRules.find(rule => Object.prototype.hasOwnProperty.call(rule, key)) || {};
     }
 
-    function getPrivacySensitiveConsentRule() {
+    function getPrivacySensitiveConsentRule(privacyActRules) {
         return privacyActRules.find(rule => normalize(rule.category) === "sensitive information") || {};
     }
 
-    function buildRecommendedActions(answerJson) {
+    function buildRecommendedActions(answerJson, myHealthRecordRules, privacyActRules) {
         const { categories } = extractCategories(answerJson);
         const mhrAnswered = normalize(answerJson?.data?.[0]?.collectMyHealthRecord) !== "no";
 
-        // Exclude categories where attributeCollected contains "Not applicable"
         const applicableCategories = categories.filter(c =>
             !c.attributeCollected.some(attr => normalize(attr) === "not applicable")
         );
 
-        const mhrConsentRule = getMyHealthRuleByKey("consent");
-        const mhrPurposeRule = getMyHealthRuleByKey("purpose");
-        const mhrRetentionRule = getMyHealthRuleByKey("retentionPeriod");
+        const mhrConsentRule = getMyHealthRuleByKey("consent", myHealthRecordRules);
+        const mhrPurposeRule = getMyHealthRuleByKey("purpose", myHealthRecordRules);
+        const mhrRetentionRule = getMyHealthRuleByKey("retentionPeriod", myHealthRecordRules);
         const mhrSpecialRule = myHealthRecordRules.find(rule =>
             Object.prototype.hasOwnProperty.call(rule, "retentionPeriod")
         ) || {};
 
-        const privacyPurposeRule = getPrivacyRuleByKey("purpose");
-        const privacyLessDetailedRule = getPrivacyRuleByKey("lessDetailed");
-        const privacyRetentionRule = getPrivacyRuleByKey("retentionPeriod");
-        const privacySensitiveConsentRule = getPrivacySensitiveConsentRule();
+        const privacyPurposeRule = getPrivacyRuleByKey("purpose", privacyActRules);
+        const privacyLessDetailedRule = getPrivacyRuleByKey("lessDetailed", privacyActRules);
+        const privacyRetentionRule = getPrivacyRuleByKey("retentionPeriod", privacyActRules);
+        const privacySensitiveConsentRule = getPrivacySensitiveConsentRule(privacyActRules);
 
         const purposeUnsure = applicableCategories.filter(
             c => normalize(c.collectionPurpose) === "unsure"
@@ -342,7 +330,7 @@
         `;
     }
 
-    function renderRecommendedActions(answerJson) {
+    function renderRecommendedActions(answerJson, myHealthRecordRules, privacyActRules) {
         const container = document.getElementById("recommended-actions-list");
 
         if (!container) {
@@ -350,7 +338,7 @@
             return;
         }
 
-        const actions = buildRecommendedActions(answerJson);
+        const actions = buildRecommendedActions(answerJson, myHealthRecordRules, privacyActRules);
 
         if (!actions.length) {
             container.innerHTML = `
@@ -376,7 +364,6 @@
             </article>
         `).join("");
 
-        // Wire up show more / show less toggles
         container.querySelectorAll(".action-show-more").forEach(btn => {
             btn.addEventListener("click", () => {
                 const header = btn.closest(".action-group-header");
@@ -398,34 +385,7 @@
         });
     }
 
-    async function initRecommendedActions() {
-        try {
-            const [exampleAnswer, myHealthRulesData, privacyRulesData] = await Promise.all([
-                loadJson("static/exampleAnswer.JSON"),
-                loadJson("static/myHealthRecord.json"),
-                loadJson("static/privacyAct.json")
-            ]);
+    // Expose to global scope so main.js can call it
+    window.renderRecommendedActions = renderRecommendedActions;
 
-            myHealthRecordRules = myHealthRulesData;
-            privacyActRules = privacyRulesData;
-
-            renderRecommendedActions(exampleAnswer);
-        } catch (error) {
-            console.error("Failed to initialise recommended actions:", error);
-
-            const container = document.getElementById("recommended-actions-list");
-            if (container) {
-                container.innerHTML = `
-                    <article class="action-card priority-high">
-                        <div class="action-card-header">
-                            <h3>Unable to Load Recommended Actions</h3>
-                        </div>
-                        <p class="action-intro">${escapeHtml(error.message)}</p>
-                    </article>
-                `;
-            }
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", initRecommendedActions);
 })();
