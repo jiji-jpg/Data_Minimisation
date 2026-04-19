@@ -1,0 +1,304 @@
+{
+  "data": [
+    {
+      "collectMyHealthRecord": "yes"
+    },
+    [
+      {
+        "Personal Data Asset": [
+          {
+            "Personal Details": [
+              {
+                "attributeCollected": [
+                  "Name",
+                  "Date of Birth",
+                  "Gender",
+                  "Address",
+                  "Signature",
+                  "Phone Number",
+                  "Email",
+                  "Post Address",
+                  "Fax"
+                ]
+              },
+              {
+                "collectionPurpose": "Marketing"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "unsure"
+              },
+                     {
+                "retentionPeriod": "information is kept indefinitely."
+              },
+              {
+                "retentionException": "no"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          },
+          {
+            "Government-issued identifiers and Sensitive Information": [
+              {
+                "attributeCollected": [
+                  "Medicare Number",                  
+ "ABN",
+                  "ACN",
+                  "VFN",
+                  "Indigenous Status",
+                  "Death Details",
+                  "Cultureal Identity",
+                  "Racial/Ethic origin"
+                ]
+              },
+              {
+                "collectionPurpose": "Marketing"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "unsure"
+              },
+              {
+                "retentionPeriod": "information is kept indefinitely"
+              },
+              {
+                "retentionException": "no"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          }],
+        "Health Data Asset": [
+         
+          {
+            "Clinical Health Data": [
+              {
+                "attributeCollected": [
+                  "Allergies,Medicine and Adverse Reactions",
+                  "Pathology Reports",
+                  "Diagnostic Imaging Reports",
+                  "Discharge Summaries",
+                  "Specialist Letters",
+                  "Shared Health Summaries",
+                  "Event Summaries",
+                  "e-Referrals",
+                  "Goals of Care Documents"
+                ]
+              },
+              {
+                "collectionPurpose": "Marketing"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "unsure"
+              },
+              {
+                "retentionPeriod": "information is kept indefinitely"
+              },
+              {
+                "retentionException": "no"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          },
+          {
+            "Medical Records & Immunisation": [
+              {
+                "attributeCollected": [
+                  "Pharmacist Shared Medicines List",
+                  "Prescription and Dispense Records",
+                  "Immunisations",
+                  "Discharge Summaries",
+                  "Specialist Letters",
+                  "Shared Health Summaries",
+                  "Event Summaries",
+                  "e-Referrals",
+                  "Goals of Care Documents"
+                ]
+              },
+              {
+                "collectionPurpose": "Marketing"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "unsure"
+              },
+              {
+                "retentionPeriod": "information is kept indefinitely"
+              },
+              {
+                "retentionException": "no"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          }],
+          "Government Data Asset": [
+          {
+            "Government Health Data": [
+              {
+                "attributeCollected": [
+                  "Transfer and Residential Care Facility Documents",
+                  "Medicare Benefits Schedule Claims",
+                  "Pharmaceutical Benefits Scheme Claims",
+                  "Department of Veterans’ Affairs Claims",
+                  "Australian Immunisation Register",
+                  "Australian Organ Donor Register",
+                  "Proof of Vaccination Documents"
+                ]
+              },
+              {
+                "collectionPurpose": "Marketing"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "unsure"
+              },
+              {
+                "retentionPeriod": "information is kept indefinitely"
+              },
+              {
+                "retentionException": "no"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          }],
+          "Consumer-Contributed Health Data Asset": [
+          {
+            "Consumer Contributed Data": [
+              {
+                "attributeCollected": [
+                  "Contact & Emergency Details",
+                  "Preferred Language",
+                  "Country of Birth",
+                  "Indigenous",
+                  "Veteran Status",
+                  "Advance Care Plan",
+                  "Custodian Details",
+                  "Current Medicines",
+                  "Allergy Information",
+                  "Personal Health Notes"
+                ]
+              },
+              {
+                "collectionPurpose": "Marketing"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "unsure"
+              },
+              {
+                "retentionPeriod": "information is kept indefinitely"
+              },
+              {
+                "retentionException": "no"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          }],
+          "Child Health Data Asset": [
+          {
+            "Child Health Data": [
+              {
+                "attributeCollected": [
+                  "Achievement Diary",
+                  "Growth Charts",
+                  "Health Check Schedules & Questionnaires",
+                  "Child Immunisations"
+                ]
+              },
+              {
+                "collectionPurpose": "Marketing"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "unsure"
+              },
+              {
+                "retentionPeriod": "information is kept indefinitely"
+              },
+              {
+                "retentionException": "no"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  ],
+  "ok": true,
+  "session_id": "20260331122435885212",
+  "updated_at": "2026-03-31T23:42:44.014042+00:00"
+}
+
+
+
