@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     NUMBER_OF_CATEGORIES = result.NUMBER_OF_CATEGORIES;
     NUMBER_OF_ATTRIBUTES = result.NUMBER_OF_ATTRIBUTES;
 
+    renderRecommendedActions(data, mhrAct, privacyAct);
     renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_CATEGORIES);
     renderExecutiveSummary(data, getAllCategories(data), badCategoryCount);
-    
+
 });
