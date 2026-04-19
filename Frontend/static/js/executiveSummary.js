@@ -13,22 +13,23 @@ function getAllCategories(rawData) {
     return allCategories;
 }
 
+
 function renderExecutiveSummary(data, categories, badCategoryCount) {
 
-    // Total categories assessed
+    // Total categories assessed — count data asset groups, not individual categories
     const totalCategoriesEl = document.getElementById("total-categories");
     if (totalCategoriesEl) {
-        totalCategoriesEl.textContent = categories.length;
+        const reportGroups = data.data?.[1]?.[0] || {};
+        totalCategoriesEl.textContent = Object.keys(reportGroups).length;
     }
 
-    // Recommendations count (static for now)
+    // Recommendations count — from buildRecommendedActions via window
     const recommendationsEl = document.getElementById("recommendations-count");
     if (recommendationsEl) {
-        const recommendationCards = document.querySelectorAll(".recommended-actions article");
-        recommendationsEl.textContent = recommendationCards.length;
+        recommendationsEl.textContent = window._recommendedActionsCount ?? 0;
     }
 
-    // Score labels (Medium / High)
+    // Score labels
     function getScoreLabel(score) {
         if (score > 20/3) return "High";
         if (score > 10/3) return "Medium";
@@ -36,9 +37,9 @@ function renderExecutiveSummary(data, categories, badCategoryCount) {
     }
 
     function getScoreColor(score) {
-        if (score > 20/3) return "#1bb273"; // green
-        if (score > 10/3) return "#f39c12"; // orange
-        return "#ff002f"; // red
+        if (score > 20/3) return "#1bb273";
+        if (score > 10/3) return "#f39c12";
+        return "#ff002f";
     }
 
     // Calculation for Minimisation & Retention Scores
@@ -56,8 +57,8 @@ function renderExecutiveSummary(data, categories, badCategoryCount) {
         retentionScoreEl.textContent = getScoreLabel(retentionScore);
         retentionScoreEl.style.color = getScoreColor(retentionScore);
     }
-    const areasActionEl = document.getElementById("areas-action");
 
+    const areasActionEl = document.getElementById("areas-action");
     if (areasActionEl) {
         areasActionEl.textContent = badCategoryCount;
     }

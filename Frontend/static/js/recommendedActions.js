@@ -338,7 +338,9 @@
             return;
         }
 
-        const actions = buildRecommendedActions(answerJson, myHealthRecordRules, privacyActRules);
+         const actions = buildRecommendedActions(answerJson, myHealthRecordRules, privacyActRules);
+         window._recommendedActionsCount = actions.length; // store count for executiveSummary
+
 
         if (!actions.length) {
             container.innerHTML = `
