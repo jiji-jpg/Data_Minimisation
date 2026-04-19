@@ -301,18 +301,40 @@
         `;
     }
 
+    function renderGroup(group, tagClass, labelClass) {
+        const attrs = group.attributes || [];
+        const tag = attr => `<span class="action-tag ${tagClass}">${escapeHtml(attr)}</span>`;
+
+        if (attrs.length === 0) {
+            return `<li><p class="action-group-label ${labelClass}">${escapeHtml(group.group)}</p></li>`;
+        }
+
+        return `
+            <li>
+                <div class="action-group-header">
+                    <p class="action-group-label ${labelClass}">${escapeHtml(group.group)}</p>
+                    <button type="button" class="action-show-more" aria-expanded="false">
+                        Show more <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="action-tags action-hidden-tags" hidden>
+                    ${attrs.map(tag).join("")}
+                </div>
+            </li>
+        `;
+    }
+
     function renderActionItems(action) {
         const tagClass = action.priority === "priority-high" ? "tag-danger" : "tag-warn";
         const labelClass = action.priority === "priority-high" ? "label-danger" : "label-warn";
 
-        return action.items.map(group => `
-            <p class="action-group-label ${labelClass}">${escapeHtml(group.group)}</p>
-            <div class="action-tags">
-                ${group.attributes.map(attr =>
-                    `<span class="action-tag ${tagClass}">${escapeHtml(attr)}</span>`
-                ).join("")}
-            </div>
-        `).join("");
+        if (!action.items.length) return "";
+
+        return `
+            <ol class="action-group-list">
+                ${action.items.map(g => renderGroup(g, tagClass, labelClass)).join("")}
+            </ol>
+        `;
     }
 
     function renderRecommendedActions(answerJson) {
@@ -348,6 +370,27 @@
                 ${renderLinks(action.links)}
             </article>
         `).join("");
+
+        // Wire up show more / show less toggles
+        container.querySelectorAll(".action-show-more").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const header = btn.closest(".action-group-header");
+                const hiddenBlock = header && header.nextElementSibling;
+                if (!hiddenBlock || !hiddenBlock.classList.contains("action-hidden-tags")) return;
+
+                const isHidden = hiddenBlock.hasAttribute("hidden");
+
+                if (isHidden) {
+                    hiddenBlock.removeAttribute("hidden");
+                    btn.innerHTML = 'Show less <i class="bi bi-chevron-up"></i>';
+                    btn.setAttribute("aria-expanded", "true");
+                } else {
+                    hiddenBlock.setAttribute("hidden", "");
+                    btn.innerHTML = 'Show more <i class="bi bi-chevron-down"></i>';
+                    btn.setAttribute("aria-expanded", "false");
+                }
+            });
+        });
     }
 
     async function initRecommendedActions() {
