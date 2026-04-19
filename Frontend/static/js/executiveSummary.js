@@ -1,3 +1,18 @@
+function getAllCategories(rawData) {
+    const reportGroups = rawData.data?.[1]?.[0];
+    if (!reportGroups) return [];
+
+    const allCategories = [];
+
+    Object.values(reportGroups).forEach(group => {
+        if (Array.isArray(group)) {
+            group.forEach(categoryObj => allCategories.push(categoryObj));
+        }
+    });
+
+    return allCategories;
+}
+
 function renderExecutiveSummary(data, categories, badCategoryCount) {
 
     // Total categories assessed
@@ -88,7 +103,7 @@ function calculateWeightedThreeLevelScore(values, weights) {
 // Minimisation Score Function
 
 function calculateMinimisationScore(data) {
-    const categories = data[1][0].personalDataAsset;
+    const categories = getAllCategories(data);
 
     const lessDetailedValues = [];
     const consentValues = [];
@@ -161,7 +176,7 @@ function calculateMinimisationScore(data) {
 // Retention Score Function
 
 function calculateRetentionScore(data) {
-    const categories = data[1][0].personalDataAsset;
+    const categories = getAllCategories(data);
 
     let totalCategoryCount = 0;
     let categoryPoint = 0;
@@ -172,29 +187,20 @@ function calculateRetentionScore(data) {
     categories.forEach(categoryObj => {
         const categoryDetails = Object.entries(categoryObj)[0][1];
 
-        const retentionPeriodForMHR = getCategoryFieldValue(categoryDetails, "retentionPeriodForMHR");
-        const specialCircumstance = getCategoryFieldValue(categoryDetails, "specialCircumtance");
+        const retentionPeriodMHR = getCategoryFieldValue(categoryDetails, "retentionPeriodMHR");
+        //const specialCircumstance = getCategoryFieldValue(categoryDetails, "specialCircumtance");
         const enforcementMeasure = getCategoryFieldValue(categoryDetails, "enforcementMeasure");
         const retentionPeriod = getCategoryFieldValue(categoryDetails, "retentionPeriod");
 
         // a: category point logic
         if (
-            retentionPeriodForMHR === "up to 30 years after death" ||
-            retentionPeriodForMHR === "100 years"
+            retentionPeriodMHR === "up to 30 years after death" ||
+            retentionPeriodMHR === "100 years"
         ) {
             categoryPoint += 1;
             totalCategoryCount++;
-        } else if (
-            retentionPeriodForMHR === "unsure" &&
-            specialCircumstance === "no"
-        ) {
+        } else if (retentionPeriodMHR === "unsure") {
             categoryPoint += 0;
-            totalCategoryCount++;
-        } else if (
-            retentionPeriodForMHR === "unsure" &&
-            specialCircumstance === "unsure"
-        ) {
-            categoryPoint += 0.5;
             totalCategoryCount++;
         } else {
             categoryPoint += 1;
@@ -247,7 +253,7 @@ function calculateRetentionScore(data) {
     let retentionCount = 0;
 
     retentionValues.forEach(value => {
-        if (value === "information is kept indefinitely") {
+        if (value === "information is kept indefinitely.") {
             retentionScoreRaw += -1;
             retentionCount++;
         } else if (value === "unsure" || value === "unknown" || value === "") {
@@ -266,4 +272,5 @@ function calculateRetentionScore(data) {
     const finalScore = ((a + b + c) / 3) * 10;
     return Number(finalScore.toFixed(1));
 }
+
 // -------------------------------------------------
