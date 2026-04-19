@@ -13,19 +13,37 @@ function getAllCategories(rawData) {
     return allCategories;
 }
 
+// Helper: check if a category has all N/A attributes
+function isAllNotApplicable(categoryObj) {
+    const categoryDetails = Object.entries(categoryObj)[0][1];
+    const attributes = categoryDetails[0]?.attributeCollected || [];
+    return attributes.length > 0 && attributes.every(attr => attr.toLowerCase().trim() === "not applicable");
+}
 
 function renderExecutiveSummary(data, categories, badCategoryCount) {
+
+    const minimisationScore = calculateMinimisationScore(data);
+    const retentionScore = calculateRetentionScore(data);
+
+    // If both scores are N/A, all counts should be 0
+    const allNA = minimisationScore === null && retentionScore === null;
 
     // Total categories assessed — count data asset groups, not individual categories
     const totalCategoriesEl = document.getElementById("total-categories");
     if (totalCategoriesEl) {
-        const reportGroups = data.data?.[1]?.[0] || {};
-        totalCategoriesEl.textContent = Object.keys(reportGroups).length;
+        if (allNA) {
+            totalCategoriesEl.textContent = 0;
+        } else {
+            const reportGroups = data.data?.[1]?.[0] || {};
+            // Count top-level data asset groups (e.g. Personal, Health, Government) not individual categories
+            totalCategoriesEl.textContent = Object.keys(reportGroups).length;
+        }
     }
 
     // Recommendations count — from buildRecommendedActions via window
     const recommendationsEl = document.getElementById("recommendations-count");
     if (recommendationsEl) {
+        // Read count set by renderRecommendedActions instead of counting DOM cards
         recommendationsEl.textContent = window._recommendedActionsCount ?? 0;
     }
 
@@ -42,28 +60,36 @@ function renderExecutiveSummary(data, categories, badCategoryCount) {
         return "#ff002f";
     }
 
-    // Calculation for Minimisation & Retention Scores
-    const minimisationScore = calculateMinimisationScore(data);
-    const retentionScore = calculateRetentionScore(data);
-
     const minimisationScoreEl = document.getElementById("minimisation-score");
     if (minimisationScoreEl) {
-        minimisationScoreEl.textContent = getScoreLabel(minimisationScore);
-        minimisationScoreEl.style.color = getScoreColor(minimisationScore);
+        if (minimisationScore === null) {
+            // All attributes are N/A so score is not applicable
+            minimisationScoreEl.textContent = "N/A";
+            minimisationScoreEl.style.color = "#6b7280";
+        } else {
+            minimisationScoreEl.textContent = getScoreLabel(minimisationScore);
+            minimisationScoreEl.style.color = getScoreColor(minimisationScore);
+        }
     }
 
     const retentionScoreEl = document.getElementById("retention-score");
     if (retentionScoreEl) {
-        retentionScoreEl.textContent = getScoreLabel(retentionScore);
-        retentionScoreEl.style.color = getScoreColor(retentionScore);
+        if (retentionScore === null) {
+            // All attributes are N/A so score is not applicable
+            retentionScoreEl.textContent = "N/A";
+            retentionScoreEl.style.color = "#6b7280";
+        } else {
+            retentionScoreEl.textContent = getScoreLabel(retentionScore);
+            retentionScoreEl.style.color = getScoreColor(retentionScore);
+        }
     }
 
     const areasActionEl = document.getElementById("areas-action");
     if (areasActionEl) {
-        areasActionEl.textContent = badCategoryCount;
+        // If all N/A, areas requiring action is 0
+        areasActionEl.textContent = allNA ? 0 : badCategoryCount;
     }
 }
-
 
 
 // == Scoring Helper Functions ==
@@ -106,12 +132,18 @@ function calculateWeightedThreeLevelScore(values, weights) {
 function calculateMinimisationScore(data) {
     const categories = getAllCategories(data);
 
+    // Filter out categories where all attributes are N/A
+    const applicableCategories = categories.filter(categoryObj => !isAllNotApplicable(categoryObj));
+
+    // If no applicable categories, return null so score shows as N/A
+    if (applicableCategories.length === 0) return null;
+
     const lessDetailedValues = [];
     const consentValues = [];
     const essentialValues = [];
     const purposeValues = [];
 
-    categories.forEach(categoryObj => {
+    applicableCategories.forEach(categoryObj => {
         const categoryDetails = Object.entries(categoryObj)[0][1];
 
         const lessDetailed = getCategoryFieldValue(categoryDetails, "lessDetailed");
@@ -179,17 +211,22 @@ function calculateMinimisationScore(data) {
 function calculateRetentionScore(data) {
     const categories = getAllCategories(data);
 
+    // Filter out categories where all attributes are N/A
+    const applicableCategories = categories.filter(categoryObj => !isAllNotApplicable(categoryObj));
+
+    // If no applicable categories, return null so score shows as N/A
+    if (applicableCategories.length === 0) return null;
+
     let totalCategoryCount = 0;
     let categoryPoint = 0;
 
     const deletionValues = [];
     const retentionValues = [];
 
-    categories.forEach(categoryObj => {
+    applicableCategories.forEach(categoryObj => {
         const categoryDetails = Object.entries(categoryObj)[0][1];
 
         const retentionPeriodMHR = getCategoryFieldValue(categoryDetails, "retentionPeriodMHR");
-        //const specialCircumstance = getCategoryFieldValue(categoryDetails, "specialCircumtance");
         const enforcementMeasure = getCategoryFieldValue(categoryDetails, "enforcementMeasure");
         const retentionPeriod = getCategoryFieldValue(categoryDetails, "retentionPeriod");
 
@@ -209,11 +246,9 @@ function calculateRetentionScore(data) {
         }
 
         // b: deletion / enforcement
-        // clarified rules:
-        // manually deleted = manual bad
-        // unsure = manual bad
+        // manually deleted = bad
+        // unsure = bad
         // upon patient request = good
-
         if (
             enforcementMeasure === "manually deleted" ||
             enforcementMeasure === "unsure"
@@ -273,5 +308,3 @@ function calculateRetentionScore(data) {
     const finalScore = ((a + b + c) / 3) * 10;
     return Number(finalScore.toFixed(1));
 }
-
-// -------------------------------------------------
