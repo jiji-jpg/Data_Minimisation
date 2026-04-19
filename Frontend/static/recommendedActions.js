@@ -380,4 +380,5 @@
     }
 
     document.addEventListener("DOMContentLoaded", initRecommendedActions);
+    window.renderRecommendedActions = renderRecommendedActions;
 })();
