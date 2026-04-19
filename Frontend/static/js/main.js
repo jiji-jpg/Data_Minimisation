@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
     const [answerRes, mhrRes, privacyRes] = await Promise.all([
-        fetch("/static/exampleAnswer.json"),
+        fetch("/static/js/CaseFour.json"),
         fetch("/static/myHealthRecord.json"),
         fetch("/static/privacyAct.json")
     ]);
