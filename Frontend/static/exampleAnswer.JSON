@@ -29,10 +29,10 @@
                 "essential": "no"
               },
               {
-                "retentionPeriodMHR": "Up to 30 Years After Death"
+                "retentionPeriodMHR": "unsure"
               },
               {
-                "retentionPeriod": "Information is not kept once it is no longer needed."
+                "retentionPeriod": "information is kept indefinitely."
               }, 
               {
                 "enforcementMeasure": "manually deleted"
@@ -65,10 +65,10 @@
                 "essential": "unsure"
               },
               {
-                "retentionPeriodMHR": "Up to 30 Years After Death"
+                "retentionPeriodMHR": "unsure"
               },
               {
-                "retentionPeriod": "Information is not kept once it is no longer needed."
+                "retentionPeriod": "unsure"
               }, 
               {
                 "enforcementMeasure": "automatically deleted"
@@ -106,7 +106,7 @@
                 "retentionPeriodMHR": "Up to 30 Years After Death"
               },
               {
-                "retentionPeriod": "Information is not kept once it is no longer needed."
+                "retentionPeriod": "unsure"
               }, 
               {
                 "enforcementMeasure": "automatically deleted"
@@ -213,7 +213,7 @@
                 "essential": "unsure"
               },
               {
-                "retentionPeriodMHR": "Up to 30 Years After Death"
+                "retentionPeriodMHR": "unsure"
               },
               {
                 "retentionPeriod": "Information is not kept once it is no longer needed."
@@ -253,7 +253,7 @@
                 "retentionPeriodMHR": "Up to 30 Years After Death"
               },
               {
-                "retentionPeriod": "Information is not kept once it is no longer needed."
+                "retentionPeriod": "unsure"
               }, 
               {
                 "enforcementMeasure": "automatically deleted"
