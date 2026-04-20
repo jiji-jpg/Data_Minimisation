@@ -180,7 +180,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
 
         // check enforcement measure 
         if ("enforcementMeasure" in item && 
-            (item.enforcementMeasure == "manually deleted" || item.enforcementMeasure == "unsure")) {
+            (item.enforcementMeasure.includes("manually deleted") || item.enforcementMeasure == "unsure")) {
             createElement("p", "These attributes are manually deleted after retention period or have unknown enforcement measure.", container)
             violationNumber ++;
         }
