@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
+    const TEST_CASE= "caseOne";
+
     const [answerRes, mhrRes, privacyRes] = await Promise.all([
-        fetch("/static/exampleAnswer.json"),
+        fetch(`/static/js/${TEST_CASE}.json`),
+        //fetch("/static/exampleAnswer.json"),
         fetch("/static/myHealthRecord.json"),
         fetch("/static/privacyAct.json")
     ]);
@@ -26,6 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     NUMBER_OF_CATEGORIES = result.NUMBER_OF_CATEGORIES;
     NUMBER_OF_ATTRIBUTES = result.NUMBER_OF_ATTRIBUTES;
 
+    renderRecommendedActions(data, mhrAct, privacyAct, useMHR);
     renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_CATEGORIES);
     renderExecutiveSummary(data, getAllCategories(data), badCategoryCount);
     
