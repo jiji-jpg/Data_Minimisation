@@ -35,7 +35,6 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             violation = checkGenericRules(categoryDetails, violation, container);
             violation = checkPrivacyAct(categoryName, privacyAct, categoryDetails, violation, container);
             violation = checkMHRAct(useMHR, violation, categoryDetails, mhrAct, container);
-            console.log("violation", violation)
             // - Attach label to the category 
             getCategoryLabel(violation, container);
 
@@ -47,8 +46,11 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
                 NUMBER_OF_ATTRIBUTES += categoryDetails[0]["attributeCollected"].length;
                 
             }
+            console.log(categoryName)
+            console.log(violation)
             
         }
+        
     }
     }
 
@@ -172,7 +174,9 @@ function checkGenericRules (categoryDetails, violationNumber, container){
 
         // check if retention period is unsure 
 
-        if ("retentionPeriod" in item && (item.retentionPeriod == "unsure" || item.retentionPeriod == "information is kept indefinitely")){
+        if ("retentionPeriod" in item && (item.retentionPeriod == "unsure" || item.retentionPeriod.includes("information is kept indefinitely")))
+            {
+            
             createElement("p", "These attributes have unknown retention period or are kept indefinitely. This may violate sections of Privacy Act 1988", container)
             createElement("p", "Privacy Act 11.2", container)
             violationNumber ++;
@@ -218,7 +222,7 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
     const BAD_CATEGORY = privacyAct[2]["category"].toLowerCase()
     const BAD_SENSITIVE_CONSENT1 = privacyAct[2]["consent"]["violation"][0].toLowerCase()
     const BAD_SENSITIVE_CONSENT2 = privacyAct[2]["consent"]["unsure"][0].toLowerCase()
-    if (categoryName.toLowerCase() == BAD_CATEGORY && (
+    if (categoryName.toLowerCase().includes(BAD_CATEGORY) && (
         CONSENT == BAD_SENSITIVE_CONSENT1 || 
         CONSENT == BAD_SENSITIVE_CONSENT2
     )){
@@ -229,7 +233,6 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
 
     // retention period is checked in check generic rules
     
-
     return violationNumber
     
 
