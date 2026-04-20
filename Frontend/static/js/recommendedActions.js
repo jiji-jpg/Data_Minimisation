@@ -72,6 +72,7 @@
         const mhrConsentRule = getMyHealthRuleByKey("consent", myHealthRecordRules);
         const mhrPurposeRule = getMyHealthRuleByKey("purpose", myHealthRecordRules);
         const mhrRetentionRule = getMyHealthRuleByKey("retentionPeriod", myHealthRecordRules);
+        const mhrDeletionRule = getMyHealthRuleByKey("deletionMethod", myHealthRecordRules);
         const mhrSpecialRule = myHealthRecordRules.find(rule =>
             Object.prototype.hasOwnProperty.call(rule, "retentionPeriod")
         ) || {};
@@ -81,23 +82,33 @@
         const privacyRetentionRule = getPrivacyRuleByKey("retentionPeriod", privacyActRules);
         const privacySensitiveConsentRule = getPrivacySensitiveConsentRule(privacyActRules);
 
+        // 1st: purpose is unsure
         const purposeUnsure = applicableCategories.filter(
             c => normalize(c.collectionPurpose) === "unsure"
         );
 
+        // 2nd: purpose violates MHR Act
         const purposeViolatesMHR = applicableCategories.filter(c =>
             (mhrPurposeRule.purpose?.violation || []).includes(normalize(c.collectionPurpose))
         );
 
+        // 3rd: consent is no or unsure
         const consentIssues = applicableCategories.filter(c => {
             const consent = normalize(c.consent);
             return consent === "no" || consent === "unsure";
         });
 
+        // 4th: lessDetailed = yes/unsure — separate list from essential
+        const lessDetailedCategories = applicableCategories.filter(c =>
+            ["yes", "unsure"].includes(normalize(c.lessDetailed))
+        );
+
+        // 4th: essential = no/unsure — separate list from lessDetailed
         const nonEssentialCategories = applicableCategories.filter(c =>
             ["no", "unsure"].includes(normalize(c.essential))
         );
 
+        // 5th: retention issues
         const retentionIssues = applicableCategories.filter(c => {
             const retentionPeriod = normalize(c.retentionPeriod);
             const retentionPeriodForMHR = normalize(c.retentionPeriodForMHR);
@@ -107,16 +118,28 @@
             const unsureRetention = retentionPeriod === "unsure" || retentionPeriodForMHR === "unsure";
             const unsureSpecial = specialCircumtance === "unsure";
 
-            return mhrAnswered && (indefiniteRetention || unsureRetention || unsureSpecial);
+            // Check if retentionPeriodMHR violates MHR Act AND no special circumstance
+            const mhrRetentionViolations = (mhrRetentionRule.retentionPeriod?.violation || [])
+                .map(v => normalize(v));
+            const mhrRetentionViolated = mhrRetentionViolations.includes(retentionPeriodForMHR) &&
+                normalize(c.specialCircumtance) === "no";
+
+            return mhrAnswered && (indefiniteRetention || unsureRetention || unsureSpecial || mhrRetentionViolated);
         });
 
-        const enforcementIssues = applicableCategories.filter(c => {
+        // Trigger and list out: unsure OR contains "manually deleted"
+        const enforcementTrigger = applicableCategories.some(c => {
             const enforcement = normalize(c.enforcementMeasure);
-            return enforcement === "unsure" || enforcement === "manually deleted";
+            return enforcement === "unsure" || enforcement.includes("manually deleted");
         });
 
+        const enforcementListOut = applicableCategories.filter(c => {
+            const enforcement = normalize(c.enforcementMeasure);
+            return enforcement === "unsure" || enforcement.includes("manually deleted");
+        });
         const articles = [];
 
+        // 1st action
         if (purposeUnsure.length > 0) {
             articles.push({
                 priority: "priority-high",
@@ -130,6 +153,7 @@
             });
         }
 
+        // 2nd action
         if (purposeViolatesMHR.length > 0) {
             articles.push({
                 priority: "priority-high",
@@ -149,6 +173,7 @@
             });
         }
 
+        // 3rd action
         if (consentIssues.length > 0) {
             articles.push({
                 priority: "priority-medium",
@@ -190,15 +215,41 @@
             });
         }
 
-        if (nonEssentialCategories.length > 0) {
+        // 4th action — triggers if either list has entries, shows both lists under one card
+        if (lessDetailedCategories.length > 0 || nonEssentialCategories.length > 0) {
+            const items = [];
+
+            // First list: attributes that can have less detailed version collected
+            lessDetailedCategories.forEach(c => {
+                items.push({
+                    group: c.categoryName,
+                    attributes: [`Less detailed version can be collected`, ...c.attributeCollected]
+                });
+            });
+
+            // Second list: attributes not essential for operation
+            nonEssentialCategories.forEach(c => {
+                // Avoid duplicating categories already listed from lessDetailed
+                const alreadyListed = lessDetailedCategories.some(l => l.categoryName === c.categoryName);
+                if (!alreadyListed) {
+                    items.push({
+                        group: c.categoryName,
+                        attributes: [`Not essential for operation`, ...c.attributeCollected]
+                    });
+                } else {
+                    // Category appears in both — append the essential note to existing item
+                    const existing = items.find(i => i.group === c.categoryName);
+                    if (existing) {
+                        existing.attributes.unshift("Not essential for operation");
+                    }
+                }
+            });
+
             articles.push({
                 priority: "priority-high",
                 title: "Unnecessary Data Collection Should Cease",
-                intro: "These attributes are not essential for operation.",
-                items: nonEssentialCategories.map(c => ({
-                    group: c.categoryName,
-                    attributes: c.attributeCollected
-                })),
+                intro: "These attributes can have a less detailed version collected or are not essential for operation.",
+                items,
                 label: "Priority Attention Suggested",
                 links: [
                     {
@@ -209,6 +260,7 @@
             });
         }
 
+        // 5th action
         if (retentionIssues.length > 0) {
             articles.push({
                 priority: "priority-high",
@@ -254,19 +306,21 @@
             });
         }
 
-        if (enforcementIssues.length > 0) {
+        // 6th action — trigger on unsure only, list out unsure AND manually deleted
+        if (enforcementTrigger) {
             articles.push({
                 priority: "priority-high",
                 title: "Enable Automatic Deletion",
                 intro: "These categories have no clear enforcement method or rely on manual deletion.",
-                items: enforcementIssues.map(c => ({
+                items: enforcementListOut.map(c => ({
                     group: c.categoryName,
                     attributes: [`Enforcement measure: ${c.enforcementMeasure}`]
                 })),
                 label: "Priority Attention Suggested",
                 links: [
                     {
-                        text: mhrRetentionRule.MyHealthRecordSection || "My Health Records Act",
+                        // Use MHR deletion method section from myHealthRecord.json
+                        text: mhrDeletionRule.MyHealthRecordSection || "My Health Records Act",
                         href: "#"
                     }
                 ]
@@ -338,9 +392,8 @@
             return;
         }
 
-         const actions = buildRecommendedActions(answerJson, myHealthRecordRules, privacyActRules);
-         window._recommendedActionsCount = actions.length; // store count for executiveSummary
-
+        const actions = buildRecommendedActions(answerJson, myHealthRecordRules, privacyActRules);
+        window._recommendedActionsCount = actions.length; // store count for executiveSummary
 
         if (!actions.length) {
             container.innerHTML = `
