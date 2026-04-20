@@ -76,6 +76,11 @@
         const { categories } = extractCategories(answerJson);
         const mhrAnswered = normalize(answerJson?.data?.[0]?.collectMyHealthRecord) !== "no";
 
+        // Exclude categories where attributeCollected contains "Not applicable"
+        const applicableCategories = categories.filter(c =>
+            !c.attributeCollected.some(attr => normalize(attr) === "not applicable")
+        );
+
         const mhrConsentRule = getMyHealthRuleByKey("consent");
         const mhrPurposeRule = getMyHealthRuleByKey("purpose");
         const mhrRetentionRule = getMyHealthRuleByKey("retentionPeriod");
@@ -88,24 +93,24 @@
         const privacyRetentionRule = getPrivacyRuleByKey("retentionPeriod");
         const privacySensitiveConsentRule = getPrivacySensitiveConsentRule();
 
-        const purposeUnsure = categories.filter(
+        const purposeUnsure = applicableCategories.filter(
             c => normalize(c.collectionPurpose) === "unsure"
         );
 
-        const purposeViolatesMHR = categories.filter(c =>
+        const purposeViolatesMHR = applicableCategories.filter(c =>
             (mhrPurposeRule.purpose?.violation || []).includes(normalize(c.collectionPurpose))
         );
 
-        const consentIssues = categories.filter(c => {
+        const consentIssues = applicableCategories.filter(c => {
             const consent = normalize(c.consent);
             return consent === "no" || consent === "unsure";
         });
 
-        const nonEssentialCategories = categories.filter(c =>
+        const nonEssentialCategories = applicableCategories.filter(c =>
             ["no", "unsure"].includes(normalize(c.essential))
         );
 
-        const retentionIssues = categories.filter(c => {
+        const retentionIssues = applicableCategories.filter(c => {
             const retentionPeriod = normalize(c.retentionPeriod);
             const retentionPeriodForMHR = normalize(c.retentionPeriodForMHR);
             const specialCircumtance = normalize(c.specialCircumtance);
@@ -117,7 +122,7 @@
             return mhrAnswered && (indefiniteRetention || unsureRetention || unsureSpecial);
         });
 
-        const enforcementIssues = categories.filter(c => {
+        const enforcementIssues = applicableCategories.filter(c => {
             const enforcement = normalize(c.enforcementMeasure);
             return enforcement === "unsure" || enforcement === "manually deleted";
         });

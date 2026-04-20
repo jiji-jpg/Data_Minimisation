@@ -34,9 +34,9 @@
                 "essential": "no"
               },
               {
-                "retentionPeriodMHR": "unsure"
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
               },
-                     {
+              {
                 "retentionPeriod": "information is kept indefinitely."
               },
               {
@@ -52,7 +52,7 @@
               {
                 "attributeCollected": [
                   "Medicare Number",                  
- "ABN",
+                  "ABN",
                   "ACN",
                   "VFN",
                   "Indigenous Status",
@@ -74,7 +74,7 @@
                 "essential": "no"
               },
               {
-                "retentionPeriodMHR": "unsure"
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
               },
               {
                 "retentionPeriod": "information is kept indefinitely"
@@ -117,7 +117,7 @@
                 "essential": "no"
               },
               {
-                "retentionPeriodMHR": "unsure"
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
               },
               {
                 "retentionPeriod": "information is kept indefinitely"
@@ -158,7 +158,7 @@
                 "essential": "no"
               },
               {
-                "retentionPeriodMHR": "unsure"
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
               },
               {
                 "retentionPeriod": "information is kept indefinitely"
@@ -198,7 +198,7 @@
                 "essential": "no"
               },
               {
-                "retentionPeriodMHR": "unsure"
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
               },
               {
                 "retentionPeriod": "information is kept indefinitely"
@@ -241,7 +241,7 @@
                 "essential": "no"
               },
               {
-                "retentionPeriodMHR": "unsure"
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
               },
               {
                 "retentionPeriod": "information is kept indefinitely"
@@ -278,7 +278,7 @@
                 "essential": "no"
               },
               {
-                "retentionPeriodMHR": "unsure"
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
               },
               {
                 "retentionPeriod": "information is kept indefinitely"

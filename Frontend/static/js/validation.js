@@ -20,17 +20,35 @@ const FormValidator = {
     targetEl.insertAdjacentElement('afterend', err);
   },
 
+  // Helper: check if an element or any of its parents is hidden
+  isVisible: function(el) {
+    if (!el) return false;
+    let current = el;
+    while (current && current !== document.body) {
+      const style = getComputedStyle(current);
+      if (
+        style.display === 'none' ||
+        style.visibility === 'hidden' ||
+        current.hasAttribute('hidden')
+      ) {
+        return false;
+      }
+      current = current.parentElement;
+    }
+    return true;
+  },
+
   // Check if at least one checkbox is selected in a grid (category selection)
   hasCategorySelection: function() {
-    // Target only the first checkbox-grid (category selection in panel)
     const categoryGrid = document.querySelector('.panel .checkbox-grid, .privacy-panel .checkbox-grid');
-    if (!categoryGrid) return { valid: true }; // Not on this form
-    
+    if (!categoryGrid) return { valid: true };
+    if (!this.isVisible(categoryGrid)) return { valid: true };
+
     const checkboxes = categoryGrid.querySelectorAll('input[type="checkbox"]');
     if (checkboxes.length === 0) return { valid: true };
-    
+
     const hasSelection = Array.from(checkboxes).some(cb => cb.checked);
-    
+
     return {
       valid: hasSelection,
       element: categoryGrid
@@ -52,12 +70,17 @@ const FormValidator = {
       'input[id^="GeneralInsurance"], ' +
       'input[id^="UnsurePurpose"]'
     );
-    
-    if (purposeCheckboxes.length === 0) return { valid: true }; // Not on this form
-    
-    const hasSelection = Array.from(purposeCheckboxes).some(cb => cb.checked);
+
+    if (purposeCheckboxes.length === 0) return { valid: true };
+
     const grid = purposeCheckboxes[0]?.closest('.checkbox-grid');
-    
+    if (!this.isVisible(grid)) return { valid: true };
+
+    const visibleCheckboxes = Array.from(purposeCheckboxes).filter(cb => this.isVisible(cb));
+    if (visibleCheckboxes.length === 0) return { valid: true };
+
+    const hasSelection = visibleCheckboxes.some(cb => cb.checked);
+
     return {
       valid: hasSelection,
       element: grid
@@ -68,8 +91,9 @@ const FormValidator = {
   hasAllSelectsCompleted: function() {
     const selects = document.querySelectorAll('select');
     const errors = [];
-    
+
     selects.forEach(select => {
+      if (!this.isVisible(select)) return; // Walks up DOM tree to check parents too
       if (select.value === '') {
         errors.push({
           element: select.closest('.custom-select'),
@@ -77,7 +101,7 @@ const FormValidator = {
         });
       }
     });
-    
+
     return {
       valid: errors.length === 0,
       errors: errors
@@ -92,16 +116,18 @@ const FormValidator = {
       { name: 'choice3', id: 'toggle3' },
       { name: 'choice4', id: 'toggle4' }
     ];
-    
+
     const errors = [];
-    
+
     toggleGroups.forEach(group => {
       const radios = document.querySelectorAll(`input[name="${group.name}"]`);
-      if (radios.length === 0) return; // Group doesn't exist on this page
-      
+      if (radios.length === 0) return;
+
+      const toggleElement = document.getElementById(group.id);
+      if (!this.isVisible(toggleElement)) return; // Walks up DOM tree to check parents too
+
       const hasSelection = Array.from(radios).some(radio => radio.checked);
       if (!hasSelection) {
-        const toggleElement = document.getElementById(group.id);
         if (toggleElement) {
           errors.push({
             element: toggleElement,
@@ -110,7 +136,7 @@ const FormValidator = {
         }
       }
     });
-    
+
     return {
       valid: errors.length === 0,
       errors: errors
@@ -127,12 +153,17 @@ const FormValidator = {
       'input[id^="DeIdentified"], ' +
       'input[id*="Unsure"][type="checkbox"]:not([id^="UnsurePurpose"])'
     );
-    
-    if (deletionCheckboxes.length === 0) return { valid: true }; // Not on this form
-    
-    const hasSelection = Array.from(deletionCheckboxes).some(cb => cb.checked);
+
+    if (deletionCheckboxes.length === 0) return { valid: true };
+
     const grid = deletionCheckboxes[0]?.closest('.checkbox-grid');
-    
+    if (!this.isVisible(grid)) return { valid: true };
+
+    const visibleCheckboxes = Array.from(deletionCheckboxes).filter(cb => this.isVisible(cb));
+    if (visibleCheckboxes.length === 0) return { valid: true };
+
+    const hasSelection = visibleCheckboxes.some(cb => cb.checked);
+
     return {
       valid: hasSelection,
       element: grid
@@ -204,7 +235,6 @@ const FormValidator = {
 
 // --- Detect which form page we are on and assign a sessionStorage key ---
 function getFormKey() {
-  // Check for page-specific elements using the Data Collection Purpose suffix
   if (document.getElementById('ClinicalCare-1A') || document.getElementById('DataCollectionPurpose-1A')) return 'DA1_completed';
   if (document.getElementById('ClinicalCare-1B') || document.getElementById('DataCollectionPurpose-1B')) return 'DA2_completed';
   if (document.getElementById('ClinicalCare-2A') || document.getElementById('DataCollectionPurpose-2A')) return 'HA1_completed';
@@ -220,7 +250,6 @@ function getFormKey() {
 document.addEventListener('DOMContentLoaded', function() {
   var formKey = getFormKey();
 
-  // Find the Continue button
   var continueButton = document.getElementById('continueBtn');
 
   if (continueButton && formKey) {
@@ -228,11 +257,10 @@ document.addEventListener('DOMContentLoaded', function() {
       var isValid = FormValidator.validateForm();
 
       if (!isValid) {
-        e.preventDefault(); // Stop navigation
+        e.preventDefault();
         FormValidator.scrollToFirstError();
         return false;
       } else {
-        // Mark this form page as completed so the stepper can update
         sessionStorage.setItem(formKey, 'true');
       }
     });
