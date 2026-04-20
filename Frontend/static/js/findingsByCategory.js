@@ -23,9 +23,17 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
         for (const category of categories) {
             NUMBER_OF_CATEGORIES++;
             const [categoryName, categoryDetails] = Object.entries(category)[0];
+            
+            
 
             // - List category name 
             createElement("h2", categoryName, container);
+
+            // check if attributes collected are not applicable
+            if (categoryDetails[0]["attributeCollected"].map(item => item.toLowerCase()).includes("not applicable")){
+                createElement("p", "You are not collecting attributes of this category.", container)
+                continue
+            }
 
             // - List attributes collected for the category 
             listAttributes(categoryDetails, container);
