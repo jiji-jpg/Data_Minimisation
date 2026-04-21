@@ -21,7 +21,7 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
 
 
         for (const category of categories) {
-            NUMBER_OF_CATEGORIES++;
+            
             const [categoryName, categoryDetails] = Object.entries(category)[0];
             
             
@@ -34,6 +34,8 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
                 createElement("p", "You are not collecting attributes of this category.", container)
                 continue
             }
+
+            NUMBER_OF_CATEGORIES++;
 
             // - List attributes collected for the category 
             listAttributes(categoryDetails, container);
