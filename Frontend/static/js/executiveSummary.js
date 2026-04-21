@@ -35,7 +35,6 @@ function renderExecutiveSummary(data, categories, badCategoryCount) {
             totalCategoriesEl.textContent = 0;
         } else {
             const reportGroups = data.data?.[1]?.[0] || {};
-            // Count top-level data asset groups (e.g. Personal, Health, Government) not individual categories
             totalCategoriesEl.textContent = Object.keys(reportGroups).length;
         }
     }
@@ -43,27 +42,25 @@ function renderExecutiveSummary(data, categories, badCategoryCount) {
     // Recommendations count — from buildRecommendedActions via window
     const recommendationsEl = document.getElementById("recommendations-count");
     if (recommendationsEl) {
-        // Read count set by renderRecommendedActions instead of counting DOM cards
         recommendationsEl.textContent = window._recommendedActionsCount ?? 0;
     }
 
     // Score labels
     function getScoreLabel(score) {
-        if (score > 20/3) return "High";
-        if (score > 10/3) return "Medium";
+        if (score > 20 / 3) return "High";
+        if (score > 10 / 3) return "Medium";
         return "Low";
     }
 
     function getScoreColor(score) {
-        if (score > 20/3) return "#1bb273";
-        if (score > 10/3) return "#f39c12";
+        if (score > 20 / 3) return "#1bb273";
+        if (score > 10 / 3) return "#f39c12";
         return "#ff002f";
     }
 
     const minimisationScoreEl = document.getElementById("minimisation-score");
     if (minimisationScoreEl) {
         if (minimisationScore === null) {
-            // All attributes are N/A so score is not applicable
             minimisationScoreEl.textContent = "N/A";
             minimisationScoreEl.style.color = "#6b7280";
         } else {
@@ -75,7 +72,6 @@ function renderExecutiveSummary(data, categories, badCategoryCount) {
     const retentionScoreEl = document.getElementById("retention-score");
     if (retentionScoreEl) {
         if (retentionScore === null) {
-            // All attributes are N/A so score is not applicable
             retentionScoreEl.textContent = "N/A";
             retentionScoreEl.style.color = "#6b7280";
         } else {
@@ -86,7 +82,6 @@ function renderExecutiveSummary(data, categories, badCategoryCount) {
 
     const areasActionEl = document.getElementById("areas-action");
     if (areasActionEl) {
-        // If all N/A, areas requiring action is 0
         areasActionEl.textContent = allNA ? 0 : badCategoryCount;
     }
 }
@@ -127,15 +122,13 @@ function calculateWeightedThreeLevelScore(values, weights) {
 }
 
 // == Scoring Functions ==
-// Minimisation Score Function
 
+// Minimisation Score Function
 function calculateMinimisationScore(data) {
     const categories = getAllCategories(data);
 
-    // Filter out categories where all attributes are N/A
     const applicableCategories = categories.filter(categoryObj => !isAllNotApplicable(categoryObj));
 
-    // If no applicable categories, return null so score shows as N/A
     if (applicableCategories.length === 0) return null;
 
     const lessDetailedValues = [];
@@ -179,42 +172,39 @@ function calculateMinimisationScore(data) {
         "unsure": 1
     });
 
-    // d = purpose
-    // any purpose other than unsure/unknown = good
-    let knownPurposeCount = 0;
-    let unknownPurposeCount = 0;
+    // FIX: d = purpose
+    // Diagram: weight of any other purpose than unknown = 1, weight of no = 2, weight of unsure = -1
+    let dScore = 0;
+    let dTotal = 0;
 
     purposeValues.forEach(value => {
-        if (value === "unsure" || value === "unknown" || value === "") {
-            unknownPurposeCount++;
+        if (value === "no") {
+            dScore += 2;
+            dTotal++;
+        } else if (value === "unsure" || value === "unknown" || value === "") {
+            dScore += -1;
+            dTotal++;
         } else {
-            knownPurposeCount++;
+            // Any other known purpose
+            dScore += 1;
+            dTotal++;
         }
     });
 
-    const totalPurpose = knownPurposeCount + unknownPurposeCount;
-    let d = 0;
-
-    if (totalPurpose > 0) {
-        const purposeScore = (1 * knownPurposeCount) + (-1 * unknownPurposeCount);
-        const purposeMin = -1 * totalPurpose;
-        const purposeMax = 1 * totalPurpose;
-        d = normalizeScore(purposeScore, purposeMin, purposeMax);
-    }
+    const d = dTotal === 0
+        ? 0
+        : normalizeScore(dScore, -1 * dTotal, 2 * dTotal);
 
     const finalScore = ((a + b + c + d) / 4) * 10;
     return Number(finalScore.toFixed(1));
 }
 
 // Retention Score Function
-
 function calculateRetentionScore(data) {
     const categories = getAllCategories(data);
 
-    // Filter out categories where all attributes are N/A
     const applicableCategories = categories.filter(categoryObj => !isAllNotApplicable(categoryObj));
 
-    // If no applicable categories, return null so score shows as N/A
     if (applicableCategories.length === 0) return null;
 
     let totalCategoryCount = 0;
@@ -230,48 +220,75 @@ function calculateRetentionScore(data) {
         const enforcementMeasure = getCategoryFieldValue(categoryDetails, "enforcementMeasure");
         const retentionPeriod = getCategoryFieldValue(categoryDetails, "retentionPeriod");
 
-        // a: category point logic
+        // FIX: a — categoryPoint with all 5 branches from the diagram
+        const specialCircumstances = getCategoryFieldValue(categoryDetails, "specialCircumstances");
+
         if (
             retentionPeriodMHR === "up to 30 years after death" ||
             retentionPeriodMHR === "100 years"
         ) {
+            // Option A: standard compliant retention periods → full point
             categoryPoint += 1;
             totalCategoryCount++;
-        } else if (retentionPeriodMHR === "unsure") {
+        } else if (
+            retentionPeriodMHR === "option b" &&
+            specialCircumstances.includes("yes")
+        ) {
+            // Option B + special circumstances = yes → full point
+            categoryPoint += 1;
+            totalCategoryCount++;
+        } else if (
+            retentionPeriodMHR === "option b" &&
+            specialCircumstances === "no"
+        ) {
+            // Option B + special circumstances = no → 0 points
             categoryPoint += 0;
             totalCategoryCount++;
+        } else if (
+            retentionPeriodMHR === "unsure" &&
+            retentionPeriod === "there is no consistent policy"
+        ) {
+            // Unsure MHR + no consistent policy → partial point
+            categoryPoint += 0.5;
+            totalCategoryCount++;
+        } else if (
+            retentionPeriodMHR === "option b" &&
+            specialCircumstances === "unsure"
+        ) {
+            // Option B + special circumstances = unsure → partial point
+            categoryPoint += 0.5;
+            totalCategoryCount++;
         } else {
+            // All other cases → full point
             categoryPoint += 1;
             totalCategoryCount++;
         }
 
-        // b: deletion / enforcement
-        // manually deleted = bad
-        // unsure = bad
-        // upon patient request = good
-        if (
-            enforcementMeasure === "manually deleted" ||
+        // FIX: b — enforcementMeasure
+        // Diagram: automatically deleted = 2, manually reviewed = 1, unsure = 1
+        if (enforcementMeasure === "automatically deleted") {
+            deletionValues.push("auto");
+        } else if (
+            enforcementMeasure === "manually reviewed" ||
             enforcementMeasure === "unsure"
         ) {
             deletionValues.push("manual");
-        } else if (enforcementMeasure === "upon patient request") {
-            deletionValues.push("good");
         } else {
-            deletionValues.push("good");
+            deletionValues.push("manual");
         }
 
-        // c: retention period
+        // c = retention period (unchanged)
         retentionValues.push(retentionPeriod);
     });
 
     const a = totalCategoryCount === 0 ? 0 : categoryPoint / totalCategoryCount;
 
-    // b
+    // b — automatically deleted = weight 2, manually reviewed/unsure = weight 1
     let deletionScore = 0;
     let deletionCount = 0;
 
     deletionValues.forEach(value => {
-        if (value === "good") {
+        if (value === "auto") {
             deletionScore += 2;
             deletionCount++;
         } else if (value === "manual") {
@@ -284,7 +301,7 @@ function calculateRetentionScore(data) {
         ? 0
         : normalizeScore(deletionScore, 1 * deletionCount, 2 * deletionCount);
 
-    // c
+    // c — retention period
     let retentionScoreRaw = 0;
     let retentionCount = 0;
 
