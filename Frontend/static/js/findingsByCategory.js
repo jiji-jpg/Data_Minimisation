@@ -162,7 +162,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         // check if consent is no or unsure 
         if ("consent" in item && (item.consent == "no" || item.consent == "unsure")){
             createElement("p", "These attributes may be collected with no consent. Collecting data after acquiring consent is advised by My Health Act 2012.", container)
-            createElement("a", "My Health Records Act 2012 - Part 3 - Registratgit puion", container)
+            createElement("a", "My Health Records Act 2012 - Part 3 - Registration", container)
             violationNumber ++;
 
         }
@@ -266,7 +266,7 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
         }
 
         // Get MHR Act retention purpose 
-        const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriod"]["violation"].map(v => v.toLowerCase().trim().replace(/\.$/, ""));
+        const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriodMHR"]["violation"].map(v => v.toLowerCase().trim().replace(/\.$/, ""));
         const RETENTION_SECTION = MHRAct[2]["MyHealthRecordSection"]
         const SPECIAL_CIRCUMSTANCE = categoryDetails[7]["retentionException"].toLowerCase()
         
