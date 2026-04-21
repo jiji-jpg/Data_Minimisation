@@ -21,11 +21,21 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
 
 
         for (const category of categories) {
-            NUMBER_OF_CATEGORIES++;
+            
             const [categoryName, categoryDetails] = Object.entries(category)[0];
+            
+            
 
             // - List category name 
             createElement("h2", categoryName, container);
+
+            // check if attributes collected are not applicable
+            if (categoryDetails[0]["attributeCollected"].map(item => item.toLowerCase()).includes("not applicable")){
+                createElement("p", "You are not collecting attributes of this category.", container)
+                continue
+            }
+
+            NUMBER_OF_CATEGORIES++;
 
             // - List attributes collected for the category 
             listAttributes(categoryDetails, container);
@@ -35,7 +45,6 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             violation = checkGenericRules(categoryDetails, violation, container);
             violation = checkPrivacyAct(categoryName, privacyAct, categoryDetails, violation, container);
             violation = checkMHRAct(useMHR, violation, categoryDetails, mhrAct, container);
-            console.log("violation", violation)
             // - Attach label to the category 
             getCategoryLabel(violation, container);
 
@@ -47,8 +56,11 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
                 NUMBER_OF_ATTRIBUTES += categoryDetails[0]["attributeCollected"].length;
                 
             }
+            console.log(categoryName)
+            console.log(violation)
             
         }
+        
     }
     }
 
@@ -172,7 +184,9 @@ function checkGenericRules (categoryDetails, violationNumber, container){
 
         // check if retention period is unsure 
 
-        if ("retentionPeriod" in item && (item.retentionPeriod == "unsure" || item.retentionPeriod == "information is kept indefinitely")){
+        if ("retentionPeriod" in item && (item.retentionPeriod == "unsure" || item.retentionPeriod.includes("information is kept indefinitely")))
+            {
+            
             createElement("p", "These attributes have unknown retention period or are kept indefinitely. This may violate sections of Privacy Act 1988", container)
             createElement("p", "Privacy Act 11.2", container)
             violationNumber ++;
@@ -180,7 +194,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
 
         // check enforcement measure 
         if ("enforcementMeasure" in item && 
-            (item.enforcementMeasure == "manually deleted" || item.enforcementMeasure == "unsure")) {
+            (item.enforcementMeasure.includes("manually deleted") || item.enforcementMeasure == "unsure")) {
             createElement("p", "These attributes are manually deleted after retention period or have unknown enforcement measure.", container)
             violationNumber ++;
         }
@@ -218,7 +232,7 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
     const BAD_CATEGORY = privacyAct[2]["category"].toLowerCase()
     const BAD_SENSITIVE_CONSENT1 = privacyAct[2]["consent"]["violation"][0].toLowerCase()
     const BAD_SENSITIVE_CONSENT2 = privacyAct[2]["consent"]["unsure"][0].toLowerCase()
-    if (categoryName.toLowerCase() == BAD_CATEGORY && (
+    if (categoryName.toLowerCase().includes(BAD_CATEGORY) && (
         CONSENT == BAD_SENSITIVE_CONSENT1 || 
         CONSENT == BAD_SENSITIVE_CONSENT2
     )){
@@ -229,7 +243,6 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
 
     // retention period is checked in check generic rules
     
-
     return violationNumber
     
 
