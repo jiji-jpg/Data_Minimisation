@@ -1,5 +1,8 @@
 function renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_CATEGORIES) {
-    
+    console.log("categories: ", NUMBER_OF_CATEGORIES)
+    console.log("bad categories: ", badCategoryCount)
+    console.log("attributes: ", NUMBER_OF_ATTRIBUTES)
+
     const container = document.getElementById("findingsByCategories");
 
     let storageCost = 0;
@@ -28,17 +31,22 @@ function calculateCost(numberOfAttributes, percentageOfBadCategories){
     // attributes size in MB * number of attributes * total patients * (1 original + log size) / 1000 (to convert to GB) 
     const STORAGE_IN_GB = ATTRIBUTE_SIZE_IN_MB * numberOfAttributes * TOTAL_PATIENTS * (1 + 0.3) / 1000
 
+    console.log("storage in GB:", STORAGE_IN_GB)
     // storage cost variables 
     const MONTHLY_STORAGE_COST_PER_GB = 0.194;
     const MONTHLY_BACKUP_PER_GB = 0.338
     const LONG_TERM__RETENTION_PER_GB = 0.084
     const MONTHLY_COMPUTE_COST = 372.01
 
+
     const COST_A = STORAGE_IN_GB * MONTHLY_STORAGE_COST_PER_GB
     const COST_B = STORAGE_IN_GB * MONTHLY_BACKUP_PER_GB
     const COST_C = STORAGE_IN_GB * 52 * LONG_TERM__RETENTION_PER_GB 
 
     storageCost = (COST_A + COST_B + COST_C + MONTHLY_COMPUTE_COST) * 12
+    if (STORAGE_IN_GB == 0){
+        storageCost = 0;
+    }
 
     const FORMATTED_STORAGE_COST = new Intl.NumberFormat('en-AU', {
     style: 'currency',
@@ -67,6 +75,9 @@ function calculateCost(numberOfAttributes, percentageOfBadCategories){
     const YEARLY_BREACH_COST_PER_RECORD = 270;
 
     regulatoryCost = 270 * TOTAL_PATIENTS * percentageOfBadCategories 
+    if (STORAGE_IN_GB == 0){
+        regulatoryCost = 0;
+    }
 
     const FORMATTED_REG_COST = new Intl.NumberFormat('en-AU', {
     style: 'currency',
