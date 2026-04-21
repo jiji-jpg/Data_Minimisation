@@ -56,8 +56,7 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
                 NUMBER_OF_ATTRIBUTES += categoryDetails[0]["attributeCollected"].length;
                 
             }
-            console.log(categoryName)
-            console.log(violation)
+
             
         }
         
@@ -269,10 +268,12 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
         // Get MHR Act retention purpose 
         const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriod"]["violation"].map(v => v.toLowerCase().trim().replace(/\.$/, ""));
         const RETENTION_SECTION = MHRAct[2]["MyHealthRecordSection"]
+        const SPECIAL_CIRCUMSTANCE = categoryDetails[7]["retentionException"].toLowerCase()
+        
 
         const RETENTION_PERIOD = categoryDetails[5]["retentionPeriodMHR"].toLowerCase().trim().replace(/\.$/, "")
         
-        if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD)){
+        if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD) && (SPECIAL_CIRCUMSTANCE == "no" || SPECIAL_CIRCUMSTANCE == "unsure")){
             createElement("p", `My Health Record Act 2012 advises against ${BAD_RETENTION_PERIOD.join(", ")}`, container);
             createElement("a", RETENTION_SECTION, container)
             violationNumber ++;
