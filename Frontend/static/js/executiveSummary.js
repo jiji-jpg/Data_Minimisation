@@ -188,19 +188,47 @@ function calculateRetentionScore(data) {
         const categoryDetails = Object.entries(categoryObj)[0][1];
 
         const retentionPeriodMHR = getCategoryFieldValue(categoryDetails, "retentionPeriodMHR");
-        //const specialCircumstance = getCategoryFieldValue(categoryDetails, "specialCircumtance");
+        const specialCircumstance = getCategoryFieldValue(categoryDetails, "specialCircumstance") || "";
         const enforcementMeasure = getCategoryFieldValue(categoryDetails, "enforcementMeasure");
         const retentionPeriod = getCategoryFieldValue(categoryDetails, "retentionPeriod");
 
         // a: category point logic
+        const isOptionB =
+            retentionPeriodMHR !== "up to 30 years after death" &&
+            retentionPeriodMHR !== "100 years" &&
+            retentionPeriodMHR !== "unsure" &&
+            retentionPeriodMHR !== "there is no consistent policy" &&
+            retentionPeriodMHR !== "";
+
         if (
             retentionPeriodMHR === "up to 30 years after death" ||
             retentionPeriodMHR === "100 years"
         ) {
             categoryPoint += 1;
             totalCategoryCount++;
-        } else if (retentionPeriodMHR === "unsure") {
+        } else if (
+            isOptionB &&
+            specialCircumstance.includes("yes")
+        ) {
+            categoryPoint += 1;
+            totalCategoryCount++;
+        } else if (
+            isOptionB &&
+            specialCircumstance === "no"
+        ) {
             categoryPoint += 0;
+            totalCategoryCount++;
+        } else if (
+            retentionPeriodMHR === "unsure" ||
+            retentionPeriodMHR === "there is no consistent policy"
+        ) {
+            categoryPoint += 0.5;
+            totalCategoryCount++;
+        } else if (
+            isOptionB &&
+            specialCircumstance === "unsure"
+        ) {
+            categoryPoint += 0.5;
             totalCategoryCount++;
         } else {
             categoryPoint += 1;
