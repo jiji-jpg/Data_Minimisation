@@ -18,9 +18,47 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             assetHeading.style.cssText = "margin-top: 2rem; margin-bottom: 1rem;";
             container.appendChild(assetHeading);
 
-            for (const category of categories) {
-                NUMBER_OF_CATEGORIES++;
+            // -- Sort categories: Priority Attention Suggested first, then Improvement Recommended, then Compliant
+            const sortedCategories = [...categories].sort((a, b) => {
+                const getViolationCount = (category) => {
+                    const details = Object.values(category)[0];
+                    if (details[0]["attributeCollected"].map(i => i.toLowerCase()).includes("not applicable")) return -1;
+                    const f = [];
+                    checkGenericRules(JSON.parse(JSON.stringify(details)), f);
+                    checkPrivacyAct(Object.keys(category)[0], privacyAct, JSON.parse(JSON.stringify(details)), f);
+                    checkMHRAct(useMHR, JSON.parse(JSON.stringify(details)), mhrAct, f);
+                    return f.length;
+                };
+                return getViolationCount(b) - getViolationCount(a);
+            });
+
+            for (const category of sortedCategories) {
+
                 const [categoryName, categoryDetails] = Object.entries(category)[0];
+
+                // -- Skip categories where attributes are not applicable
+                if (categoryDetails[0]["attributeCollected"].map(item => item.toLowerCase()).includes("not applicable")) {
+                    const article = document.createElement("article");
+                    article.className = "category";
+
+                    const header = document.createElement("div");
+                    header.className = "category-header";
+
+                    const title = document.createElement("h3");
+                    title.textContent = categoryName;
+                    header.appendChild(title);
+                    article.appendChild(header);
+
+                    const p = document.createElement("p");
+                    p.className = "category-intro";
+                    p.textContent = "You are not collecting attributes of this category.";
+                    article.appendChild(p);
+
+                    container.appendChild(article);
+                    continue;
+                }
+
+                NUMBER_OF_CATEGORIES++;
 
                 // -- Collect violations for this category into an array
                 const findings = [];
@@ -49,49 +87,85 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
 
                 const badge = document.createElement("span");
                 badge.className = "badge me-2";
+                badge.style.cssText = "font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 999px; white-space: nowrap;";
                 if (violationNumber === 0) {
                     badge.textContent = "Compliant";
-                    badge.style.backgroundColor = "#1bb273";
+                    badge.style.backgroundColor = "#2ecc71";
+                    badge.style.color = "#fff";
                 } else if (violationNumber <= 20 / 3) {
-                    badge.textContent = "Mostly Compliant";
+                    badge.textContent = "Improvement Recommended";
                     badge.style.backgroundColor = "#f39c12";
+                    badge.style.color = "#fff";
                 } else {
-                    badge.textContent = "Needs Review";
-                    badge.style.backgroundColor = "#ff002f";
+                    badge.textContent = "Priority Attention Suggested";
+                    badge.style.backgroundColor = "#c0392b";
+                    badge.style.color = "#fff";
                 }
 
                 header.appendChild(title);
                 header.appendChild(badge);
                 article.appendChild(header);
 
-                // -- Attributes collected line
+                // -- Divider
+                const divider1 = document.createElement("hr");
+                divider1.style.cssText = "border: none; border-top: 0.5px solid rgba(0,0,0,0.1); margin: 0.75rem 0;";
+                article.appendChild(divider1);
+
+                // -- Attributes collected as small cards
                 const ATTRIBUTES_COLLECTED = categoryDetails[0]["attributeCollected"];
-                const attrPara = document.createElement("p");
-                attrPara.className = "category-intro";
-                attrPara.textContent = `Attributes collected: ${ATTRIBUTES_COLLECTED.join(", ")}`;
-                article.appendChild(attrPara);
+                const attrLabel = document.createElement("p");
+                attrLabel.style.cssText = "font-size: 12px; color: #999; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em;";
+                attrLabel.textContent = "Attributes collected";
+                article.appendChild(attrLabel);
+
+                const attrTags = document.createElement("div");
+                attrTags.style.cssText = "display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.75rem;";
+                ATTRIBUTES_COLLECTED.forEach(attr => {
+                    const tag = document.createElement("span");
+                    tag.textContent = attr;
+                    tag.style.cssText = "font-size: 12px; padding: 3px 10px; border-radius: 8px; background: #fdf3f2; border: 0.5px solid #e8b4b0; color: #922b21;";
+                    attrTags.appendChild(tag);
+                });
+                article.appendChild(attrTags);
+
+                // -- Divider before findings
+                const divider2 = document.createElement("hr");
+                divider2.style.cssText = "border: none; border-top: 0.5px solid rgba(0,0,0,0.1); margin: 0.75rem 0;";
 
                 // -- Render each finding as an assessment-item card
                 if (findings.length === 0) {
+                    article.appendChild(divider2);
                     const item = document.createElement("div");
-                    item.className = "assessment-item success";
+                    item.style.cssText = "border-left: 3px solid #2ecc71; background: #f0faf4; border-radius: 0; padding: 0.75rem 1rem;";
                     const h4 = document.createElement("h4");
                     h4.textContent = "No issues found";
+                    h4.style.cssText = "font-size: 13px; font-weight: 500; color: #1a7a45; margin: 0 0 4px;";
                     const p = document.createElement("p");
                     p.textContent = "This category appears compliant based on available information.";
+                    p.style.cssText = "font-size: 13px; margin: 0; line-height: 1.5;";
                     item.appendChild(h4);
                     item.appendChild(p);
                     article.appendChild(item);
                 } else {
+                    article.appendChild(divider2);
                     findings.forEach(finding => {
                         const item = document.createElement("div");
-                        item.className = `assessment-item ${finding.severity}`;
+                        const isDanger = finding.severity === "danger";
+                        item.style.cssText = `
+                            border-left: 3px solid ${isDanger ? "#c0392b" : "#e67e22"};
+                            background: ${isDanger ? "#fdf3f2" : "#fef9f0"};
+                            border-radius: 0;
+                            padding: 0.75rem 1rem;
+                            margin-bottom: 8px;
+                        `;
 
                         const h4 = document.createElement("h4");
                         h4.textContent = finding.title;
+                        h4.style.cssText = `font-size: 13px; font-weight: 600; color: ${isDanger ? "#922b21" : "#935116"}; margin: 0 0 4px;`;
 
                         const p = document.createElement("p");
                         p.textContent = finding.message;
+                        p.style.cssText = "font-size: 13px; margin: 0; line-height: 1.5;";
 
                         item.appendChild(h4);
                         item.appendChild(p);
@@ -100,6 +174,7 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
                             const a = document.createElement("a");
                             a.textContent = finding.link;
                             a.href = "#";
+                            a.style.cssText = "font-size: 12px; display: block; margin-top: 4px;";
                             item.appendChild(a);
                         }
 
@@ -223,7 +298,7 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, findings) {
     const BAD_SENSITIVE_CONSENT1 = privacyAct[2]["consent"]["violation"][0].toLowerCase();
     const BAD_SENSITIVE_CONSENT2 = privacyAct[2]["consent"]["unsure"][0].toLowerCase();
 
-    if (categoryName.toLowerCase() === BAD_CATEGORY &&
+    if (categoryName.toLowerCase().includes(BAD_CATEGORY) &&
         (CONSENT === BAD_SENSITIVE_CONSENT1 || CONSENT === BAD_SENSITIVE_CONSENT2)) {
         findings.push({
             severity: "danger",
@@ -256,11 +331,13 @@ function checkMHRAct(MHRCollected, categoryDetails, MHRAct, findings) {
     const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriod"]["violation"]
         .map(v => v.toLowerCase().trim().replace(/\.$/, ""));
     const RETENTION_SECTION = MHRAct[2]["MyHealthRecordSection"];
+    const SPECIAL_CIRCUMSTANCE = categoryDetails[7]["retentionException"].toLowerCase();
 
     const RETENTION_PERIOD = categoryDetails[5]["retentionPeriodMHR"]
         .toLowerCase().trim().replace(/\.$/, "");
 
-    if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD)) {
+    if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD) &&
+        (SPECIAL_CIRCUMSTANCE === "no" || SPECIAL_CIRCUMSTANCE === "unsure")) {
         findings.push({
             severity: "danger",
             title: "Retention Period Violates My Health Records Act",

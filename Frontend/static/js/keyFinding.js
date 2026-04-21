@@ -1,6 +1,5 @@
 function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
 
-    // purpose violation MHR Act
     const purposeResult = calculateFromRules(data, mhrAct, "purpose");
     const consentResult = calculateFromRules(data, mhrAct, "consent");
     const lessDetailedResult = calculateFromRules(data, privacyAct, "lessDetailed");
@@ -23,30 +22,27 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
         document.getElementById("non-essential-result").textContent =
             `${essentialResult.violation}% of attributes are not essential, while ${essentialResult.unsure}% are unsure.`;
 
-
-        ///RETENTION
-        // retention period voilates MyHealthAct/no special circumstances
+        // -- Retention
         const retentionResult = calculateRetentionIssues(data, mhrAct, privacyAct, useMHR);
 
         if (useMHR) {
             document.getElementById("retention-result").textContent =
-            `    ${retentionResult.unclearMHR}% of data have an unclear retention period and no special circumstances, which may indicate potential compliance risks.`;
-                // `${retentionResult.violation}% of retention periods violate My Health Record Act and have no special circumstances.`;
+                `${retentionResult.illegalMHR}% of data retention practices violate My Health Act by exceeding the permitted retention period without valid special circumstances.`;
         } else {
-            document.getElementById("retention-result").textContent =
-                `${retentionResult.unsure}% of your data retention period is unsure.`;
+            document.getElementById("retention-result").textContent = "";
         }
 
-        // retention period = unsure
         document.getElementById("retention-unknown-result").textContent =
-            `${retentionResult.unsure}% of retention periods are undefined or uncertain.`;
+            `${retentionResult.unsure}% of general data retention periods are undefined or uncertain.`;
 
         document.getElementById("manual-delete-result").textContent =
             `${retentionResult.manualDeleted}% of enforcement measures rely on manual deletion.`;
     }
 }
 
-// == Functions for Key Findings == 
+
+// == Functions for Key Findings ==
+
 function calculateFromRules(data, rules, field) {
 
     const assets = data["data"][1][0];
@@ -55,9 +51,7 @@ function calculateFromRules(data, rules, field) {
     let total = 0;
     let violationCount = 0;
     let unsureCount = 0;
-    
 
-    // find violation in json files
     const ruleObj = rules.find(r => r[field] !== undefined);
     if (!ruleObj) return { violation: 0, unsure: 0 };
 
@@ -67,9 +61,17 @@ function calculateFromRules(data, rules, field) {
     categories.forEach(categoryObj => {
         const details = categoryObj[Object.keys(categoryObj)[0]];
 
+        // -- Skip "not applicable" categories
+        const attributeObj = details.find(item => item.attributeCollected !== undefined);
+        const isNotApplicable = attributeObj &&
+            Array.isArray(attributeObj.attributeCollected) &&
+            attributeObj.attributeCollected.some(attr =>
+                attr.toLowerCase().trim() === "not applicable"
+            );
+        if (isNotApplicable) return;
+
         let obj;
 
-        // the percentage of unsure is calculated individually in purpose section
         if (field === "purpose") {
             obj = details.find(item => item.collectionPurpose !== undefined);
         } else {
@@ -103,37 +105,49 @@ function calculateRetentionIssues(data, mhrAct, privacyAct, useMHR) {
     const categories = Object.values(assets).flat();
 
     let total = 0;
-    // let violationCount = 0;
+    let totalMHR = 0;
+    let illegalMHRCount = 0;
     let unsureCount = 0;
-    let unclearMHRCount = 0;
-
     let manualDeletedCount = 0;
     let totalEnforcement = 0;
 
-    // Choose rules
-    const rules = useMHR ? mhrAct : privacyAct;
+    const mhrRules = mhrAct;
+    const privacyRules = privacyAct;
 
-    // Retention rules
+    // -- Retention rules
     const unsureRetentionValues =
-        rules[2]?.retentionPeriod?.unsure?.map(v => v.toLowerCase().trim()) || [];
+        privacyRules[3]?.retentionPeriod?.unsure?.map(v => v.toLowerCase().trim()) || [];
+
+    const illegalRetentionValues =
+        mhrRules[2]?.retentionPeriodMHR?.violation?.map(v => v.toLowerCase().trim()) || [];
 
     const badSpecialValues =
-        rules[2]?.retentionSpecialCircumstances?.violation?.map(v => v.toLowerCase().trim()) || [];
+        mhrRules[2]?.retentionSpecialCircumstances?.violation?.map(v => v.toLowerCase().trim()) || [];
 
     const unsureSpecialValues =
-        rules[2]?.retentionSpecialCircumstances?.unsure?.map(v => v.toLowerCase().trim()) || [];
+        mhrRules[2]?.retentionSpecialCircumstances?.unsure?.map(v => v.toLowerCase().trim()) || [];
 
     categories.forEach(categoryObj => {
         const details = categoryObj[Object.keys(categoryObj)[0]];
 
+        // -- Skip "not applicable" categories
+        const attributeObj = details.find(item => item.attributeCollected !== undefined);
+        const isNotApplicable = attributeObj &&
+            Array.isArray(attributeObj.attributeCollected) &&
+            attributeObj.attributeCollected.some(attr =>
+                attr.toLowerCase().trim() === "not applicable"
+            );
+        if (isNotApplicable) return;
+
         const retentionObj = details.find(item => item.retentionPeriod !== undefined);
         const retentionMHRObj = details.find(item => item.retentionPeriodMHR !== undefined);
 
-        const specialObj = details.find(item => item.specialCircumtance !== undefined);
+        // -- New: uses retentionException (was specialCircumtance in old version)
+        const specialObj = details.find(item => item.retentionException !== undefined);
         const enforcementObj = details.find(item => item.enforcementMeasure !== undefined);
 
         const specialValue = specialObj
-            ? specialObj.specialCircumtance.toLowerCase().trim()
+            ? specialObj.retentionException.toLowerCase().trim()
             : "";
 
         const noSpecialCircumstances =
@@ -141,46 +155,46 @@ function calculateRetentionIssues(data, mhrAct, privacyAct, useMHR) {
             badSpecialValues.includes(specialValue) ||
             unsureSpecialValues.includes(specialValue);
 
-        // Q2    
+        // -- General retention period (Q2)
         if (retentionObj) {
             total++;
 
-        const retentionValue = retentionObj.retentionPeriod
-            .toLowerCase()
-            .trim()
-            .replace(/\.$/, "");
-        
-            // Unsure logic
-        if (unsureRetentionValues.includes(retentionValue) || retentionValue === "") {
-            unsureCount++;
-        }
-    }
+            const retentionValue = retentionObj.retentionPeriod
+                .toLowerCase()
+                .trim()
+                .replace(/\.$/, "");
 
-        // Q1 
+            if (unsureRetentionValues.includes(retentionValue) || retentionValue === "") {
+                unsureCount++;
+            }
+        }
+
+        // -- MHR retention period (Q1)
         if (retentionMHRObj) {
+            totalMHR++;
+
             const retentionMHRValue = retentionMHRObj.retentionPeriodMHR
                 ? retentionMHRObj.retentionPeriodMHR.toLowerCase().trim()
                 : "";
 
-            if (retentionMHRValue === "unsure" && noSpecialCircumstances) {
-                unclearMHRCount++;
+            if (illegalRetentionValues.includes(retentionMHRValue) && noSpecialCircumstances) {
+                illegalMHRCount++;
             }
         }
 
-        // Enforcement logic
+        // -- Enforcement measure
         if (enforcementObj) {
             const enforcementValue = enforcementObj.enforcementMeasure.toLowerCase().trim();
-
             totalEnforcement++;
 
-            if (enforcementValue === "manually deleted") {
+            if (enforcementValue.includes("manually deleted")) {
                 manualDeletedCount++;
             }
         }
     });
 
     return {
-        unclearMHR: total === 0 ? 0 : Math.round((unclearMHRCount / total) * 100),
+        illegalMHR: totalMHR === 0 ? 0 : Math.round((illegalMHRCount / totalMHR) * 100),
         unsure: total === 0 ? 0 : Math.round((unsureCount / total) * 100),
         manualDeleted: totalEnforcement === 0 ? 0 : Math.round((manualDeletedCount / totalEnforcement) * 100)
     };
