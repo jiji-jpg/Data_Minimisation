@@ -93,7 +93,7 @@ const FormValidator = {
     const errors = [];
 
     selects.forEach(select => {
-      if (!this.isVisible(select)) return; // Walks up DOM tree to check parents too
+      if (!this.isVisible(select)) return;
       if (select.value === '') {
         errors.push({
           element: select.closest('.custom-select'),
@@ -124,7 +124,7 @@ const FormValidator = {
       if (radios.length === 0) return;
 
       const toggleElement = document.getElementById(group.id);
-      if (!this.isVisible(toggleElement)) return; // Walks up DOM tree to check parents too
+      if (!this.isVisible(toggleElement)) return;
 
       const hasSelection = Array.from(radios).some(radio => radio.checked);
       if (!hasSelection) {
@@ -170,13 +170,18 @@ const FormValidator = {
     };
   },
 
+  // Check if skip checkbox is selected
+  isSkipped: function() {
+    var skipCheckbox = document.getElementById('skipSection');
+    return skipCheckbox && skipCheckbox.checked;
+  },
+
   // ---- VALIDATION FOR ENTIRE FORM STARTS HERE ---- 
   validateForm: function() {
     this.clearErrors();
 
     // If SKIP is selected, bypass all validation
-    var skipCheckbox = document.getElementById('skipSection');
-    if (skipCheckbox && skipCheckbox.checked) {
+    if (this.isSkipped()) {
       return true;
     }
 
@@ -261,7 +266,8 @@ document.addEventListener('DOMContentLoaded', function() {
         FormValidator.scrollToFirstError();
         return false;
       } else {
-        sessionStorage.setItem(formKey, 'true');
+        // Store 'skipped' or 'completed' so stepper can tell the difference
+        sessionStorage.setItem(formKey, FormValidator.isSkipped() ? 'skipped' : 'completed');
       }
     });
   }
@@ -273,6 +279,72 @@ document.addEventListener('DOMContentLoaded', function() {
       FormValidator.clearErrors();
     });
   });
+
+// --- Skip Section: clear answers and session data when checked ---
+  var skipCheckbox = document.getElementById('skipSection');
+  if (skipCheckbox) {
+    var isClearing = false;
+
+    function clearAllAnswers() {
+      isClearing = true;
+
+      var allInputs = document.querySelectorAll('input, select');
+      allInputs.forEach(function(input) {
+        if (input === skipCheckbox) return;
+        if (input.closest('.skip-section-label')) return;
+
+        if (input.type === 'checkbox' || input.type === 'radio') {
+          input.checked = false;
+        } else if (input.tagName === 'SELECT') {
+          input.value = '';
+        }
+      });
+
+      // Clear all possible sessionStorage keys used by actions.js
+      sessionStorage.removeItem('dataMinFullProgress');
+
+      // Clear any page-specific saved data
+      var allKeys = Object.keys(sessionStorage);
+      allKeys.forEach(function(key) {
+        if (key.indexOf('formData') !== -1 || key.indexOf('progress') !== -1) {
+          sessionStorage.removeItem(key);
+        }
+      });
+
+      isClearing = false;
+    }
+
+    // On page load: if this form was previously skipped, force-clear restored data
+    if (formKey && sessionStorage.getItem(formKey) === 'skipped') {
+      skipCheckbox.checked = true;
+      // Use setTimeout to run AFTER actions.js restores data
+      setTimeout(function() {
+        clearAllAnswers();
+      }, 50);
+    }
+
+    skipCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        clearAllAnswers();
+      }
+    });
+
+    // Uncheck skip when user answers any other question
+    var allOtherInputs = document.querySelectorAll('input, select');
+    allOtherInputs.forEach(function(input) {
+      if (input === skipCheckbox) return;
+      if (input.closest('.skip-section-label')) return;
+      input.addEventListener('change', function() {
+        if (isClearing) return;
+        if (skipCheckbox.checked) {
+          skipCheckbox.checked = false;
+          if (formKey) {
+            sessionStorage.removeItem(formKey);
+          }
+        }
+      });
+    });
+  }
 });
 
 // Export for global use
