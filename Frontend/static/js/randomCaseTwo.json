@@ -1,0 +1,298 @@
+{
+  "data": [
+    {
+      "collectMyHealthRecord": "yes"
+    },
+    [
+      {
+        "Personal Data Asset": [
+          {
+            "Personal Details": [
+              {
+                "attributeCollected": [
+                  "skipped"
+                ]
+              },
+              {
+                "collectionPurpose": "n/a"
+              },
+              {
+                "consent": "n/a"
+              },
+              {
+                "lessDetailed": "n/a"
+              },
+              {
+                "essential": "n/a"
+              },
+              {
+                "retentionPeriodMHR": "n/a"
+              },
+                     {
+                "retentionPeriod": "n/a"
+              },
+              {
+                "retentionException": "n/a"
+              },
+              {
+                "enforcementMeasure": "n/a"
+              }
+            ]
+          },
+          {
+            "Government-issued identifiers and Sensitive Information": [
+              {
+                "attributeCollected": [
+                  "Medicare Number",                  
+ "ABN",
+                  "ACN",
+                  "VFN",
+                  "Indigenous Status",
+                  "Death Details",
+                  "Cultureal Identity",
+                  "Racial/Ethic origin"
+                ]
+              },
+              {
+                "collectionPurpose": "Marketing"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "Yes"
+              },
+              {
+                "essential": "yes"
+              },
+              {
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
+              },
+              {
+                "retentionPeriod": "nformation is not kept once it is no longer needed."
+              },
+              {
+                "retentionException": "yes, for legal or audit purposes."
+              },
+              {
+                "enforcementMeasure": "Securely destroyed"
+              }
+            ]
+          }],
+        "Health Data Asset": [
+         
+          {
+            "Clinical Health Data": [
+              {
+                "attributeCollected": [
+                  "Allergies,Medicine and Adverse Reactions",
+                  "Pathology Reports",
+                  "Diagnostic Imaging Reports",
+                  "Discharge Summaries",
+                  "Specialist Letters",
+                  "Shared Health Summaries",
+                  "Event Summaries",
+                  "e-Referrals",
+                  "Goals of Care Documents"
+                ]
+              },
+              {
+                "collectionPurpose": "Operational or Business Operation"
+              },
+              {
+                "consent": "yes"
+              },
+              {
+                "lessDetailed": "no"
+              },
+              {
+                "essential": "yes"
+              },
+              {
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
+              },
+              {
+                "retentionPeriod": "Information is kept as long as required by law."
+              },
+              {
+                "retentionException": "no"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          },
+          {
+            "Medical Records & Immunisation": [
+              {
+                "attributeCollected": [
+                  "Pharmacist Shared Medicines List",
+                  "Prescription and Dispense Records",
+                  "Immunisations",
+                  "Discharge Summaries",
+                  "Specialist Letters",
+                  "Shared Health Summaries",
+                  "Event Summaries",
+                  "e-Referrals",
+                  "Goals of Care Documents"
+                ]
+              },
+              {
+                "collectionPurpose": "Human Resource"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "unsure"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "There is no consistent policy"
+              },
+              {
+                "retentionPeriod": "Information is kept indefinitely."
+              },
+              {
+                "retentionException": "n/a"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          }],
+          "Government Data Asset": [
+          {
+            "Government Health Data": [
+              {
+                "attributeCollected": [
+                  "Transfer and Residential Care Facility Documents",
+                  "Medicare Benefits Schedule Claims",
+                  "Pharmaceutical Benefits Scheme Claims",
+                  "Department of Veterans’ Affairs Claims",
+                  "Australian Immunisation Register",
+                  "Australian Organ Donor Register",
+                  "Proof of Vaccination Documents"
+                ]
+              },
+              {
+                "collectionPurpose": "General Insurance"
+              },
+              {
+                "consent": "unsure"
+              },
+              {
+                "lessDetailed": "yes"
+              },
+              {
+                "essential": "unsure"
+              },
+              {
+                "retentionPeriodMHR": "Unsure"
+              },
+              {
+                "retentionPeriod": "Unsure"
+              },
+              {
+                "retentionException": "n/a"
+              },
+              {
+                "enforcementMeasure": "De-identified (personal details removed but data kept for analysis)"
+              }
+            ]
+          }],
+          "Consumer-Contributed Health Data Asset": [
+          {
+            "Consumer Contributed Data": [
+              {
+                "attributeCollected": [
+                  "Contact & Emergency Details",
+                  "Preferred Language",
+                  "Country of Birth",
+                  "Indigenous",
+                  "Veteran Status",
+                  "Advance Care Plan",
+                  "Custodian Details",
+                  "Current Medicines",
+                  "Allergy Information",
+                  "Personal Health Notes"
+                ]
+              },
+              {
+                "collectionPurpose": "unsure"
+              },
+              {
+                "consent": "yes"
+              },
+              {
+                "lessDetailed": "no"
+              },
+              {
+                "essential": "yes"
+              },
+              {
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
+              },
+              {
+                "retentionPeriod": "Information is kept indefinitely."
+              },
+              {
+                "retentionException": "unsure"
+              },
+              {
+                "enforcementMeasure": "Manually deleted or archived by authorised staff"
+              }
+            ]
+          }],
+          "Child Health Data Asset": [
+          {
+            "Child Health Data": [
+              {
+                "attributeCollected": [
+                  "Achievement Diary",
+                  "Growth Charts",
+                  "Health Check Schedules & Questionnaires",
+                  "Child Immunisations"
+                ]
+              },
+              {
+                "collectionPurpose": "Clinical Care"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "unsure"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
+              },
+              {
+                "retentionPeriod": "Information is kept as long as required by law."
+              },
+              {
+                "retentionException": "no"
+              },
+              {
+                "enforcementMeasure": "Automatically deleted"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  ],
+  "ok": true,
+  "session_id": "20260331122435885212",
+  "updated_at": "2026-03-31T23:42:44.014042+00:00"
+}
+
+
+
+
+
