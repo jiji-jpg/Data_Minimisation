@@ -154,6 +154,16 @@ def _normalize_binary(v):
         return s
     return "unsure"
 
+def _normalize_exception(v):
+    if not v:
+        return "unsure"
+    s = str(v).strip().lower()
+    if s == "unsure":
+        return "unsure"
+    if s in {"no", "no, there are no special circumstances"}:
+        return "no"
+    return str(v).strip()
+
 def _normalize_enforcement_from_checked(checked):
     lowered = [c.lower() for c in checked]
     if any("automaticallydeleted" in c for c in lowered):
@@ -204,14 +214,13 @@ def _extract_purpose_from_checked(checked):
     return extracted
 
 def _extract_retention_fields(selects):
-    # explicit retention selects used on questionnaire pages
-    q1 = selects.get("Question1-1A") or selects.get("Question1-1B") or selects.get("Question1-2A") or selects.get("Question1-2B") or selects.get("Question1-3A") or selects.get("Question1-4A") or selects.get("Question1-5A")
-    q2 = selects.get("Question2-1A") or selects.get("Question2-1B") or selects.get("Question2-2A") or selects.get("Question2-2B") or selects.get("Question2-3A") or selects.get("Question2-4A") or selects.get("Question2-5A")
-    q3 = selects.get("Question3-1A") or selects.get("Question3-1B") or selects.get("Question3-2A") or selects.get("Question3-2B") or selects.get("Question3-3A") or selects.get("Question3-4A") or selects.get("Question3-5A")
-
-    retention_period = q2 if q2 else (q1 if q1 else "Unsure")
-    retention_exception = q3 if q3 else "Unsure"
-    return retention_period, retention_exception
+    suffixes = ["1A", "1B", "2A", "2B", "3A", "4A", "5A"]
+    q1 = next((selects.get(f"Question1-{s}") for s in suffixes if selects.get(f"Question1-{s}")), "Unsure")
+    q2 = next((selects.get(f"Question2-{s}") for s in suffixes if selects.get(f"Question2-{s}")), "Unsure")
+    q3 = next((selects.get(f"Question3-{s}") for s in suffixes if selects.get(f"Question3-{s}")), None)
+    if not q3:
+        q3 = selects.get("Question1B", "Unsure")
+    return q1, q2, q3  # (mhr_period, general_period, exception)
 
 def _extract_essential_lessdetailed(radios):
     essential = radios.get("choice2", "unsure")
@@ -227,7 +236,7 @@ def _category_from_step(step_key, page):
     purpose_raw = _extract_purpose_from_checked(checked)
     consent_raw = _first_non_empty(radios, "Unsure")
     essential_raw, less_detailed_raw = _extract_essential_lessdetailed(radios)
-    retention_raw, retention_exception_raw = _extract_retention_fields(selects)
+    mhr_raw, retention_raw, retention_exception_raw = _extract_retention_fields(selects)
 
     label_map = {
         "_DA1": "Personal Details",
@@ -247,8 +256,9 @@ def _category_from_step(step_key, page):
             {"consent": _normalize_consent(consent_raw)},
             {"lessDetailed": _normalize_binary(less_detailed_raw)},
             {"essential": _normalize_binary(essential_raw)},
+            {"retentionPeriodMHR": _normalize_retention(mhr_raw)},
             {"retentionPeriod": _normalize_retention(retention_raw)},
-            {"retentionException": _normalize_retention(retention_exception_raw)},
+            {"retentionException": _normalize_exception(retention_exception_raw)},
             {"enforcementMeasure": _normalize_enforcement_from_checked(checked)},
         ]
     }
