@@ -43,7 +43,101 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
 
         document.getElementById("manual-delete-result").textContent =
             `${retentionResult.manualDeleted}% of enforcement measures rely on manual deletion.`;
+
+        // Check if Attribute = Not Applicable
+        const assets = data["data"][1][0];
+        const categories = Object.values(assets).flat();
+        let hasValidData = false;
+
+        categories.forEach(categoryObj => {
+            const details = categoryObj[Object.keys(categoryObj)[0]];
+
+            const attributeObj = details.find(item => item.attributeCollected !== undefined);
+
+            if (attributeObj && Array.isArray(attributeObj.attributeCollected)) {
+                const valid = attributeObj.attributeCollected.some(attr =>
+                    attr.toLowerCase().trim() !== "not applicable"
+                );
+
+                if (valid) {
+                    hasValidData = true;
+                }
+            }
+        });
+
+        if (!hasValidData) {
+            return;
+        }
+
+        // Data Collection Score (for labels)
+        const dataCollectionScore =
+            (
+                purposeResult.violation +
+                purposeResult.unsure +
+                consentResult.violation +
+                lessDetailedResult.violation +
+                essentialResult.violation
+            ) / 5;
+
+        // Retention Score (for labels)
+        const retentionScore =
+            (
+                retentionResult.illegalMHR +
+                retentionResult.unsure +
+                retentionResult.manualDeleted
+            ) / 3;
+
+        // Collection Label
+        const dataLabel = document.createElement("span");
+        dataLabel.classList.add("badge");
+
+        if (dataCollectionScore < 33) {
+            dataLabel.textContent = "Minimal Data Collection";
+            dataLabel.style.backgroundColor = "#1bb273";
+        }
+        else if (dataCollectionScore < 66) {
+            dataLabel.textContent = "Sufficient Data Collection";
+            dataLabel.style.backgroundColor = "#f39c12"; 
+        }
+        else {
+            dataLabel.textContent = "Excessive Data Collection";
+            dataLabel.style.backgroundColor = "#ff002f";
+        }
+        dataLabel.classList.add("issue-collection-label");
+        document.querySelector(".granularity-issues").appendChild(dataLabel);
+
+
+        // Retention Label
+        const retentionLabel = document.createElement("span");
+        retentionLabel.classList.add("badge");
+
+        if (retentionScore < 33) {
+            retentionLabel.textContent = "Minimal Retention";
+            retentionLabel.style.backgroundColor = "#1bb273";
+        }
+        else if (retentionScore < 66) {
+            retentionLabel.textContent = "Appropriate Retention";
+            retentionLabel.style.backgroundColor = "#f39c12";
+        }
+        else {
+            retentionLabel.textContent = "Extended Retention";
+            retentionLabel.style.backgroundColor = "#ff002f";
+        }
+        retentionLabel.classList.add("issue-retention-label");
+        document.querySelector(".retention-issues").appendChild(retentionLabel);
     }
+}
+// == Functions for Labels (Data Collection & Retention) == 
+function getDataCollectionLabel(score) {
+    if (score < 33) return "Minimal Data Collection";
+    if (score < 66) return "Sufficient Data Collection";
+    return "Excessive Data Collection";
+}
+
+function getRetentionLabel(score) {
+    if (score < 33) return "Minimal Retention";
+    if (score < 66) return "Appropriate Retention";
+    return "Extended Retention";
 }
 
 // == Functions for Key Findings == 
