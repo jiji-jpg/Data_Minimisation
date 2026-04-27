@@ -180,6 +180,8 @@ def _normalize_enforcement_from_checked(checked):
 
 def _collect_mhr_from_steps(steps):
     for _, page in (steps or {}).items():
+        if _is_skipped(page):
+            continue
         checked = _truthy_checked_ids(page)
         if any("myhealthrecord" in c.lower() or "mhr" in c.lower() for c in checked):
             return "yes"
@@ -238,16 +240,7 @@ def _category_from_step(step_key, page):
     essential_raw, less_detailed_raw = _extract_essential_lessdetailed(radios)
     mhr_raw, retention_raw, retention_exception_raw = _extract_retention_fields(selects)
 
-    label_map = {
-        "_DA1": "Personal Details",
-        "_DA2": "Personal Sensitive Details",
-        "_HA1": "Clinical Health Data",
-        "_HA2": "Clinical Records & Prescriptions",
-        "_GA1": "Government Health Data",
-        "_CA1": "Consumer Contributed Data",
-        "_CH1": "Child Health Data",
-    }
-    label = label_map.get(step_key, step_key)
+    label = LABEL_MAP.get(step_key, step_key)
 
     return {
         label: [
@@ -263,18 +256,43 @@ def _category_from_step(step_key, page):
         ]
     }
 
+LABEL_MAP = {
+    "_DA1": "Personal Details",
+    "_DA2": "Personal Sensitive Details",
+    "_HA1": "Clinical Health Data",
+    "_HA2": "Clinical Records & Prescriptions",
+    "_GA1": "Government Health Data",
+    "_CA1": "Consumer Contributed Data",
+    "_CH1": "Child Health Data",
+}
+
+def _is_skipped(page):
+    return bool((page.get("checkboxes") or {}).get("skipSection"))
+
+def _skipped_category(step_key):
+    label = LABEL_MAP.get(step_key, step_key)
+    return {label: [{"skipped": True}]}
+
 def _build_report_schema_from_steps(steps):
     ordered_keys = ["_DA1", "_DA2", "_HA1", "_HA2", "_GA1", "_CA1", "_CH1"]
     categories = []
 
     for key in ordered_keys:
         if key in (steps or {}):
-            categories.append(_category_from_step(key, steps.get(key, {}) or {}))
+            page = steps.get(key, {}) or {}
+            if _is_skipped(page):
+                categories.append(_skipped_category(key))
+            else:
+                categories.append(_category_from_step(key, page))
 
     # include any additional dynamic keys not in the known order
     for key, page in (steps or {}).items():
         if key not in ordered_keys:
-            categories.append(_category_from_step(key, page or {}))
+            page = page or {}
+            if _is_skipped(page):
+                categories.append(_skipped_category(key))
+            else:
+                categories.append(_category_from_step(key, page))
 
     return [
         {"collectMyHealthRecord": _collect_mhr_from_steps(steps)},
