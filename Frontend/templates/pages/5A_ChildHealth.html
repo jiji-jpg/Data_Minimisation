@@ -19,47 +19,49 @@
       Please select and answer all that applies to your organisation for a detailed analysis.<br>
       If your organisation does not collect, you can skip to the next section.
     </div>
-     <div class="panel panel-padded"> 
+<div class="panel panel-padded"> 
       <div class="form-section">        
-          <h2>Child Health Records</h2>  
+        <h2>Child Health Records</h2>  
+        <div class="checkbox-grid">
           <label class="checkbox-label">
             <input type="checkbox" id="AchievementDiary"/>
             <span class="label-text">
               <span class="label-title">Achievement Diary</span>
-              <span class="label-desc"></span>
+              <span class="label-desc">eg. Developmental milestone entries (first words, first steps), parent/carer observations, age at achievement, milestone categories (motor, social, language, cognitive).</span>
             </span>
-          </label><br>
+          </label>
           <label class="checkbox-label">
             <input type="checkbox" id="GrowthCharts"/>
             <span class="label-text">
               <span class="label-title">Growth Charts</span>
-              <span class="label-desc"></span>
+              <span class="label-desc">eg. Height, weight, and head circumference measurements over time, BMI percentile, plotted growth trajectory against age/sex reference ranges.</span>
             </span>
-          </label><br>
+          </label>
           <label class="checkbox-label">
             <input type="checkbox" id="HealthCheckSchedulesQ"/>
             <span class="label-text">
               <span class="label-title">Health Check Schedules & Questionnaires</span>
-              <span class="label-desc"></span>
+              <span class="label-desc">eg. Scheduled well-child visit dates, Ages and Stages Questionnaire (ASQ) responses, developmental screening results, hearing and vision check outcomes.</span>
             </span>
-          </label><br>
+          </label>
           <label class="checkbox-label">
             <input type="checkbox" id="ChildImmunisations"/>
             <span class="label-text">
               <span class="label-title">Child Immunisations</span>
-              <span class="label-desc"></span>
+              <span class="label-desc">eg. Vaccine name and dose number, date administered, batch number, administering provider, National Immunisation Program schedule status, catch-up vaccinations.</span>
             </span>
           </label>
+        </div>
       </div>
-        <label class="checkbox-label skip-section-label">
-          <input type="checkbox" id="skipSection" />
-          <span class="label-text">
-            <span class="label-title">This section is not applicable, our organisation does not collect this category of data.</span>
-            <span class="label-desc"> <B>Skip all the questions below and proceed to 'Continue'.</B></span>
-          </span>
-        </label>
+      <label class="checkbox-label skip-section-label">
+        <input type="checkbox" id="skipSection" />
+        <span class="label-text">
+          <span class="label-title">This section is not applicable, our organisation does not collect this category of data.</span>
+          <span class="label-desc"><b>Skip all the questions below and proceed to 'Continue'.</b></span>
+        </span>
+      </label>
     </div>
-    
+        
     <div class="form-question">
       <div class="text-emphasis">Data Collection Purpose</div>
       <div class="text-small">Why did your organisation collect the selected category(s) of data?<br>You may select more than one:</div>
@@ -266,7 +268,7 @@
 
     <div class="btn-container">
       <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
-      <a href="{{ url_for('DA2') }}" class="btn btn-secondary" id="continueBtn">Continue</a>
+      <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary" id="continueBtn">Continue</a>
     </div>
   </main>
 

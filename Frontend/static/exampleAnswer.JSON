@@ -29,7 +29,7 @@
                 "essential": "no"
               },
               {
-                "retentionPeriodMHR": "unsure"
+                "retentionPeriodMHR": "information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
               },
               {
                 "retentionPeriod": "information is kept indefinitely."
@@ -65,7 +65,7 @@
                 "essential": "unsure"
               },
               {
-                "retentionPeriodMHR": "unsure"
+                "retentionPeriodMHR": "information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
               },
               {
                 "retentionPeriod": "unsure"

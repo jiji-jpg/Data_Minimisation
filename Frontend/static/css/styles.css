@@ -275,6 +275,17 @@ a.btn.btn-small:focus {
   background: #059669;
 }
 
+.btn-skipped-report {
+  background-color: #DC2626 !important;
+  color: white !important;
+  border: 1px solid #B91C1C !important;
+}
+
+.btn-skipped-report:hover {
+  background-color: #B91C1C !important;
+  color: white !important;
+}
+
 /* ==================== MAIN CONTENT ==================== */
 body main {
   max-width: 80%;
@@ -554,8 +565,10 @@ body main h2 {
 }
 
 .form-question {
-  margin: 3rem 0;
+  margin: 2rem 0;
 }
+
+
 
 /* ==================== TOGGLE SWITCHES ==================== */
 .toggle-switch,

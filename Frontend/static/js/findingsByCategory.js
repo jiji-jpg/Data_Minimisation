@@ -21,11 +21,21 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
 
 
         for (const category of categories) {
-            NUMBER_OF_CATEGORIES++;
+            
             const [categoryName, categoryDetails] = Object.entries(category)[0];
+            
+            
 
             // - List category name 
             createElement("h2", categoryName, container);
+
+            // check if attributes collected are not applicable
+            if (categoryDetails[0]["attributeCollected"].map(item => item.toLowerCase()).includes("not applicable")){
+                createElement("p", "You are not collecting attributes of this category.", container)
+                continue
+            }
+
+            NUMBER_OF_CATEGORIES++;
 
             // - List attributes collected for the category 
             listAttributes(categoryDetails, container);
@@ -35,7 +45,6 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             violation = checkGenericRules(categoryDetails, violation, container);
             violation = checkPrivacyAct(categoryName, privacyAct, categoryDetails, violation, container);
             violation = checkMHRAct(useMHR, violation, categoryDetails, mhrAct, container);
-            console.log("violation", violation)
             // - Attach label to the category 
             getCategoryLabel(violation, container);
 
@@ -47,8 +56,10 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
                 NUMBER_OF_ATTRIBUTES += categoryDetails[0]["attributeCollected"].length;
                 
             }
+
             
         }
+        
     }
     }
 
@@ -151,7 +162,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         // check if consent is no or unsure 
         if ("consent" in item && (item.consent == "no" || item.consent == "unsure")){
             createElement("p", "These attributes may be collected with no consent. Collecting data after acquiring consent is advised by My Health Act 2012.", container)
-            createElement("a", "My Health Records Act 2012 - Part 3 - Registratgit puion", container)
+            createElement("a", "My Health Records Act 2012 - Part 3 - Registration", container)
             violationNumber ++;
 
         }
@@ -172,7 +183,9 @@ function checkGenericRules (categoryDetails, violationNumber, container){
 
         // check if retention period is unsure 
 
-        if ("retentionPeriod" in item && (item.retentionPeriod == "unsure" || item.retentionPeriod == "information is kept indefinitely")){
+        if ("retentionPeriod" in item && (item.retentionPeriod == "unsure" || item.retentionPeriod.includes("information is kept indefinitely")))
+            {
+            
             createElement("p", "These attributes have unknown retention period or are kept indefinitely. This may violate sections of Privacy Act 1988", container)
             createElement("p", "Privacy Act 11.2", container)
             violationNumber ++;
@@ -180,7 +193,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
 
         // check enforcement measure 
         if ("enforcementMeasure" in item && 
-            (item.enforcementMeasure == "manually deleted" || item.enforcementMeasure == "unsure")) {
+            (item.enforcementMeasure.includes("manually deleted") || item.enforcementMeasure == "unsure")) {
             createElement("p", "These attributes are manually deleted after retention period or have unknown enforcement measure.", container)
             violationNumber ++;
         }
@@ -218,7 +231,7 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
     const BAD_CATEGORY = privacyAct[2]["category"].toLowerCase()
     const BAD_SENSITIVE_CONSENT1 = privacyAct[2]["consent"]["violation"][0].toLowerCase()
     const BAD_SENSITIVE_CONSENT2 = privacyAct[2]["consent"]["unsure"][0].toLowerCase()
-    if (categoryName.toLowerCase() == BAD_CATEGORY && (
+    if (categoryName.toLowerCase().includes(BAD_CATEGORY) && (
         CONSENT == BAD_SENSITIVE_CONSENT1 || 
         CONSENT == BAD_SENSITIVE_CONSENT2
     )){
@@ -229,7 +242,6 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
 
     // retention period is checked in check generic rules
     
-
     return violationNumber
     
 
@@ -254,12 +266,14 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
         }
 
         // Get MHR Act retention purpose 
-        const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriod"]["violation"].map(v => v.toLowerCase().trim().replace(/\.$/, ""));
+        const BAD_RETENTION_PERIOD = MHRAct[2]["retentionPeriodMHR"]["violation"].map(v => v.toLowerCase().trim().replace(/\.$/, ""));
         const RETENTION_SECTION = MHRAct[2]["MyHealthRecordSection"]
+        const SPECIAL_CIRCUMSTANCE = categoryDetails[7]["retentionException"].toLowerCase()
+        
 
         const RETENTION_PERIOD = categoryDetails[5]["retentionPeriodMHR"].toLowerCase().trim().replace(/\.$/, "")
         
-        if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD)){
+        if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD) && (SPECIAL_CIRCUMSTANCE == "no" || SPECIAL_CIRCUMSTANCE == "unsure")){
             createElement("p", `My Health Record Act 2012 advises against ${BAD_RETENTION_PERIOD.join(", ")}`, container);
             createElement("a", RETENTION_SECTION, container)
             violationNumber ++;

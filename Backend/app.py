@@ -63,6 +63,11 @@ def report():
     """Report"""
     return render_template('pages/report.html')
 
+@app.route('/invalid')
+def invalid():
+    """Invalid"""
+    return render_template('pages/invalid.html')
+
 @app.route('/test')
 def test():
     """test"""
