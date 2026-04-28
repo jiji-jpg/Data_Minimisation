@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
-    const TEST_CASE= "randomCaseThree";
+    const TEST_CASE= "RandomCaseTwo";
 
     const [answerRes, mhrRes, privacyRes] = await Promise.all([
         fetch(`/static/js/${TEST_CASE}.json`),
