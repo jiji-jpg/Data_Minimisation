@@ -52,11 +52,7 @@
               {
                 "attributeCollected": [
                   "Medicare Number",                  
-<<<<<<< HEAD
- "ABN",
-=======
-                  "ABN",
->>>>>>> refs/remotes/origin/development
+                   "ABN",
                   "ACN",
                   "VFN",
                   "Indigenous Status",
@@ -65,11 +61,7 @@
                   "Racial/Ethic origin"
                 ]
               },
-<<<<<<< HEAD
-                 {
-=======
               {
->>>>>>> refs/remotes/origin/development
                 "collectionPurpose": "unsure"
               },
               {
@@ -112,11 +104,7 @@
                   "Goals of Care Documents"
                 ]
               },
-<<<<<<< HEAD
-                 {
-=======
               {
->>>>>>> refs/remotes/origin/development
                 "collectionPurpose": "unsure"
               },
               {
@@ -157,11 +145,7 @@
                   "Goals of Care Documents"
                 ]
               },
-<<<<<<< HEAD
-                 {
-=======
               {
->>>>>>> refs/remotes/origin/development
                 "collectionPurpose": "unsure"
               },
               {
@@ -201,11 +185,7 @@
                   "Proof of Vaccination Documents"
                 ]
               },
-<<<<<<< HEAD
-                 {
-=======
               {
->>>>>>> refs/remotes/origin/development
                 "collectionPurpose": "unsure"
               },
               {
@@ -248,11 +228,7 @@
                   "Personal Health Notes"
                 ]
               },
-<<<<<<< HEAD
-                 {
-=======
               {
->>>>>>> refs/remotes/origin/development
                 "collectionPurpose": "unsure"
               },
               {
@@ -289,11 +265,7 @@
                   "Child Immunisations"
                 ]
               },
-<<<<<<< HEAD
-                 {
-=======
               {
->>>>>>> refs/remotes/origin/development
                 "collectionPurpose": "unsure"
               },
               {
