@@ -1067,9 +1067,10 @@ input[type="checkbox"]:hover {
 
 /* Card titles */
 .key-findings article h3 {
-  color: #111111;                   
+  color: #111111; 
+  font-weight: bold;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 /* Card text */
