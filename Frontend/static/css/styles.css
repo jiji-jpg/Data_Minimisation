@@ -1658,6 +1658,30 @@ input[type="checkbox"]:hover {
     color: white;
 }
 
+/* ==================== LINK TO COMPANY CONTACT PAGE ==================== */
+
+.contact-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.contact-btn {
+    display: inline-block;
+    padding: 14px 24px;
+    background-color: #1f3c88;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.contact-btn:hover {
+    background-color: #162f6b;
+    transform: translateY(-2px);
+}
+
 /* ==================== DISCLAIMER ==================== */
 .report-disclaimer {
   margin: 30px 0 60px;
