@@ -44,20 +44,25 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
         document.getElementById("manual-delete-result").textContent =
             `${retentionResult.manualDeleted}% of enforcement measures rely on manual deletion.`;
 
+        
         // Check if Attribute = Not Applicable
         const assets = data["data"][1][0];
         const categories = Object.values(assets).flat();
         let hasValidData = false;
 
+
         categories.forEach(categoryObj => {
             const details = categoryObj[Object.keys(categoryObj)[0]];
 
+
             const attributeObj = details.find(item => item.attributeCollected !== undefined);
+
 
             if (attributeObj && Array.isArray(attributeObj.attributeCollected)) {
                 const valid = attributeObj.attributeCollected.some(attr =>
                     attr.toLowerCase().trim() !== "not applicable"
                 );
+
 
                 if (valid) {
                     hasValidData = true;
@@ -65,9 +70,11 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
             }
         });
 
+
         if (!hasValidData) {
             return;
         }
+
 
         // Data Collection Score (for labels)
         const dataCollectionScore =
@@ -79,6 +86,7 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
                 essentialResult.violation
             ) / 5;
 
+
         // Retention Score (for labels)
         const retentionScore =
             (
@@ -87,9 +95,11 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
                 retentionResult.manualDeleted
             ) / 3;
 
+
         // Collection Label
         const dataLabel = document.createElement("span");
         dataLabel.classList.add("badge");
+
 
         if (dataCollectionScore < 33) {
             dataLabel.textContent = "Minimal Data Collection";
@@ -97,7 +107,7 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
         }
         else if (dataCollectionScore < 66) {
             dataLabel.textContent = "Sufficient Data Collection";
-            dataLabel.style.backgroundColor = "#f39c12"; 
+            dataLabel.style.backgroundColor = "#f39c12";
         }
         else {
             dataLabel.textContent = "Excessive Data Collection";
@@ -110,6 +120,7 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
         // Retention Label
         const retentionLabel = document.createElement("span");
         retentionLabel.classList.add("badge");
+
 
         if (retentionScore < 33) {
             retentionLabel.textContent = "Minimal Retention";
@@ -127,12 +138,14 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
         document.querySelector(".retention-issues").appendChild(retentionLabel);
     }
 }
-// == Functions for Labels (Data Collection & Retention) == 
+
+// == Functions for Labels (Data Collection & Retention) ==
 function getDataCollectionLabel(score) {
     if (score < 33) return "Minimal Data Collection";
     if (score < 66) return "Sufficient Data Collection";
     return "Excessive Data Collection";
 }
+
 
 function getRetentionLabel(score) {
     if (score < 33) return "Minimal Retention";
