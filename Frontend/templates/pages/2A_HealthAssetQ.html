@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal Data Asset - Data Minimisation</title>
   <link rel="stylesheet" href="../static/css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
   {% include 'components/header.html' %}
@@ -217,17 +216,16 @@
         <span class="toggle-slider"></span>
       </div>
     </div>
- <!-- Retention Period-->
+  <!-- Retention Period-->
     <div class="form-question"> 
       <div class="text-emphasis">Retention Period</div>
       
       <div class="text-small">1. What is the usual retention period for My Health Record information?</div>
       <div class="custom-select">
-        <select id="Question1-1A">
+        <select id="Question1-2A">
           <option value="">Select</option>
-          <option value="MHR valid retention period">Up to 30 years after death 'or' up to 130 years from birth.</option>
-          <option value="Determined by Company">Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth.</option>
-          <option value="Inconsistent Policy">There is no consistent policy.</option>
+          <option value="Up to 30 Years After Death">Up to 30 Years After Death</option>
+          <option value="Up to 130 Years After Birth">Up to 130 Years After Birth</option>
           <option value="Unsure">Unsure</option>
         </select>
       </div>
@@ -253,7 +251,7 @@
       
       <div class="text-small" style="margin-top: 1rem;">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
       <div class="custom-select">
-        <select id="Question2-1A">
+        <select id="Question2-2A">
           <option value="">Select</option>
           <option value="Information is not kept once it is no longer needed">Information is not kept once it is no longer needed.</option>
           <option value="Information is kept as long as required by law">Information is kept as long as required by law.</option>
@@ -270,38 +268,38 @@
       <span class="text-small">How is the selected category(s) information deleted from the system?<br>You may select more than one:</span><br><br>
         <div class="checkbox-grid">
           <label class="checkbox-label">
-            <input type="checkbox" id="AutomaticallyDeleted-1A"/>
+            <input type="checkbox" id="AutomaticallyDeleted-2A"/>
             <span class="label-text">
               <span class="text-small">Automatically deleted</span>
             </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="SecurelyDestroyedP-1A" />
+            <input type="checkbox" id="SecurelyDestroyedP-2A" />
             <span class="label-text">
               <span class="text-small">Securely destroyed</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="ManualDeletion-1A" />
+            <input type="checkbox" id="ManualDeletion-2A" />
             <span class="label-text">
               <span class="text-small">Manually deleted or archived by authorised staff</span>
              </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="UponPR-1A" />
+            <input type="checkbox" id="UponPR-2A" />
             <span class="label-text">
               <span class="text-small">Upon patient request</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="DeIdentified-1A" />
+            <input type="checkbox" id="DeIdentified-2A" />
             <span class="label-text">
               <span class="text-small">De-identified</span>
               <span class="label-desc">(personal details removed but data kept for analysis)</span>
               </span>
           </label>
           <label class="checkbox-label">
-            <input type="checkbox" id="Unsure-1A" />
+            <input type="checkbox" id="Unsure-2A" />
             <span class="label-text">
               <span class="text-small">Unsure</span>
               </span>
@@ -309,27 +307,12 @@
         </div>
     </div>
 
-
+  
     <div class="btn-container">
-      <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
-      <a href="{{ url_for('HA2') }}" class="btn btn-secondary" id="continueBtn">Continue</a>
+       <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
+      <a href="{{ url_for('HA2') }}" class="btn btn-secondary" id="continueBtn" data-next-url="{{ url_for('HA2') }}">Continue</a>
     </div>
   </main>
-
-  <script>
-  const q1Select = document.getElementById('Question1-1A');
-  const q3Block  = document.getElementById('Question1-1B');
-  const q3Select = document.getElementById('Question1B');
-
-  q1Select.addEventListener('change', function () {
-    if (this.value === 'Determined by Company') {
-      q3Block.style.display = 'block';
-    } else {
-      q3Block.style.display = 'none';
-      q3Select.value = '';
-    }
-  });
-  </script>
 
   <script src="../static/js/tooltip.js"></script>
   <script src="../static/js/actions.js"></script>

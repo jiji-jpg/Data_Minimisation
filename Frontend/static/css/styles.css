@@ -640,6 +640,7 @@ body main h2 {
   transition: all 0.25s ease;
   z-index: 3;
   padding: 0 8px;
+  cursor: pointer;
 }
 
 .toggle-slider {
@@ -648,7 +649,7 @@ body main h2 {
   left: 4px;
   width: var(--label-width);
   height: calc(var(--track-height) - 8px);
-  background: var(--accent-color);
+  background: transparent;
   border-radius: 18px;
   transition: left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.2s;
   z-index: 2;
@@ -666,6 +667,7 @@ input#yes:checked ~ .toggle-slider,
 #toggle3 #toggle3-yes:checked ~ .toggle-slider,
 #toggle4 #toggle4-yes:checked ~ .toggle-slider { 
   left: 4px; 
+  background: var(--accent-color);
 }
 
 input#no:checked ~ .toggle-slider,
@@ -674,6 +676,7 @@ input#no:checked ~ .toggle-slider,
 #toggle3 #toggle3-no:checked ~ .toggle-slider,
 #toggle4 #toggle4-no:checked ~ .toggle-slider { 
   left: calc(var(--label-width) + 4px); 
+  background: var(--accent-color);
 }
 
 input#unsure:checked ~ .toggle-slider,
@@ -682,6 +685,7 @@ input#unsure:checked ~ .toggle-slider,
 #toggle3 #toggle3-unsure:checked ~ .toggle-slider,
 #toggle4 #toggle4-unsure:checked ~ .toggle-slider { 
   left: calc(2 * var(--label-width) + 4px); 
+  background: var(--accent-color);
 }
 
 input#yes:checked + .toggle-label,
