@@ -64,6 +64,11 @@
       err.style.cssText = 'color:#DC2626;font-size:13px;font-weight:500;margin-top:6px;margin-bottom:2px;';
       err.textContent = '* Please select an answer before continuing.';
       errorDiv.appendChild(err);
+    } 
+    else {
+      // Save the selected value to sessionStorage
+      var selected = Array.from(radios).find(function(r) { return r.checked; });
+      sessionStorage.setItem('bg_mhr_access', selected.value);
     }
   });
   </script>

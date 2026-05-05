@@ -52,30 +52,40 @@ html body {
 }
 
 .nav-logo img {
-  height: 32px;
+  height: 50px;
   width: auto;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 4rem;
   flex: 1;
   justify-content: center;
+  padding-inline: 2rem;
+  padding-top: 0.5rem;
 }
 
 .nav-links a {
   color: #ffffff;
-  text-decoration: none;
-  font-size: 14px;
-  padding: 8px 0;
+  text-decoration: none !important;
+  font-size: 20px;
+  font-weight: 80;
+  padding: 20px 10px;
   cursor: default;
   pointer-events: none;
 }
 
+.navbar :hover{
+  color: #EE3823;
+  text-decoration: none !important;
+}
+
+
 .nav-icons {
   display: flex;
   gap: 0.5rem;
+  padding-top: 0.5rem; 
 }
 
 .nav-icons svg {
@@ -88,13 +98,9 @@ html body {
   border-radius: 4px;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 2.5rem;
   pointer-events: auto;
   cursor: pointer;
-}
-
-.nav-icons a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .dropdown {
@@ -106,7 +112,7 @@ html body {
   border: none;
   color: #ffffff;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 20px;
   padding: 8px 0;
 }
 
@@ -135,10 +141,6 @@ html body {
   font-size: 14px;
 }
 
-.dropdown-content a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
 .dropdown:hover .dropdown-content {
   display: block;
 }
@@ -163,10 +165,11 @@ html body {
 }
 
 .hero-content p {
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   color: #0b1b3a;
   margin-bottom: 1.75rem;
   max-width: 420px;
+  font-weight: 100;
 }
 
 .hero-image {
@@ -219,27 +222,28 @@ button.btn {
 
 a.btn.btn-primary,
 button.btn.btn-primary {
-  background: #527DFF;
+  background: #0F1E44;
   color: white;
 }
 
 a.btn.btn-primary:hover,
 a.btn.btn-primary:focus {
   transform: translateY(-1px);
-  background: #7d9eff;
+  background: #A910E0;
   color: white;
 }
 
 a.btn.btn-secondary,
 button.btn.btn-secondary {
   background: transparent;
-  color: #404040;
-  border: 2px solid #404040;
+  color: #0F1E44;
+  border: 2px solid #0F1E44;
 }
 
 a.btn.btn-secondary:hover,
 a.btn.btn-secondary:focus {
-  background: #404040;
+  background: #A910E0;
+  border: 2px solid #A910E0;
   color: white;
 }
 
@@ -253,7 +257,7 @@ button.btn.btn-small {
 
 a.btn.btn-small:hover,
 a.btn.btn-small:focus {
-  background: #777777;
+  background: #A910E0;
   color: white;
 }
 
@@ -310,21 +314,21 @@ body main h2 {
 
 /* ==================== TEXT STYLES ==================== */
 .page-subtitle {
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 500;
   color: #111E43;
   margin-bottom: 1rem;
 }
 
 .text-emphasis {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #000000;
   line-height: 1.65;
   font-weight: 650;
 }
 
 .text-body {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #404040;
   line-height: 1.65;
   font-weight: 400;
@@ -338,7 +342,7 @@ body main h2 {
 
 .text-list {
   list-style: none;
-  font-size: 0.925rem;
+  font-size: 1rem;
   color: #404040;
   padding-left: 1rem;
   margin: 0.5rem 0;
@@ -485,7 +489,7 @@ body main h2 {
 .tooltip {
   position: relative;
   display: inline-flex;
-  align-items: center;
+  align-items: left;
   cursor: help;
   margin-left: 6px;
 }
@@ -559,9 +563,16 @@ body main h2 {
   color: #527DFF;
 }
 
+.tooltip-inner {
+  text-align: left;
+}
+
+.tooltip-inner p {
+  margin: 0;
+}
 /* ==================== FORMS ==================== */
 .form-section {
-  margin: 2rem 0;
+  margin: 0.5rem 0 3rem;
 }
 
 .form-question {
@@ -573,7 +584,7 @@ body main h2 {
 /* ==================== TOGGLE SWITCHES ==================== */
 .toggle-switch,
 .toggle-small {
-  --accent-color: #527DFF;
+  --accent-color: #A910E0;
   --track-color: #f2f2f7;
   --text-color: #404040;
   --text-active: #ffffff;
@@ -717,6 +728,10 @@ input#unsure:checked + .toggle-label,
   align-content: start;
 }
 
+.checkbox-grid h2 {
+  margin: 0;
+}
+
 .checkbox-label {
   display: inline-flex;
   align-items: center;  /* Changed from flex-start to center */
@@ -732,7 +747,7 @@ input#unsure:checked + .toggle-label,
 
 .label-title {
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   margin-bottom: 2px;
 }
 
@@ -757,8 +772,8 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  background: #527DFF;
-  border-color: #527DFF;
+  background: #A910E0;
+  border-color: #A910E0;
 }
 
 input[type="checkbox"]:checked::after {
@@ -773,7 +788,7 @@ input[type="checkbox"]:checked::after {
 }
 
 input[type="checkbox"]:hover {
-  border-color: #527DFF;
+  border-color: #A910E0;
 }
 
 .skip-section-label input[type="checkbox"] {

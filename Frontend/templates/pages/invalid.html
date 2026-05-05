@@ -1,3 +1,43 @@
-<h1>Thank you for completing our questionnaire, unfortunately since you do not collect any of the data assets, we are unable
-    to generate a report. 
-</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment Complete - Data Minimisation</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  {% include 'components/header.html' %}
+
+  <main>
+    <h1>Data Minimisation for Healthcare Providers</h1>
+
+    <div class="panel panel-padded">
+      <div class="form-section" style="text-align:center;">
+
+        <i class="bi bi-clipboard-check" style="font-size:48px; color:#6B7280;"></i>
+
+        <h2 style="margin-top:16px;">Thank You for Completing the Assessment</h2>
+
+        <p class="text-body">
+          Based on your responses, your organisation does not currently collect any of the assessed data asset categories.
+          As a result, there is no data available to map to our compliance algorithm, and we are unable to generate a report at this time.
+        </p>
+
+        <p class="text-body">
+          If your organisation begins collecting any of these data categories in the future, you are welcome to revisit this assessment at any time.
+        </p>
+
+        <div class="btn-container" style="justify-content:center;">
+          <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back to Assessment</a>
+          <a href="{{ url_for('landing') }}" class="btn btn-secondary">Return to Home</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../static/js/tooltip.js"></script>
+</body>
+</html>
