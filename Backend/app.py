@@ -3,15 +3,14 @@ from pathlib import Path
 from datetime import datetime, timezone
 import json
 
-app = Flask(__name__, 
+app = Flask(__name__,
             template_folder='../Frontend/templates',
             static_folder='../Frontend/static')
 app.secret_key = 'michief-managed'
 app.config['SESSION_PERMANENT'] = False
 
-DATA_DIR = Path(__file__).resolve().parent / "data"
+DATA_DIR = Path(__file__).resolve().parent / "data" / "sessions"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
-AGGREGATE_FILE = DATA_DIR / "all_user_inputs.json"
 
 def _now_iso_utc():
     return datetime.now(timezone.utc).isoformat()
@@ -23,34 +22,31 @@ def _get_session_id():
         session["session_id"] = sid
     return sid
 
-def _read_aggregate():
-    if not AGGREGATE_FILE.exists():
-        return {"sessions": {}}
-    try:
-        return json.loads(AGGREGATE_FILE.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        return {"sessions": {}}
+def _session_file(sid):
+    return DATA_DIR / f"{sid}.json"
 
-def _write_aggregate(payload):
-    AGGREGATE_FILE.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+def _read_session(sid):
+    f = _session_file(sid)
+    if not f.exists():
+        return {}
+    try:
+        return json.loads(f.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+def _write_session(sid, payload):
+    _session_file(sid).write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 def _persist_session_payload():
     sid = _get_session_id()
-    aggregate = _read_aggregate()
-
-    if "sessions" not in aggregate or not isinstance(aggregate["sessions"], dict):
-        aggregate["sessions"] = {}
-
-    current_entry = aggregate["sessions"].get(sid, {})
-    current_entry["session_id"] = sid
-    current_entry["updated_at"] = _now_iso_utc()
-    current_entry["steps"] = session.get("form_steps", {})
+    entry = _read_session(sid)
+    entry["session_id"] = sid
+    entry["updated_at"] = _now_iso_utc()
+    entry["steps"] = session.get("form_steps", {})
     if "final_submission" in session:
-        current_entry["final_submission"] = session.get("final_submission")
-
-    aggregate["sessions"][sid] = current_entry
-    _write_aggregate(aggregate)
-    return str(AGGREGATE_FILE)
+        entry["final_submission"] = session.get("final_submission")
+    _write_session(sid, entry)
+    return str(_session_file(sid))
 
 def _truthy_checked_ids(page):
     return [
@@ -370,22 +366,15 @@ def test():
 
 @app.route('/api/latest-submission', methods=['GET'])
 def latest_submission():
-    aggregate = _read_aggregate()
-    sessions = aggregate.get("sessions", {})
-
-    if not isinstance(sessions, dict) or not sessions:
+    files = list(DATA_DIR.glob("*.json"))
+    if not files:
         return jsonify({"ok": False, "error": "No submissions found"}), 404
 
-    latest = None
-    latest_ts = None
-    for _, entry in sessions.items():
-        ts = entry.get("updated_at")
-        if latest is None or (ts and (latest_ts is None or ts > latest_ts)):
-            latest = entry
-            latest_ts = ts
-
-    if not latest:
-        return jsonify({"ok": False, "error": "No submissions found"}), 404
+    latest_file = max(files, key=lambda f: f.stat().st_mtime)
+    try:
+        latest = json.loads(latest_file.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return jsonify({"ok": False, "error": "Could not read session file"}), 500
 
     raw = latest.get("final_submission")
     if raw is None:
@@ -450,5 +439,16 @@ def submit_final():
     }), 200
 
 
+@app.route('/clear-session', methods=['DELETE', 'POST'])
+def clear_session():
+    sid = session.get("session_id")
+    if sid:
+        f = _session_file(sid)
+        if f.exists():
+            f.unlink()
+    session.clear()
+    return jsonify({"ok": True}), 200
+
+
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=8000, threaded=True)
