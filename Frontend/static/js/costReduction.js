@@ -22,8 +22,7 @@ function renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_C
 
     const REGULATORY_COST_TAG = document.getElementById("regulatory-cost")
     REGULATORY_COST_TAG.textContent = `${regulatoryCost}`
-    createElement("p", `regulartory cost: ${regulatoryCost}`, container);
-    createElement("p", `administration cost: ${administrationCost}`, container);
+    
 }
 
 // == Functions for Cost Reduction == 
