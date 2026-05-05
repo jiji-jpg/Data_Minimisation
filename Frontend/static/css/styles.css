@@ -1853,3 +1853,223 @@ input[type="checkbox"]:hover {
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
 }
+
+/* ==================== LANDING PAGE ==================== */
+.landing-page {
+  max-width: 100%;
+}
+
+.hero-landing {
+  min-height: calc(100vh - 60px);
+  padding-top: 5rem;
+  padding-bottom: 4rem;
+  background: #f9fafb;
+}
+
+.hero-eyebrow,
+.section-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #527DFF;
+  margin-bottom: 1rem;
+}
+
+.hero-lead {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #0b1b3a;
+  margin-bottom: 1rem;
+  max-width: 640px;
+}
+
+.hero-support {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #404040;
+  max-width: 620px;
+}
+
+.landing-section {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+}
+
+.landing-section .section-heading,
+.landing-section .feature-grid,
+.landing-section .framework-grid,
+.landing-section .steps-grid {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-light {
+  background: #f9fafb;
+}
+
+.section-dark {
+  background: #0b1b3a;
+}
+
+.section-heading {
+  max-width: 760px;
+  margin-bottom: 2.5rem;
+}
+
+.section-heading h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.15;
+  color: #0b1b3a;
+  margin-bottom: 1rem;
+}
+
+.section-heading p {
+  font-size: 1rem;
+  color: #404040;
+  line-height: 1.7;
+  max-width: 700px;
+}
+
+.section-dark .section-heading h2,
+.section-dark .section-heading p,
+.section-dark .section-eyebrow {
+  color: #ffffff;
+}
+
+.section-dark .section-heading p {
+  color: #e5e7eb;
+}
+
+.section-dark .section-eyebrow {
+  color: #c7d2fe;
+}
+
+/* ==================== FEATURE / FRAMEWORK GRIDS ==================== */
+.feature-grid,
+.framework-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.feature-card,
+.framework-card,
+.step-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(11, 27, 58, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.feature-card:hover,
+.framework-card:hover,
+.step-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 35px rgba(11, 27, 58, 0.14);
+  border-color: #527DFF;
+}
+
+.feature-card h3,
+.framework-card h3,
+.step-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0b1b3a;
+  margin-bottom: 0.75rem;
+}
+
+.feature-card p,
+.framework-card p,
+.step-card p {
+  font-size: 0.95rem;
+  color: #404040;
+  line-height: 1.7;
+  max-width: 100%;
+}
+
+/* ==================== STEPS GRID ==================== */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.step-card {
+  border: 1px solid #dbe4ff;
+  box-shadow: 0 8px 24px rgba(82, 125, 255, 0.08);
+}
+
+.step-number {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #527DFF;
+  margin-bottom: 0.85rem;
+}
+
+/* ==================== CTA SECTION ==================== */
+.landing-cta {
+  background: #f9fafb;
+  padding: 5rem 0;
+}
+
+.landing-cta-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #0b1b3a 0%, #152b57 100%);
+  color: #ffffff;
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.landing-cta-content h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.landing-cta-content p {
+  font-size: 1rem;
+  color: #e5e7eb;
+  margin: 0 auto 1.75rem auto;
+  line-height: 1.7;
+  max-width: 700px;
+}
+
+.landing-cta .section-eyebrow {
+  color: #9bb5ff;
+}
+
+.landing-cta-content .btn-container {
+  justify-content: center;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .steps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-section,
+  .landing-cta {
+    padding: 4rem 0;
+  }
+
+  .landing-section .section-heading,
+  .landing-section .feature-grid,
+  .landing-section .framework-grid,
+  .landing-section .steps-grid,
+  .landing-cta-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
