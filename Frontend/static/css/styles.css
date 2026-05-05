@@ -1250,8 +1250,9 @@ input[type="checkbox"]:hover {
 }
 
 .category-header h3 {
-  color: #111111;
-  font-size: 18px;
+  color: #111111;                  
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 /* --------------------- Badges --------------------- */
@@ -1309,16 +1310,25 @@ input[type="checkbox"]:hover {
 /* Success (Green) */
 .assessment-item.success {
   border-color:  #1bb273;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
 }
 
 /* Warning (Orange) */
 .assessment-item.warning {
   border-color: #ff7700;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
 }
 
 /* Danger (Red) */
 .assessment-item.danger {
   border-color: #e53935;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
 }
 
 /* Neutral */
@@ -1350,6 +1360,17 @@ input[type="checkbox"]:hover {
 .assessment-item a:hover {
   background-color: #cfd8ea;
 }
+
+.category-title {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: start;
+  position: relative;
+  padding: 12px;
+}
+
+
 
 /* --------------------- Clinical Documents Grid --------------------- */
 .assessment-grid {

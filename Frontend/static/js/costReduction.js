@@ -14,6 +14,7 @@ function renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_C
     [storageCost, administrationCost, regulatoryCost] =
         calculateCost(NUMBER_OF_ATTRIBUTES, PERCENTAGE_OF_BAD_CATEGORIES);
 
+    const STORAGE_COST_TAG = document.getElementById("")
     createElement("p", `storage cost: ${storageCost}`, container);
     createElement("p", `regulartory cost: ${regulatoryCost}`, container);
     createElement("p", `administration cost: ${administrationCost}`, container);
