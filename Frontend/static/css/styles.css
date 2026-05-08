@@ -1452,6 +1452,11 @@ input[type="checkbox"]:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.05);
 }
 
+.cost-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
 .cost-card h3 {
   font-size: 32px;
   color: #ff7700;
