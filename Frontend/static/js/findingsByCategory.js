@@ -23,7 +23,7 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             DATA_ASSET_ARTICLE.append(DATA_ASSET_HEADER)
         
             // - Get Data Asset Name
-            createElement("h2", DATA_ASSET, DATA_ASSET_HEADER);
+            createElement("h3", DATA_ASSET, DATA_ASSET_HEADER);
         
 
         for (const category of categories) {
@@ -38,6 +38,7 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             NUMBER_OF_CATEGORIES++;
 
             const CATEGORY_CONTENT = document.createElement("div")
+            CATEGORY_CONTENT.className = "category-content"
 
             // - Check violation
             let violation = 0;
@@ -45,7 +46,7 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             violation = checkPrivacyAct(categoryName, privacyAct, categoryDetails, violation, CATEGORY_CONTENT);
             violation = checkMHRAct(useMHR, violation, categoryDetails, mhrAct, CATEGORY_CONTENT);
             // - Attach label to the category 
-            [CATEGORY_CONTAINER, label] = getCategoryLabel(violation, container);
+            [CATEGORY_CONTAINER, label] = getCategoryLabel(violation, DATA_ASSET_ARTICLE);
     
             DATA_ASSET_HEADER.append(CATEGORY_CONTAINER)
             
@@ -54,14 +55,14 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             CATEGORY_TITLE.className = "category-title"
             CATEGORY_CONTAINER.append(CATEGORY_TITLE)
 
-            createElement("h3", categoryName, CATEGORY_TITLE);
+            createElement("h4", categoryName, CATEGORY_TITLE);
 
             // append label 
             CATEGORY_TITLE.append(label)
 
             // check if attributes collected are not applicable
             if (categoryDetails[0]["attributeCollected"].map(item => item.toLowerCase()).includes("not applicable")){
-                createElement("p", "You are not collecting attributes of this category.", container)
+                createElement("p", "You are not collecting attributes of this category.", CATEGORY_CONTENT)
                 NUMBER_OF_CATEGORIES--;
                 continue
             }
