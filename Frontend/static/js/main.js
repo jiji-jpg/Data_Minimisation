@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
+    const TEST_CASE= "randomCaseThree";
+
     const [answerRes, mhrRes, privacyRes] = await Promise.all([
-        fetch("/static/exampleAnswer.json"),
+        fetch(`/static/js/${TEST_CASE}.json`),
+        //fetch("/static/exampleAnswer.json"),
         fetch("/static/myHealthRecord.json"),
         fetch("/static/privacyAct.json")
     ]);
@@ -10,23 +13,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mhrAct = await mhrRes.json();
     const privacyAct = await privacyRes.json();
 
-    const useMHR = checkMHR(data[0]["collectMyHealthRecord"]);
+    const useMHR = checkMHR(data["data"][0]["collectMyHealthRecord"]);
 
     // - Loop through categories
-    const categories = data[1][0].personalDataAsset;
+    // const categories = data["data"][1][0].personalDataAsset;
 
     let badCategoryCount = 0;
     let NUMBER_OF_CATEGORIES = 0;
     let NUMBER_OF_ATTRIBUTES = 0;
-
+    
     renderKeyFindings(data, mhrAct, privacyAct, useMHR);
     const result = renderFindingsByCategory(data, mhrAct, privacyAct, useMHR);
-    renderExecutiveSummary(data, categories, result.badCategoryCount);
-
+    
     badCategoryCount = result.badCategoryCount;
     NUMBER_OF_CATEGORIES = result.NUMBER_OF_CATEGORIES;
     NUMBER_OF_ATTRIBUTES = result.NUMBER_OF_ATTRIBUTES;
 
+    renderRecommendedActions(data, mhrAct, privacyAct, useMHR);
     renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_CATEGORIES);
-
+    renderExecutiveSummary(data, getAllCategories(data), badCategoryCount);
+    
 });
