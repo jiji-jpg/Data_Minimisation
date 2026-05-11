@@ -9,20 +9,187 @@
 <body>
   {% include 'components/header.html' %}
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Data Minimisation<br>for Healthcare Providers</h1>
-      <p>Protect your data by practicing data minimisation while serving your healthcare clients effectively.</p>
-      
-      <div class="btn-container">
-        <a href="{{ url_for('privacy') }}" class="btn btn-primary">Get Started</a>
-        <a href="{{ url_for('privacy') }}" class="btn btn-secondary">Learn More</a>
-      </div>
-    </div>
+  <main class="landing-page">
+    <section class="hero hero-landing">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Healthcare privacy assessment</span>
+        <h1>Data Minimisation<br>for Healthcare Providers</h1>
+        <p class="hero-lead">
+          A guided assessment platform helping Australian healthcare providers implement data minimisation — reducing breach exposure and aligning with privacy regulations before the next Medibank happens to you.
+        </p>
+        <p class="hero-support">
+          The more data you hold, the greater your risk. Every unnecessary data point stored represents potential harm to patients and liability for your organisation.
+        </p>
 
-    <div class="hero-image">
-      <img src="/static/assets/imgMin.png" alt="Data minimisation illustration">
-    </div>
-  </section>
+        <div class="btn-container">
+          <a href="{{ url_for('privacy') }}" class="btn btn-primary">Begin Free Assessment</a>
+          <a href="#why-data-minimisation" class="btn btn-secondary">Learn More</a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="/static/assets/imgMin.png" alt="Data minimisation illustration for healthcare providers">
+      </div>
+    </section>
+
+    <section class="landing-section section-dark" id="why-data-minimisation">
+      <div class="section-heading">
+        <span class="section-eyebrow">Why data minimisation</span>
+        <h2>Every unnecessary data point you store is a liability.</h2>
+        <p>
+          This platform helps you identify, reduce, and govern patient data across your entire lifecycle.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Review collection practices</h3>
+          <p>
+            Evaluate how you collect, store, and retain patient data across the full lifecycle — from intake through to disposal.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Reduce breach exposure</h3>
+          <p>
+            Pinpoint where you are holding unnecessary information that increases your exposure before a breach forces you to find out the hard way.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Support compliance</h3>
+          <p>
+            Align with Australian Privacy Principles, GDPR, the Information Security Manual, and ISO standards through practical, guided steps.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Protect patients and your organisation</h3>
+          <p>
+            Lower the potential damage of future security incidents by limiting what attackers can access.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="landing-section section-light">
+      <div class="section-heading">
+        <span class="section-eyebrow">How it works</span>
+        <h2>An interactive assessment across five critical areas.</h2>
+        <p>
+          The platform guides you through practical questions and delivers tailored recommendations based on your current data practices.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <article class="step-card">
+          <span class="step-number">01</span>
+          <h3>Data collection</h3>
+          <p>What data are you gathering from patients, and is every field truly necessary for care?</p>
+        </article>
+
+        <article class="step-card">
+          <span class="step-number">02</span>
+          <h3>Data sources</h3>
+          <p>Where does patient information come from, and which third parties feed data into your systems?</p>
+        </article>
+
+        <article class="step-card">
+          <span class="step-number">03</span>
+          <h3>Purpose test</h3>
+          <p>Do you actually need all this data for patient care, or can some fields be challenged and removed?</p>
+        </article>
+
+        <article class="step-card">
+          <span class="step-number">04</span>
+          <h3>Storage and protection</h3>
+          <p>How and where are you keeping patient data, and are your safeguards proportionate to its sensitivity?</p>
+        </article>
+
+        <article class="step-card">
+          <span class="step-number">05</span>
+          <h3>Retention and disposal</h3>
+          <p>How long are you holding data, and do you have policies to delete it once its purpose is served?</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="landing-section section-dark">
+      <div class="section-heading">
+        <span class="section-eyebrow">Regulatory alignment</span>
+        <h2>Grounded in frameworks relevant to healthcare providers.</h2>
+        <p>
+          Recommendations are based on privacy and security frameworks commonly used to assess responsible data handling.
+        </p>
+      </div>
+
+      <div class="framework-grid">
+        <article class="framework-card">
+          <h3>Australian Privacy Principles</h3>
+          <p>The core privacy obligations under the Privacy Act 1988 for health service providers.</p>
+        </article>
+
+        <article class="framework-card">
+          <h3>GDPR</h3>
+          <p>Relevant where organisations handle data of EU residents and need strong minimisation controls.</p>
+        </article>
+
+        <article class="framework-card">
+          <h3>My Health Record</h3>
+          <p>My Health Record is a secure online summary of your key health information, accessible by you and authorized healthcare providers anytime to support safe, coordinated care.</p>
+        </article>
+
+        <article class="framework-card">
+          <h3>ISO standards</h3>
+          <p>A risk-based approach to information security management and governance.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="landing-section section-light">
+      <div class="section-heading">
+        <span class="section-eyebrow">The outcome</span>
+        <h2>Build compliance, reduce risk, and strengthen patient trust.</h2>
+        <p>
+          By practicing data minimisation, you gain more than compliance — you build the kind of patient trust that becomes a genuine competitive advantage.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Enhanced patient trust</h3>
+          <p>Patients expect healthcare providers to treat their data with care, and minimisation practices strengthen confidence.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Reduced breach exposure</h3>
+          <p>Less unnecessary data means less information at risk if an incident occurs.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Stronger compliance posture</h3>
+          <p>Structured minimisation supports privacy reviews, audit readiness, and governance maturity.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Practical next steps</h3>
+          <p>Get tailored recommendations grounded in the regulatory frameworks that apply to you.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="landing-cta">
+      <div class="landing-cta-content">
+        <span class="section-eyebrow">Start now</span>
+        <h2>Take the free assessment today.</h2>
+        <p>
+          Identify your gaps and get tailored recommendations for safer data practices.
+        </p>
+        <div class="btn-container">
+          <a href="{{ url_for('privacy') }}" class="btn btn-primary">Get Started</a>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>

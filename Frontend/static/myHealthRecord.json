@@ -21,10 +21,15 @@
   },
 
   {
-    "retentionPeriod": {
-      "violation": ["information is kept indefinitely."],
+    "retentionPeriodMHR": {
+      "violation": ["information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."]
+  },
+  
+      "retentionPeriod": {
+      "violation": ["information is kept indefinitely"],
       "unsure": ["unsure"]
   },
+  
     "retentionSpecialCircumstances": {
       "violation":["no"],
       "unsure": ["unsure"]

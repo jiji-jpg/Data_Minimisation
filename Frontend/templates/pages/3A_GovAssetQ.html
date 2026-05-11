@@ -11,7 +11,7 @@
   <main>
     <h1>Data Minimisation for Healthcare providers</h1>
     
-    <div class="page-subtitle">Heath Data Asset  / Medicare and Government Data asset questionnaire</div>
+    <div class="page-subtitle"><strong>Medicare and Government Data</strong></div>
     
     <div class="text-body">
       Please select and answer all that applies to your organisation for a detailed analysis.<br>
@@ -210,6 +210,25 @@
           <option value="Unsure">Unsure</option>
         </select>
       </div>
+
+      <div class="conditional-question" id="Question1-1B">
+      <div class="divider"></div>
+      <div class="question">
+        <div class="text-small" style="margin-top: 1rem;">1B. Are there special circumstances where information may be retained beyond the standard limit?</div>
+        <div class="custom-select">
+          <select id="Question1B">
+            <option value="">Select</option>
+            <option value="Yes, for legal or audit requirements">Yes, for legal or audit requirements.</option>
+            <option value="Yes, for research or statistical purposes">Yes, for research or statistical purposes.</option>
+            <option value="Yes, as part of government/institutional records">Yes, as part of government/institutional records.</option>
+            <option value="⁠Yes, for insurance and professional indemnity">⁠Yes, for insurance and professional indemnity.</option>
+            <option value="Yes, for reasons that are not listed above">Yes, for reasons that are not listed above.</option>
+            <option value="No, there are no special circumstances">No</option>
+            <option value="Unsure">Unsure</option>
+          </select>
+        </div>
+      </div>
+      </div>
       
       <div class="text-small" style="margin-top: 1rem;">2. How long does your organisation usually retain personal or health information in the selected category(s) after it is no longer actively used?</div>
       <div class="custom-select">
@@ -222,17 +241,6 @@
         </select>
       </div>
 
-      <div class="text-small" style="margin-top: 1rem;">3. Are there special circumstances where information may be retained beyond the standard limit?</div>
-      <div class="custom-select">
-        <select id="Question3-3A">
-          <option value="">Select</option>
-          <option value="Yes, for legal or audit requirements">Yes, for legal or audit requirements.</option>
-          <option value="Yes, for research or statistical purposes">Yes, for research or statistical purposes.</option>
-          <option value="Yes, as part of government/institutional records">Yes, as part of government/institutional records.</option>
-          <option value="No, informationis deleted/de-identified once it is not required.">No</option>
-          <option value="Unsure">Unsure</option>
-        </select>
-      </div>
     </div>
 
   <!-- Enforcement Measure / Deletion Mechanism-->
@@ -282,7 +290,7 @@
 
     <div class="btn-container">
        <a href="{{ url_for('sub_landing') }}" class="btn btn-primary">Back</a>
-      <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary" id="continueBtn">Continue</a>
+      <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary" id="continueBtn" data-next-url="{{ url_for('sub_landing') }}">Continue</a>
     </div>
   </main>
 
