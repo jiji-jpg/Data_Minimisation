@@ -8,6 +8,9 @@
   <!-- Link to external CSS -->
   <link rel="stylesheet" href="/static/css/styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    .download-btn-wrap { display: flex; justify-content: center; padding: 1.5rem 0 2rem; }
+  </style>
 
 </head>
 <body>
@@ -151,203 +154,9 @@
         Each data category is assessed against data minimisation, consent, retention, and documentation controls. Items are flagged to indicate compliance status and areas requiring review.
       </p>
 
-  <!--
-    <article class="category">
-
-      <div class="category-header">
-        <h3>Personal Data Assets</h3>
-        <span class="badge review">Needs Review</span>
-      </div>
-
-      <div class="assessment-item warning">
-        <h4>Violation of Privacy Act 1988</h4>
-        <p>
-          Unnecessary data collected.
-        </p>
-        <a href="#">Privacy Act 1988 - APP3.2</a>
-      </div>
-
-      <div class="assessment-item warning">
-        <h4>Unknown Purpose</h4>
-        <p>
-          Data categorised with unknown purpose flagged.
-        </p>
-       <a href="#">Privacy Act 1988 - APP3.5</a>
-      </div>
-
-      <div class="assessment-item danger">
-        <h4>Personal Data Collected Without Consent</h4>
-        <p>
-          Explicit consent should be documented and retained for all applicable data categories.
-        </p>
-        <a href="#">Privacy Act 1988 - APP3.4</a>
-      </div>
-
-      <div class="assessment-item danger">
-        <h4>Not Essential for Operation</h4>
-        <p>
-          Data collected must serve a purpose in the organisation.
-        </p>
-        <a href="#">Privacy Act 1988 - APP3.4</a>
-        <a href="#">My Health Record Act</a>
-      </div>
-
-        <div class="assessment-item danger">
-        <h4>Violation of Retention Period without Special Circumstances</h4>
-        <p>
-          Data collected must only be kept within a certain period of time unless surronded by special circumstances.
-        </p>
-        <a href="#">My Health Record Act</a>
-      </div>
-
-      <div class="assessment-item danger">
-        <h4>Retention Period Unknown</h4>
-        <p>
-          Data collected must only be kept within a certain period of time as stated in the My Health Record Act.
-        </p>
-        <a href="#">My Health Record Act</a>
-      </div>
-
-      <div class="assessment-item warning">
-        <h4>Enforcement Measures</h4>
-        <p>
-          Attributes "manually deleted".
-        </p>
-        <a href="#">My Health Record Act</a>
-      </div>
-
-    </article>
-  -->
     </section>
     </div>
 
-    <!-- <article class="category">
-
-      <div class="category-header">
-        <h3>Health Data Assets</h3>
-        <span class="badge compliant">Compliant</span>
-      </div>
-
-      <div class="assessment-item success">
-        <h4>Clinical Documentation</h4>
-        <p>
-          Medical histories, diagnoses, clinical notes, and treatment plans are collected and maintained to support continuity of care and clinical decision-making.
-        </p>
-        <a href="#">Privacy Act 1988</a>
-      </div>
-
-      <div class="assessment-item success">
-        <h4>Immunisation Records</h4>
-        <p>
-          Immunisation data is recorded in line with public health requirements and patient safety obligations. Current practices support compliance and clinical use.
-        </p>
-        <a href="#">Privacy Act 1988</a>
-      </div>
-
-    </article>-->
-
-      <!-- Clinical Doucuments -->
-      <!-- Feel free to add more <article> tag 
-    <article class="category">
-
-      <div class="category-header">
-        <h3>Clinical Documents</h3>
-        <span class="badge compliant">Compliant</span>
-      </div>
-
-      <div class="assessment-grid">
-
-        <div class="assessment-item success">
-          <h4>Allergies & Adverse Reactions Documented</h4>
-          <p>Allergy and adverse reaction information is consistently recorded to support patient safety.</p>
-        </div>
-
-        <div class="assessment-item success">
-          <h4>Pathology Reports Maintained</h4>
-          <p>Pathology reports are stored and accessible to support diagnosis and ongoing treatment.</p>
-        </div>
-
-        <div class="assessment-item success">
-          <h4>Diagnostic Imaging Reports Stored</h4>
-          <p>Imaging reports are retained to support clinical assessment and continuity of care.</p>
-        </div>
-
-        <div class="assessment-item success">
-          <h4>Discharge Summaries Complete</h4>
-          <p>Discharge summaries are consistently completed and maintained to support continuity of care, follow-up treatment, and communication between healthcare providers.</p>
-        </div>
-
-        <div class="assessment-item danger">
-          <h4>Goals of Care Documentation Incomplete</h4>
-          <p>Goals of care documentation is not consistently captured across patient records, limiting clarity around patient preferences, treatment escalation, and long-term care planning.</p>
-        </div>
-
-        <div class="assessment-item warning">
-          <h4>Referral Process Unclear</h4>
-          <p>Referral documentation and tracking processes are not clearly defined, reducing visibility over care coordination, accountability, and data ownership across clinical workflows.</p>
-        </div>
-
-      </div>
-
-    </article>
-
-    <article>
-        Feel free to add more content here
-    </article>-->
-
-
-      <!-- Data Retention & Deletion 
-    <article class="category">
-
-     <div class="category-header">
-        <h3>Data Retention & Deletion</h3>
-        <span class="badge action">Action Required</span>
-      </div>-->
-
-      <!-- Category introduction 
-      <p class="category-intro">
-        This section assesses whether data retention periods are defined, justified, and consistently enforced, and whether deletion controls effectively reduce unnecessary data exposure.
-      </p>
-
-      <div class="assessment-item warning">
-        <h4>Extended Retention Periods</h4>
-        <p>
-          Certain data categories are retained beyond recommended timeframes outlined in My Health Record guidance and relevant privacy principles. Extended retention increases exposure in the event of a data breach and may limit the organisations ability to demonstrate compliance with minimum necessary retention standards.
-        </p>
-        <p class="reference">
-          My Health Records Act 2012 - Section 28
-        </p>
-        <a href="#">Privacy Act 1988 - APP3.5</a>
-      </div>
-
-      <div class="assessment-item danger">
-        <h4>Manual Deletion Dependency</h4>
-        <p>
-          Data deletion processes rely heavily on manual intervention, increasing the likelihood that records are retained beyond approved timeframes. The absence of automated deletion or archiving controls reduces consistency and increases regulatory and cybersecurity risk.
-        </p>
-        <a href="#">Privacy Act 1988 - APP3.5</a>
-        <a href="#">Privacy Act 1988 - APP 11.2</a>
-      </div>
-
-    </article>-->
-
-    <!-- My Health Record Integration 
-    <article class="category">
-
-      <div class="category-header">
-        <h3>My Health Record Integration</h3>
-        <span class="badge opportunity">Opportunity</span>
-      </div>
-
-      <div class="assessment-item neutral">
-        <h4>Limited System Access</h4>
-        <p>
-          The organisations current use of My Health Record appears limited. Consider expanding integration to support improved care coordination, while maintaining strict role-based access controls and purpose limitation principles to ensure data minimisation is preserved.
-        </p>
-        <a href="#">My Health Records Act 2012</a>
-      </div>
-
-    </article> -->
     <div class="container">
       <section class="recommended-actions">
           <h2>Recommended Actions</h2>
@@ -430,5 +239,42 @@
     <script src="{{ url_for('static', filename='js/costReduction.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/recommendedActions.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var wrap = document.createElement('div');
+        wrap.className = 'download-btn-wrap';
+
+        var btn = document.createElement('a');
+        btn.id = 'download-report-btn';
+        btn.className = 'btn btn-primary';
+        btn.href = '#';
+        btn.innerHTML = '<i class="bi bi-file-earmark-pdf"></i> Download Report';
+        wrap.appendChild(btn);
+        document.querySelector('main.report').appendChild(wrap);
+
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          btn.textContent = 'Generating PDF…';
+
+          var element = document.querySelector('main.report');
+
+          var pageWidth  = 297;
+          var pageHeight = Math.ceil(element.scrollHeight * pageWidth / element.scrollWidth);
+
+          var opt = {
+            margin:      0,
+            filename:    'Data_Minimisation_Report.pdf',
+            image:       { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+            jsPDF:       { unit: 'mm', format: [pageWidth, pageHeight], orientation: 'portrait' }
+          };
+
+          html2pdf().set(opt).from(element).save().then(function () {
+            btn.innerHTML = '<i class="bi bi-file-earmark-pdf"></i> Download Report';
+          });
+        });
+      });
+    </script>
 </body>
 </html>
