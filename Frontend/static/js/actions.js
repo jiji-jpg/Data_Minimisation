@@ -134,10 +134,16 @@ function initPersistence() {
       const state = collectFormState();
       await syncToBackend(state, false);
 
-      // const nextUrl = continueBtn.dataset.nextUrl || continueBtn.getAttribute('href');
-      // if (nextUrl) {
-      //   window.location.href = nextUrl;
-      // }
+      const isValid = window.FormValidator.validateForm();
+      if (!isValid) {
+        window.FormValidator.scrollToFirstError();
+        return;
+      }
+
+      const nextUrl = continueBtn.dataset.nextUrl || continueBtn.getAttribute('href');
+      if (nextUrl) {
+        window.location.href = nextUrl;
+      }
     });
   }
 
@@ -147,10 +153,10 @@ function initPersistence() {
       e.preventDefault();
       const state = collectFormState();
       await syncToBackend(state, true);
-      // const nextUrl = finalSubmitBtn.dataset.nextUrl || finalSubmitBtn.getAttribute('href');
-      // if (nextUrl) {
-      //   window.location.href = nextUrl;
-      // }
+      const nextUrl = finalSubmitBtn.dataset.nextUrl || finalSubmitBtn.getAttribute('href');
+      if (nextUrl) {
+        window.location.href = nextUrl;
+      }
     });
   }
 }
