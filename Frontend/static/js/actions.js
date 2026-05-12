@@ -26,16 +26,18 @@ function collectFormState() {
   checkboxes.forEach(cb => {
     if (cb.id) state.checkboxes[cb.id] = cb.checked;
   });
-
-  const radioGroups = {};
+  
+  // Radios: selected value per name group
+ const radioGroups = {};
   radios.forEach(r => {
     if (r.checked && r.name && r.id) {
       radioGroups[r.name] = r.value;
     }
   });
   Object.assign(state.radios, radioGroups);
-
-  selects.forEach(s => {
+  
+  // Selects by ID (only if changed from default)
+ selects.forEach(s => {
     if (s.id) state.selects[s.id] = s.value;
   });
 

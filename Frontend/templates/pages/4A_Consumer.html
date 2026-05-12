@@ -229,9 +229,10 @@
       <div class="custom-select">
         <select id="Question1-4A">
           <option value="">Select</option>
-          <option value="Up to 30 Years After Death">Up to 30 Years After Death</option>
-          <option value="Up to 130 Years After Birth">Up to 130 Years After Birth</option>
-          <option value="Unsure">Unsure</option>
+          <option value="MHR valid retention period">Up to 30 years after death 'or' up to 130 years from birth.</option>
+          <option value="Determined by Company">Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth.</option>
+          <option value="Inconsistent Policy">There is no consistent policy.</option>
+         <option value="Unsure">Unsure</option>
         </select>
       </div>
       
@@ -309,6 +310,21 @@
       <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary" id="continueBtn" data-next-url="{{ url_for('sub_landing') }}">Continue</a>
     </div>
   </main>
+
+  <script>
+  const q1Select = document.getElementById('Question1-4A');
+  const q3Block  = document.getElementById('Question1-1B');
+  const q3Select = document.getElementById('Question1B');
+
+  q1Select.addEventListener('change', function () {
+    if (this.value === 'Determined by Company') {
+      q3Block.style.display = 'block';
+    } else {
+      q3Block.style.display = 'none';
+      q3Select.value = '';
+    }
+  });
+  </script>
 
   <script src="../static/js/tooltip.js"></script>
   <script src="../static/js/actions.js"></script>

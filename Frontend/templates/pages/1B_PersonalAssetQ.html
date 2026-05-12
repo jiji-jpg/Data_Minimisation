@@ -218,7 +218,7 @@
         </select>
       </div>
 
-      <div class="conditional-question" id="Question1-1B">
+      <div class="conditional-question" id="Question-Condition">
       <div class="divider"></div>
       <div class="question">
         <div class="text-small" style="margin-top: 1rem;">1B. Are there special circumstances where information may be retained beyond the standard limit?</div>
@@ -301,6 +301,21 @@
       <a href="{{ url_for('sub_landing') }}" class="btn btn-secondary" id="continueBtn" data-next-url="{{ url_for('sub_landing') }}">Continue</a>
     </div>
   </main>
+
+  <script>
+  const q1Select = document.getElementById('Question1-1A');
+  const q3Block  = document.getElementById('Question-Condition');
+  const q3Select = document.getElementById('Question1B');
+
+  q1Select.addEventListener('change', function () {
+    if (this.value === 'Determined by Company') {
+      q3Block.style.display = 'block';
+    } else {
+      q3Block.style.display = 'none';
+      q3Select.value = '';
+    }
+  });
+  </script>
 
   <script src="../static/js/tooltip.js"></script>
   <script src="../static/js/actions.js"></script>
