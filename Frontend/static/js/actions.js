@@ -19,19 +19,16 @@ const selects = document.querySelectorAll('select');
 // Full key for this page
 const fullKey = `${PERSIST_CONFIG.storageKey}_${PERSIST_CONFIG.pageId}`;
 
-// Save handler
-function saveFormState() {
-  if (typeof(Storage) === 'undefined') return;
-  
+// Collect state for both sessionStorage + backend sync
+function collectFormState() {
   const state = { checkboxes: {}, radios: {}, selects: {} };
-  
-  // Checkboxes by ID
+
   checkboxes.forEach(cb => {
     if (cb.id) state.checkboxes[cb.id] = cb.checked;
   });
   
   // Radios: selected value per name group
-  const radioGroups = {};
+ const radioGroups = {};
   radios.forEach(r => {
     if (r.checked && r.name && r.id) {
       radioGroups[r.name] = r.value;
@@ -40,14 +37,40 @@ function saveFormState() {
   Object.assign(state.radios, radioGroups);
   
   // Selects by ID (only if changed from default)
-  selects.forEach(s => {
-    if (s.id && s.value !== s.options[0]?.value) {
-      state.selects[s.id] = s.value;
-    }
+ selects.forEach(s => {
+    if (s.id) state.selects[s.id] = s.value;
   });
-  
+
+  return state;
+}
+
+async function syncToBackend(state, isFinal = false) {
+  try {
+    const endpoint = isFinal ? '/submit-final' : '/save-step';
+    const payload = isFinal
+      ? { finalData: state }
+      : { pageId: PERSIST_CONFIG.pageId, formData: state };
+
+    await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    if (PERSIST_CONFIG.debug) {
+      console.warn('Backend sync failed:', err);
+    }
+  }
+}
+
+// Save handler
+function saveFormState() {
+  if (typeof(Storage) === 'undefined') return;
+
+  const state = collectFormState();
   sessionStorage.setItem(fullKey, JSON.stringify(state));
-  
+  syncToBackend(state, false);
+
   if (PERSIST_CONFIG.debug) {
     console.log(`✅ Saved ${fullKey}:`, state);
   }
@@ -98,9 +121,38 @@ function initPersistence() {
   checkboxes.forEach(cb => cb.addEventListener('change', saveFormState));
   radios.forEach(r => r.addEventListener('change', saveFormState));
   selects.forEach(s => s.addEventListener('change', saveFormState));
-  
+
   // Restore immediately
   restoreFormState();
+
+  const continueBtn = document.getElementById('continueBtn');
+  if (continueBtn) {
+    continueBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      saveFormState();
+
+      const state = collectFormState();
+      await syncToBackend(state, false);
+
+      const nextUrl = continueBtn.dataset.nextUrl || continueBtn.getAttribute('href');
+      if (nextUrl) {
+        window.location.href = nextUrl;
+      }
+    });
+  }
+
+  const finalSubmitBtn = document.getElementById('finalSubmitBtn');
+  if (finalSubmitBtn) {
+    finalSubmitBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const state = collectFormState();
+      await syncToBackend(state, true);
+      const nextUrl = finalSubmitBtn.dataset.nextUrl || finalSubmitBtn.getAttribute('href');
+      if (nextUrl) {
+        window.location.href = nextUrl;
+      }
+    });
+  }
 }
 
 // Init when DOM ready
@@ -112,3 +164,7 @@ if (document.readyState === 'loading') {
 
 // Export for manual use (optional)
 window.persistForm = { save: saveFormState, restore: restoreFormState };
+
+window.addEventListener('beforeunload', function () {
+  navigator.sendBeacon('/clear-session');
+});
