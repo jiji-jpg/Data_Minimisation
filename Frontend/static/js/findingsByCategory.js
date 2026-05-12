@@ -11,42 +11,66 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
         const dataAssets = Object.entries(data["data"][1][0]);
         
         for (const [DATA_ASSET, categories] of dataAssets){
+            
+            // create data asset article 
+            const DATA_ASSET_ARTICLE = document.createElement("article")
+            DATA_ASSET_ARTICLE.className = "category"
+            container.append(DATA_ASSET_ARTICLE)
 
+            // create data asset header 
+            const DATA_ASSET_HEADER = document.createElement("div")
+            DATA_ASSET_HEADER.className = "category-header"
+            DATA_ASSET_ARTICLE.append(DATA_ASSET_HEADER)
         
+            // - Get Data Asset Name
+            createElement("h3", DATA_ASSET, DATA_ASSET_HEADER);
         
-        // - Get Data Asset Name
-        createElement("h1", DATA_ASSET, container);
-        
-        // - Get total number of unnecessary attributes collected for cost reduction
-
 
         for (const category of categories) {
+
+            // create category header
+            const DATA_ASSET_HEADER = document.createElement("div")
+            DATA_ASSET_HEADER.className = "category-header"
+            DATA_ASSET_ARTICLE.append(DATA_ASSET_HEADER) 
             
             const [categoryName, categoryDetails] = Object.entries(category)[0];
-            
-            
-
-            // - List category name 
-            createElement("h2", categoryName, container);
-
-            // check if attributes collected are not applicable
-            if (categoryDetails[0]["attributeCollected"].map(item => item.toLowerCase()).includes("not applicable")){
-                createElement("p", "You are not collecting attributes of this category.", container)
-                continue
-            }
 
             NUMBER_OF_CATEGORIES++;
 
-            // - List attributes collected for the category 
-            listAttributes(categoryDetails, container);
+            const CATEGORY_CONTENT = document.createElement("div")
+            CATEGORY_CONTENT.className = "category-content"
 
             // - Check violation
             let violation = 0;
-            violation = checkGenericRules(categoryDetails, violation, container);
-            violation = checkPrivacyAct(categoryName, privacyAct, categoryDetails, violation, container);
-            violation = checkMHRAct(useMHR, violation, categoryDetails, mhrAct, container);
+            violation = checkGenericRules(categoryDetails, violation, CATEGORY_CONTENT);
+            violation = checkPrivacyAct(categoryName, privacyAct, categoryDetails, violation, CATEGORY_CONTENT);
+            violation = checkMHRAct(useMHR, violation, categoryDetails, mhrAct, CATEGORY_CONTENT);
             // - Attach label to the category 
-            getCategoryLabel(violation, container);
+            [CATEGORY_CONTAINER, label] = getCategoryLabel(violation, DATA_ASSET_ARTICLE);
+    
+            DATA_ASSET_HEADER.append(CATEGORY_CONTAINER)
+            
+            // - List category name 
+            const CATEGORY_TITLE = document.createElement("div")
+            CATEGORY_TITLE.className = "category-title"
+            CATEGORY_CONTAINER.append(CATEGORY_TITLE)
+
+            createElement("h4", categoryName, CATEGORY_TITLE);
+
+            // append label 
+            CATEGORY_TITLE.append(label)
+
+            // check if attributes collected are not applicable
+            if (categoryDetails[0]["attributeCollected"].map(item => item.toLowerCase()).includes("not applicable")){
+                createElement("p", "You are not collecting attributes of this category.", CATEGORY_CONTENT)
+                NUMBER_OF_CATEGORIES--;
+                continue
+            }
+            
+            // - List attributes collected for the category 
+            listAttributes(categoryDetails, CATEGORY_CONTAINER);
+
+            CATEGORY_CONTAINER.append(CATEGORY_CONTENT)
 
             // - Add to counter for category with violation
             // - Get number of attributes and add to total of attributes
@@ -72,30 +96,38 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
 
 // == Functions for Detailed Assessment by Category ==
 
+
 function getCategoryLabel (violationNumber, container){
 
     const label = document.createElement("span")
-    label.classList.add("badge", "me-2");
+    
+    const CATEGORY_CONTAINER = document.createElement("div")
     
     
     if (violationNumber <= 10/3){
         
+        label.className = "badge compliant";
         label.textContent = "Compliant"
         label.style.backgroundColor = "#1bb273"
+        CATEGORY_CONTAINER.className = "assessment-item success"
         
     }
     else if (violationNumber <= 20/3){
         
+        label.className = "badge review";
         label.textContent = "Mostly Compliant"
         label.style.backgroundColor = "#f39c12"
+        CATEGORY_CONTAINER.className = "assessment-item warning"
     }
     else {
         
+        label.className = "badge action";
         label.textContent = "Needs Review"
         label.style.backgroundColor = "#ff002f"
+        CATEGORY_CONTAINER.className = "assessment-item danger"
     }
     
-    container.appendChild(label)
+    return [CATEGORY_CONTAINER, label]
 
 }
 
@@ -171,7 +203,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         // check if less detailed version can be collected 
         if ("lessDetailed" in item && (item.lessDetailed == "yes" || item.lessDetailed == "unsure")){
             createElement("p", "These attributes could have a less detailed version collected. They may violate the following section of Privacy Act", container);
-            createElement("p", "Privacy Act 3.1 - 3.2", container)
+            createElement("a", "Privacy Act 3.1 - 3.2", container)
             violationNumber ++;
         }
 
@@ -187,7 +219,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
             {
             
             createElement("p", "These attributes have unknown retention period or are kept indefinitely. This may violate sections of Privacy Act 1988", container)
-            createElement("p", "Privacy Act 11.2", container)
+            createElement("a", "Privacy Act 11.2", container)
             violationNumber ++;
         }
 

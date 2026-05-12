@@ -649,7 +649,7 @@ body main h2 {
   left: 4px;
   width: var(--label-width);
   height: calc(var(--track-height) - 8px);
-  background: var(--accent-color);
+  background: transparent;
   border-radius: 18px;
   transition: left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.2s;
   z-index: 2;
