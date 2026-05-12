@@ -640,6 +640,7 @@ body main h2 {
   transition: all 0.25s ease;
   z-index: 3;
   padding: 0 8px;
+  cursor: pointer;
 }
 
 .toggle-slider {
@@ -666,6 +667,7 @@ input#yes:checked ~ .toggle-slider,
 #toggle3 #toggle3-yes:checked ~ .toggle-slider,
 #toggle4 #toggle4-yes:checked ~ .toggle-slider { 
   left: 4px; 
+  background: var(--accent-color);
 }
 
 input#no:checked ~ .toggle-slider,
@@ -674,6 +676,7 @@ input#no:checked ~ .toggle-slider,
 #toggle3 #toggle3-no:checked ~ .toggle-slider,
 #toggle4 #toggle4-no:checked ~ .toggle-slider { 
   left: calc(var(--label-width) + 4px); 
+  background: var(--accent-color);
 }
 
 input#unsure:checked ~ .toggle-slider,
@@ -682,6 +685,7 @@ input#unsure:checked ~ .toggle-slider,
 #toggle3 #toggle3-unsure:checked ~ .toggle-slider,
 #toggle4 #toggle4-unsure:checked ~ .toggle-slider { 
   left: calc(2 * var(--label-width) + 4px); 
+  background: var(--accent-color);
 }
 
 input#yes:checked + .toggle-label,
@@ -1037,64 +1041,6 @@ input[type="checkbox"]:hover {
   line-height: 1.6;
 }
 
-/* --------------------- Key Findings Section --------------------- */
-/* Section main heading */
-.key-findings article {
-  background-color: #ffffff;
-  padding: 24px;
-  border-radius: 12px;
-  margin-bottom: 18px;
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.key-findings h2 {
-  grid-column: span 2;              
-  color: #111111;                  
-  font-size: 30px;
-  margin-bottom: 10px;
-}
-
-/* Intro paragraph under heading */
-.key-findings > p {
-  grid-column: span 2;              
-  color: #111111;
-  line-height: 1.7;
-  font-size: 15px;
-  margin-bottom: 30px;
-}
-
-/* Individual finding cards */
-.key-findings article {
-  background-color: #ffffff;        
-  padding: 25px;
-  border-radius: 12px;
-  border-left: 8px solid #111111;   
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-/* Hover animation for cards */
-.key-findings article:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-}
-
-/* Card titles */
-.key-findings article h3 {
-  color: #111111; 
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 15px;
-}
-
-/* Card text */
-.key-findings article p {
-  color: #111111;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
 /* --------------------- Label sytles --------------------- */
 .granularity-issues,
 .retention-issues{
@@ -1201,28 +1147,83 @@ input[type="checkbox"]:hover {
   margin-bottom: 15px;
 }
 
+/* --------------------- Key Findings Section --------------------- */
+/* Section main heading */
+.key-findings article {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.key-findings h2 {
+  grid-column: span 2;              
+  color: #111111;                  
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+/* Intro paragraph under heading */
+.key-findings > p {
+  grid-column: span 2;              
+  color: #111111;
+  line-height: 1.7;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+/* Individual finding cards */
+.key-findings article {
+  background-color: #ffffff;        
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 8px solid #111111;   
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+/* Hover animation for cards */
+.key-findings article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Card titles */
+.key-findings article h3 {
+  color: #111111; 
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+/* Card text */
+.key-findings article p {
+  color: #111111;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 /* --------------------- Detailed Assessment by Category --------------------- */
 .detailed-assessment {
   padding: 60px 0;
   margin: 60px 0;
 }
 
-.detailed-assessment h2 {
-  background-color: #ffffff;
-  font-size: 28px;
-  color: #111111;
-  margin-bottom: 10px;
-  position: relative;
+.detailed-assessment article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
-.detailed-assessment h2::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 4px;
-  background-color: #111111;
-  margin-top: 10px;
+.detailed-assessment h2 {
+  grid-column: span 2;              
+  color: #111111;                  
+  font-size: 30px;
+  margin-bottom: 10px;
 }
+
+
 
 .detailed-assessment > p {
   color: #111111;
@@ -1249,9 +1250,227 @@ input[type="checkbox"]:hover {
   margin-bottom: 25px;
 }
 
+
+
 .category-header h3 {
+  color: #404040; 
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 6px;
+}
+/* --------------------- Assessment Items --------------------- */
+.assessment-item {
+  background-color: #ffffff; 
+  padding: 18px 20px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  border-left: 6px solid;
+  width: 100%
+}
+
+.assessment-item h4 {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.assessment-item p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    margin-left: 6px;
+    
+}
+
+/* Success (Green) */
+.assessment-item.success {
+  border-color:  #1bb273;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+/* Warning (Orange) */
+.assessment-item.warning {
+  border-color: #ff7700;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+/* Danger (Red) */
+.assessment-item.danger {
+  border-color: #e53935;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+/* Neutral */
+.assessment-item.neutral {
+  background-color: #f2f4f3;
+  border-color: #111111;
+}
+
+/* Reference text */
+.reference {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Links styling */
+.assessment-item a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1f3c88;
+    background-color: transparent;
+    border: 1.5px solid #1f3c88;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.assessment-item a:hover {
+    background-color: #1f3c88;
+    color: white;
+}
+
+.category-title {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-left: 6px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.category-title h4 {
+    color: #1f3c88;
+    font-size: 20px;
+    margin: 6;
+}
+
+.category-content {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-left: 12px;
+  margin-right: 6px;
+}
+.category-content p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #a32d2d;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 12px 0 6px;
+}
+
+.category-content a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1f3c88;
+    background-color: transparent;
+    border: 1.5px solid #1f3c88;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.category-content a::before {
+    content: "↗";
+    font-size: 11px;
+}
+
+.category-content a:hover{
+    background-color: #1f3c88;
+    color: white !important;
+}
+/* --------------------- Recommended Actions --------------------- */
+/*
+.recommended-actions {
+  background-color: #f8f9fb;       
+  padding: 24px;
+  margin: 24px 0;
+}
+*/
+/* Section heading */
+.recommended-actions h2 {
+  grid-column: span 2;              
+  color: #111111;                  
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.recommended-actions > p {
+  grid-column: span 2;              
   color: #111111;
-  font-size: 18px;
+  line-height: 1.7;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+
+
+/* ------------------- Cost Reduction Section ------------------- */
+
+.cost-reduction {
+  border-radius: 16px;
+  margin-top: 100px;
+}
+
+.cost-reduction h2 {
+  font-size: 28px;
+  background: transparent;
+  color: #111111;
+  margin-bottom: 10px;
+}
+
+.cost-reduction > p {
+  max-width: 100%;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+/* Cost cards layout */
+
+.cost-cards {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.cost-card {
+  background-color: #ffffff;
+  flex: 1;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}
+
+.cost-card h3 {
+  font-size: 32px;
+  color: #ff7700;
+  margin-bottom: 10px;
+}
+
+.cost-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cost-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
 }
 
 /* --------------------- Badges --------------------- */
@@ -1286,70 +1505,7 @@ input[type="checkbox"]:hover {
   line-height: 1.6;
 }
 
-/* --------------------- Assessment Items --------------------- */
-.assessment-item {
-  background-color: #ffffff; 
-  padding: 18px 20px;
-  border-radius: 10px;
-  margin-bottom: 18px;
-  border-left: 6px solid;
-}
 
-.assessment-item h4 {
-  margin-bottom: 8px;
-  font-size: 15px;
-}
-
-.assessment-item p {
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 8px;
-}
-
-/* Success (Green) */
-.assessment-item.success {
-  border-color:  #1bb273;
-}
-
-/* Warning (Orange) */
-.assessment-item.warning {
-  border-color: #ff7700;
-}
-
-/* Danger (Red) */
-.assessment-item.danger {
-  border-color: #e53935;
-}
-
-/* Neutral */
-.assessment-item.neutral {
-  background-color: #f2f4f3;
-  border-color: #111111;
-}
-
-/* Reference text */
-.reference {
-  font-size: 12px;
-  color: #666;
-  margin-top: 5px;
-}
-
-/* Links styling */
-.assessment-item a {
-  display: inline-block;
-  margin-top: 6px;
-  font-size: 12px;
-  color: #1f3c88;
-  background-color: #dde5f5;
-  padding: 5px 8px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: 0.2s ease;
-}
-
-.assessment-item a:hover {
-  background-color: #cfd8ea;
-}
 
 /* --------------------- Clinical Documents Grid --------------------- */
 .assessment-grid {
@@ -1363,30 +1519,7 @@ input[type="checkbox"]:hover {
   margin-bottom: 0;
 }
 
-/* --------------------- Recommended Actions --------------------- */
-.recommended-actions {
-  background-color: #f8f9fb;       
-  padding: 60px;
-  border-radius: 16px;
-  margin: 60px 0;
-  border: 1px solid #e1e5ee;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
 
-/* Section heading */
-.recommended-actions h2 {
-  background: transparent;
-  font-size: 26px;
-  color: #111;
-  margin-bottom: 10px;
-}
-
-.recommended-actions > p {
-  color: #4a5568;
-  margin-bottom: 40px;
-  line-height: 1.6;
-  max-width: 100%;
-}
 
 /*---------------- Priority Button Colors ---------------- */
 .priority-high strong {
@@ -1401,58 +1534,7 @@ input[type="checkbox"]:hover {
   background-color: #1bb273;
 }
 
-/* ------------------- Cost Reduction Section ------------------- */
 
-.cost-reduction {
-  background-color: #eef2f7;
-  padding: 60px;
-  border-radius: 16px;
-  margin: 60px 0;
-}
-
-.cost-reduction h2 {
-  font-size: 28px;
-  background: transparent;
-  color: #111111;
-  margin-bottom: 10px;
-}
-
-.cost-reduction > p {
-  max-width: 100%;
-  line-height: 1.6;
-  margin-bottom: 40px;
-}
-/* Cost cards layout */
-
-.cost-cards {
-  display: flex;
-  gap: 25px;
-}
-
-.cost-card {
-  background-color: #ffffff;
-  flex: 1;
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-}
-
-.cost-card h3 {
-  font-size: 32px;
-  color: #ff7700;
-  margin-bottom: 10px;
-}
-
-.cost-title {
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.cost-desc {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #555;
-}
 
 /* --------------------- Timeline Structure --------------------- */
 .recommended-actions article {
@@ -1524,6 +1606,11 @@ input[type="checkbox"]:hover {
     margin-bottom: 25px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     position: relative;
+}
+
+.action-card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
 .action-card::before {
@@ -1682,20 +1769,29 @@ input[type="checkbox"]:hover {
 }
 
 .contact-btn {
-    display: inline-block;
-    padding: 14px 24px;
-    background-color: #1f3c88;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 15px;
     font-weight: 600;
-    transition: 0.3s ease;
+    color: #1f3c88;
+    background-color: transparent;
+    border: 1.5px solid #1f3c88;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+
+.contact-btn::before {
+    content: "↗";
+    font-size: 11px;
 }
 
 .contact-btn:hover {
-    background-color: #162f6b;
-    transform: translateY(-2px);
+    background-color: #1f3c88;
+    color: white !important;
 }
 
 /* ==================== DISCLAIMER ==================== */
