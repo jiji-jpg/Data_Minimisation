@@ -1,0 +1,42 @@
+{
+  "session_id": "20260513042410734228",
+  "updated_at": "2026-05-13T04:24:10.735422+00:00",
+  "steps": {
+    "_DA2": {
+      "checkboxes": {
+        "Medicare": false,
+        "IndigenousStatus": false,
+        "ABN": false,
+        "DOD": false,
+        "ACN": false,
+        "CulturalIdentity": false,
+        "VFN": false,
+        "Racial": false,
+        "skipSection": true,
+        "ClinicalCare-1B": false,
+        "SystemManagement-1B": false,
+        "LegalObligation-1B": false,
+        "CourtOrder-1B": false,
+        "SeriousThreat-1B": false,
+        "InsuranceIndemnity-1B": false,
+        "Marketing-1B": false,
+        "Operational-1B": false,
+        "HumanResource-1B": false,
+        "GeneralInsurance-1B": false,
+        "UnsurePurpose-1B": false,
+        "AutomaticallyDeleted-1B": false,
+        "SecurelyDestroyedP-1B": false,
+        "ManualDeletion-1B": false,
+        "UponPR-1B": false,
+        "DeIdentified-1B": false,
+        "Unsure-1B": false
+      },
+      "radios": {},
+      "selects": {
+        "Question1-1B": "",
+        "Question1B": "",
+        "Question2-1B": ""
+      }
+    }
+  }
+}

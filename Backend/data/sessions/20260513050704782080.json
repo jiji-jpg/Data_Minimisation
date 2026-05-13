@@ -1,0 +1,43 @@
+{
+  "session_id": "20260513050704782080",
+  "updated_at": "2026-05-13T05:07:04.782625+00:00",
+  "steps": {
+    "_DA1": {
+      "checkboxes": {
+        "Name": false,
+        "Phone": false,
+        "DOB": false,
+        "Email": false,
+        "Gender": false,
+        "PostAddress": false,
+        "Address": false,
+        "Fax": false,
+        "Sign": false,
+        "skipSection": false,
+        "ClinicalCare-1A": false,
+        "SystemManagement-1A": false,
+        "LegalObligation-1A": false,
+        "CourtOrder-1A": false,
+        "SeriousThreat-1A": false,
+        "InsuranceIndemnity-1A": false,
+        "Marketing-1A": false,
+        "Operational-1A": false,
+        "HumanResource-1A": false,
+        "GeneralInsurance-1A": false,
+        "UnsurePurpose-1A": false,
+        "AutomaticallyDeleted-1A": false,
+        "SecurelyDestroyedP-1A": false,
+        "ManualDeletion-1A": false,
+        "UponPR-1A": false,
+        "DeIdentified-1A": false,
+        "Unsure-1A": false
+      },
+      "radios": {},
+      "selects": {
+        "Question1-1A": "",
+        "Question1B": "",
+        "Question2-1A": ""
+      }
+    }
+  }
+}
