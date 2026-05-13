@@ -172,5 +172,6 @@ if (document.readyState === 'loading') {
 window.persistForm = { save: saveFormState, restore: restoreFormState };
 
 window.addEventListener('beforeunload', function () {
+  
   navigator.sendBeacon('/clear-session');
 });
