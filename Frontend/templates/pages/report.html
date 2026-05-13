@@ -241,6 +241,11 @@
     <script src="{{ url_for('static', filename='js/recommendedActions.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
+      window.addEventListener('pagehide', function () {
+        navigator.sendBeacon('/clear-session');
+      });
+    </script>
+    <script>
       document.addEventListener('DOMContentLoaded', function () {
         var wrap = document.createElement('div');
         wrap.className = 'download-btn-wrap';

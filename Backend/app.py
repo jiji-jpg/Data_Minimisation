@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, session, jsonify
+from flask import Flask, render_template, request, session, jsonify, redirect, url_for
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import json
 
 app = Flask(__name__,
@@ -11,6 +11,18 @@ app.config['SESSION_PERMANENT'] = False
 
 DATA_DIR = Path(__file__).resolve().parent / "data" / "sessions"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+SESSION_MAX_AGE = timedelta(hours=24)
+
+def _cleanup_stale_sessions():
+    cutoff = datetime.now(timezone.utc) - SESSION_MAX_AGE
+    for f in DATA_DIR.glob("*.json"):
+        try:
+            mtime = datetime.fromtimestamp(f.stat().st_mtime, tz=timezone.utc)
+            if mtime < cutoff:
+                f.unlink()
+        except OSError:
+            pass
 
 def _now_iso_utc():
     return datetime.now(timezone.utc).isoformat()
@@ -54,6 +66,72 @@ def _truthy_checked_ids(page):
         if bool(v) and k != "skipSection"
     ]
 
+ATTRIBUTE_DISPLAY_NAMES = {
+    # 1A Personal Details
+    "Phone": "Phone Number",
+    "DOB": "Date of Birth",
+    "PostAddress": "Postal Address",
+    "Sign": "Signature",
+    # 1B Government-issued identifiers and Sensitive Information
+    "Medicare": "Medicare Number",
+    "IndigenousStatus": "Indigenous Status",
+    "DOD": "Death Details",
+    "CulturalIdentity": "Cultural Identity",
+    "Racial": "Racial/Ethnic origin",
+    # 2A Clinical Health Data
+    "Allergies": "Allergies, Medicine and Adverse Reactions",
+    "PathologyReoprts": "Pathology Reports",
+    "Diagnostic": "Diagnostic Imaging Reports",
+    "Discharge": "Discharge Summaries",
+    "SpecialistLetter": "Specialist Letters",
+    "HealthSummary": "Shared Health Summaries",
+    "EventSummary": "Event Summaries",
+    "Goals": "Goals of Care Documents",
+    # 2B Medical Records & Immunisation
+    "PharmacistShared": "Pharmacist Shared Medicines List",
+    "Prescription": "Prescription and Dispense Records",
+    # 3A Government Health Data
+    "CareFacility": "Transfer and Residential Care Facility Documents",
+    "MedicareBenefits": "Medicare Benefits Schedule Claims",
+    "PharmaceuticalBenefits": "Pharmaceutical Benefits Scheme Claims",
+    "VeteransAffairClaims": "Department of Veterans' Affairs Claims",
+    "ImmunisationRegister": "Australian Immunisation Register",
+    "OrganDonorRegister": "Australian Organ Donor Register",
+    "ProofOfVaccinationDoc": "Proof of Vaccination Documents",
+    # 4A Consumer Contributed Data
+    "ContactEmergencyDetails": "Contact & Emergency Details",
+    "CurrentMedicines": "Current Medicines",
+    "PreferredLanguage": "Preferred Language",
+    "AllergyInformation": "Allergy Information",
+    "COB": "Country of Birth",
+    "PersonalHealthNotes": "Personal Health Notes",
+    "VeteranStatus": "Veteran Status",
+    "AdvanceCarePlan": "Advance Care Plan",
+    "CustodianDetails": "Custodian Details",
+    # 5A Child Health Data
+    "AchievementDiary": "Achievement Diary",
+    "GrowthCharts": "Growth Charts",
+    "HealthCheckSchedulesQ": "Health Check Schedules & Questionnaires",
+    "ChildImmunisations": "Child Immunisations",
+}
+
+RETENTION_MHR_MAP = {
+    "mhr valid retention period": "Up to 30 years after death 'or' up to 130 years from birth.",
+    "determined by company": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth.",
+    "inconsistent policy": "There is no consistent policy",
+    "unsure": "unsure",
+    "": "unsure",
+}
+
+RETENTION_GENERAL_MAP = {
+    "information is not kept once it is no longer needed": "Information is not kept once it is no longer needed.",
+    "information is kept as long as required by law": "Information is kept as long as required by law.",
+    "information is kept indefinetly.": "information is kept indefinitely",
+    "information is kept indefinitely.": "information is kept indefinitely",
+    "unsure": "unsure",
+    "": "unsure",
+}
+
 def _extract_attribute_checked_ids(checked):
     excluded_prefixes = {
         "clinicalcare",
@@ -72,13 +150,14 @@ def _extract_attribute_checked_ids(checked):
         "manualdeletion",
         "uponpr",
         "deidentified",
+        "unsure",
     }
 
     attrs = []
     for c in checked:
         key = c.lower().split("-")[0]
         if key not in excluded_prefixes:
-            attrs.append(c)
+            attrs.append(ATTRIBUTE_DISPLAY_NAMES.get(c, c))
     return attrs
 
 def _first_non_empty(mapping, default="Unsure"):
@@ -174,15 +253,6 @@ def _normalize_enforcement_from_checked(checked):
         return "de-identified"
     return "unsure"
 
-def _collect_mhr_from_steps(steps):
-    for _, page in (steps or {}).items():
-        if _is_skipped(page):
-            continue
-        checked = _truthy_checked_ids(page)
-        if any("myhealthrecord" in c.lower() or "mhr" in c.lower() for c in checked):
-            return "yes"
-    return "unsure"
-
 def _extract_purpose_from_checked(checked):
     # maps purpose checkbox IDs to canonical purpose values
     purpose_id_map = {
@@ -236,17 +306,23 @@ def _category_from_step(step_key, page):
     essential_raw, less_detailed_raw = _extract_essential_lessdetailed(radios)
     mhr_raw, retention_raw, retention_exception_raw = _extract_retention_fields(selects)
 
+    purpose_normalized = _normalize_purpose(purpose_raw)
+    if isinstance(purpose_normalized, list):
+        purpose_str = ", ".join(purpose_normalized) if purpose_normalized else "unsure"
+    else:
+        purpose_str = purpose_normalized
+
     label = LABEL_MAP.get(step_key, step_key)
 
     return {
         label: [
             {"attributeCollected": attribute_checked if attribute_checked else ["none selected"]},
-            {"collectionPurpose": _normalize_purpose(purpose_raw)},
+            {"collectionPurpose": purpose_str},
             {"consent": _normalize_consent(consent_raw)},
             {"lessDetailed": _normalize_binary(less_detailed_raw)},
             {"essential": _normalize_binary(essential_raw)},
-            {"retentionPeriodMHR": _normalize_retention(mhr_raw)},
-            {"retentionPeriod": _normalize_retention(retention_raw)},
+            {"retentionPeriodMHR": RETENTION_MHR_MAP.get(str(mhr_raw).strip().lower(), _normalize_retention(mhr_raw))},
+            {"retentionPeriod": RETENTION_GENERAL_MAP.get(str(retention_raw).strip().lower(), _normalize_retention(retention_raw))},
             {"retentionException": _normalize_exception(retention_exception_raw)},
             {"enforcementMeasure": _normalize_enforcement_from_checked(checked)},
         ]
@@ -254,12 +330,22 @@ def _category_from_step(step_key, page):
 
 LABEL_MAP = {
     "_DA1": "Personal Details",
-    "_DA2": "Personal Sensitive Details",
+    "_DA2": "Government-issued identifiers and Sensitive Information",
     "_HA1": "Clinical Health Data",
-    "_HA2": "Clinical Records & Prescriptions",
+    "_HA2": "Medical Records & Immunisation",
     "_GA1": "Government Health Data",
     "_CA1": "Consumer Contributed Data",
     "_CH1": "Child Health Data",
+}
+
+ASSET_GROUP_MAP = {
+    "_DA1": "Personal Data Asset",
+    "_DA2": "Personal Data Asset",
+    "_HA1": "Health Data Asset",
+    "_HA2": "Health Data Asset",
+    "_GA1": "Government Data Asset",
+    "_CA1": "Consumer-Contributed Health Data Asset",
+    "_CH1": "Child Health Data Asset",
 }
 
 def _is_skipped(page):
@@ -269,30 +355,48 @@ def _skipped_category(step_key):
     label = LABEL_MAP.get(step_key, step_key)
     return {label: [{"skipped": True}]}
 
+def _collect_mhr_from_steps(steps):
+    for _, page in (steps or {}).items():
+        if _is_skipped(page):
+            continue
+        checked = _truthy_checked_ids(page)
+        if any("myhealthrecord" in c.lower() or "mhr" in c.lower() for c in checked):
+            return "yes"
+    return "unsure"
+
 def _build_report_schema_from_steps(steps):
     ordered_keys = ["_DA1", "_DA2", "_HA1", "_HA2", "_GA1", "_CA1", "_CH1"]
-    categories = []
+    groups = {}
+    group_order = []
+
+    def _add_to_group(key, category_entry):
+        group = ASSET_GROUP_MAP.get(key, "Other")
+        if group not in groups:
+            groups[group] = []
+            group_order.append(group)
+        groups[group].append(category_entry)
 
     for key in ordered_keys:
         if key in (steps or {}):
             page = steps.get(key, {}) or {}
             if _is_skipped(page):
-                categories.append(_skipped_category(key))
+                _add_to_group(key, _skipped_category(key))
             else:
-                categories.append(_category_from_step(key, page))
+                _add_to_group(key, _category_from_step(key, page))
 
-    # include any additional dynamic keys not in the known order
     for key, page in (steps or {}).items():
         if key not in ordered_keys:
             page = page or {}
             if _is_skipped(page):
-                categories.append(_skipped_category(key))
+                _add_to_group(key, _skipped_category(key))
             else:
-                categories.append(_category_from_step(key, page))
+                _add_to_group(key, _category_from_step(key, page))
+
+    grouped_asset = {group: groups[group] for group in group_order}
 
     return [
         {"collectMyHealthRecord": _collect_mhr_from_steps(steps)},
-        [{"personalDataAsset": categories}]
+        [grouped_asset]
     ]
 
 @app.route('/')
@@ -309,15 +413,21 @@ def privacy():
 def backgroundcheck():
     return render_template('pages/backgroundcheck.html')
 
-@app.route('/sub_landing')
-def sub_landing():
-    """Sublanding — resets session so each new run gets a fresh session ID"""
+@app.route('/new-assessment')
+def new_assessment():
+    """Clears any existing session and starts a fresh assessment"""
     old_sid = session.get("session_id")
     if old_sid:
         f = _session_file(old_sid)
         if f.exists():
             f.unlink()
     session.clear()
+    _cleanup_stale_sessions()
+    return redirect(url_for('sub_landing'))
+
+@app.route('/sub_landing')
+def sub_landing():
+    """Navigation hub — users return here between sections"""
     return render_template('pages/0_Sublanding.html')
 
 @app.route('/DA1')

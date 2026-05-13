@@ -142,6 +142,7 @@ function initPersistence() {
 
       const nextUrl = continueBtn.dataset.nextUrl || continueBtn.getAttribute('href');
       if (nextUrl) {
+        sessionStorage.setItem('_nav', '1');
         window.location.href = nextUrl;
       }
     });
@@ -155,11 +156,21 @@ function initPersistence() {
       await syncToBackend(state, true);
       const nextUrl = finalSubmitBtn.dataset.nextUrl || finalSubmitBtn.getAttribute('href');
       if (nextUrl) {
+        sessionStorage.setItem('_nav', '1');
         window.location.href = nextUrl;
       }
     });
   }
 }
+
+// Clear session file when tab/browser is closed, but not on internal navigation
+window.addEventListener('pagehide', function () {
+  if (sessionStorage.getItem('_nav')) {
+    sessionStorage.removeItem('_nav');
+    return;
+  }
+  navigator.sendBeacon('/clear-session');
+});
 
 // Init when DOM ready
 if (document.readyState === 'loading') {
