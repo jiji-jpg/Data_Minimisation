@@ -170,8 +170,3 @@ if (document.readyState === 'loading') {
 
 // Export for manual use (optional)
 window.persistForm = { save: saveFormState, restore: restoreFormState };
-
-window.addEventListener('beforeunload', function () {
-  
-  navigator.sendBeacon('/clear-session');
-});

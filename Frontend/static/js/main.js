@@ -1,13 +1,15 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
-    const TEST_CASE= "randomCaseThree";
-
     const [answerRes, mhrRes, privacyRes] = await Promise.all([
-        fetch(`/static/js/${TEST_CASE}.json`),
-        //fetch("/static/exampleAnswer.json"),
+        fetch("/api/latest-submission"),
         fetch("/static/myHealthRecord.json"),
         fetch("/static/privacyAct.json")
     ]);
+
+    if (!answerRes.ok) {
+        document.body.innerHTML = "<p style='padding:2rem'>No submission found. Please complete the questionnaire first.</p>";
+        return;
+    }
 
     const data = await answerRes.json();
     const mhrAct = await mhrRes.json();

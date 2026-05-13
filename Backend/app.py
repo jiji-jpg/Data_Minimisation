@@ -311,7 +311,13 @@ def backgroundcheck():
 
 @app.route('/sub_landing')
 def sub_landing():
-    """Sublanding"""
+    """Sublanding — resets session so each new run gets a fresh session ID"""
+    old_sid = session.get("session_id")
+    if old_sid:
+        f = _session_file(old_sid)
+        if f.exists():
+            f.unlink()
+    session.clear()
     return render_template('pages/0_Sublanding.html')
 
 @app.route('/DA1')
@@ -366,19 +372,21 @@ def test():
 
 @app.route('/api/latest-submission', methods=['GET'])
 def latest_submission():
-    files = list(DATA_DIR.glob("*.json"))
-    if not files:
-        return jsonify({"ok": False, "error": "No submissions found"}), 404
+    sid = session.get("session_id")
+    if not sid:
+        return jsonify({"ok": False, "error": "No active session"}), 404
 
-    latest_file = max(files, key=lambda f: f.stat().st_mtime)
     try:
-        latest = json.loads(latest_file.read_text(encoding="utf-8"))
+        data = _read_session(sid)
     except (json.JSONDecodeError, OSError):
         return jsonify({"ok": False, "error": "Could not read session file"}), 500
 
-    raw = latest.get("final_submission")
+    if not data:
+        return jsonify({"ok": False, "error": "No submission found for this session"}), 404
+
+    raw = data.get("final_submission")
     if raw is None:
-        raw = latest.get("steps", {})
+        raw = data.get("steps", {})
 
     if not raw:
         return jsonify({"ok": False, "error": "No submission payload found"}), 404
@@ -388,14 +396,14 @@ def latest_submission():
     elif isinstance(raw, dict) and any(k.startswith("_") for k in raw.keys()):
         steps = raw
     else:
-        steps = latest.get("steps", {}) if isinstance(latest.get("steps", {}), dict) else {}
+        steps = data.get("steps", {}) if isinstance(data.get("steps", {}), dict) else {}
 
     transformed = _build_report_schema_from_steps(steps)
 
     return jsonify({
         "ok": True,
-        "session_id": latest.get("session_id"),
-        "updated_at": latest.get("updated_at"),
+        "session_id": data.get("session_id"),
+        "updated_at": data.get("updated_at"),
         "data": transformed
     }), 200
 
