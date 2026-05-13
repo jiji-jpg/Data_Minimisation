@@ -345,6 +345,55 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
+  // --- "Unsure" mutual exclusion for Data Collection Purpose ---
+var unsurePurpose = document.querySelector('input[id^="UnsurePurpose"]');
+if (unsurePurpose) {
+  var purposeGrid = unsurePurpose.closest('.checkbox-grid');
+  var otherPurposes = purposeGrid
+    ? Array.from(purposeGrid.querySelectorAll('input[type="checkbox"]')).filter(function(cb) { return cb !== unsurePurpose; })
+    : [];
+
+  unsurePurpose.addEventListener('change', function() {
+    if (this.checked) {
+      otherPurposes.forEach(function(cb) { cb.checked = false; });
+      if (window.persistForm) window.persistForm.save(); 
+    }
+  });
+
+  otherPurposes.forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      if (this.checked && unsurePurpose.checked) {
+        unsurePurpose.checked = false;
+        if (window.persistForm) window.persistForm.save(); 
+      }
+    });
+  });
+}
+
+// --- "Unsure" mutual exclusion for Enforcement / Deletion Mechanism ---
+var unsureEnforcement = document.querySelector('input[id*="Unsure"][type="checkbox"]:not([id^="UnsurePurpose"]):not(#skipSection)');
+if (unsureEnforcement) {
+  var enforcementGrid = unsureEnforcement.closest('.checkbox-grid');
+  var otherEnforcements = enforcementGrid
+    ? Array.from(enforcementGrid.querySelectorAll('input[type="checkbox"]')).filter(function(cb) { return cb !== unsureEnforcement; })
+    : [];
+
+  unsureEnforcement.addEventListener('change', function() {
+    if (this.checked) {
+      otherEnforcements.forEach(function(cb) { cb.checked = false; });
+      if (window.persistForm) window.persistForm.save(); 
+    }
+  });
+
+  otherEnforcements.forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      if (this.checked && unsureEnforcement.checked) {
+        unsureEnforcement.checked = false;
+        if (window.persistForm) window.persistForm.save(); 
+      }
+    });
+  });
+}
 });
 
 // Export for global use
