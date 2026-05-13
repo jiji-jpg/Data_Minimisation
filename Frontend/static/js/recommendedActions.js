@@ -298,10 +298,6 @@
                         text: mhrRetentionRule.MyHealthRecordSection || "My Health Records Act",
                         href: "#"
                     },
-                    {
-                        text: mhrSpecialRule.MyHealthRecordSection || "My Health Records Act",
-                        href: "#"
-                    }
                 ]
             });
         }
