@@ -24,22 +24,43 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
         
             // - Get Data Asset Name
             createElement("h3", DATA_ASSET, DATA_ASSET_HEADER);
+            
         
 
         for (const category of categories) {
+            
+            const [categoryName, categoryDetails] = Object.entries(category)[0];
+
 
             // create category header
             const DATA_ASSET_HEADER = document.createElement("div")
             DATA_ASSET_HEADER.className = "category-header"
             DATA_ASSET_ARTICLE.append(DATA_ASSET_HEADER) 
-            
-            const [categoryName, categoryDetails] = Object.entries(category)[0];
-
-            NUMBER_OF_CATEGORIES++;
 
             const CATEGORY_CONTENT = document.createElement("div")
             CATEGORY_CONTENT.className = "category-content"
 
+            if ("skipped" in categoryDetails[0]){
+                const SKIPPED_CATEGORY_CONTAINER = document.createElement("div")
+                SKIPPED_CATEGORY_CONTAINER.className = "assessment-item success"
+                DATA_ASSET_HEADER.append(SKIPPED_CATEGORY_CONTAINER)
+
+                // - List category name 
+                const SKIPPED_CATEGORY_TITLE = document.createElement("div")
+                SKIPPED_CATEGORY_TITLE.className = "category-title"
+                SKIPPED_CATEGORY_CONTAINER.append(SKIPPED_CATEGORY_TITLE)
+
+                createElement("h4", categoryName, SKIPPED_CATEGORY_TITLE);
+
+                const SKIPPED_CATEGORY = document.createElement("p");
+                SKIPPED_CATEGORY.textContent = "No attributes were collected in this category."
+                SKIPPED_CATEGORY_CONTAINER.append(SKIPPED_CATEGORY)
+                continue;
+            }
+
+            NUMBER_OF_CATEGORIES++;
+
+            
             // - Check violation
             let violation = 0;
             violation = checkGenericRules(categoryDetails, violation, CATEGORY_CONTENT);
@@ -60,12 +81,12 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
             // append label 
             CATEGORY_TITLE.append(label)
 
-            // check if attributes collected are not applicable
-            if (categoryDetails[0]["attributeCollected"].map(item => item.toLowerCase()).includes("not applicable")){
-                createElement("p", "You are not collecting attributes of this category.", CATEGORY_CONTENT)
-                NUMBER_OF_CATEGORIES--;
-                continue
-            }
+            // // check if attributes collected are not applicable
+            // if (categoryDetails[0]["attributeCollected"].map(item => item.toLowerCase()).includes("not applicable")){
+            //     createElement("p", "You are not collecting attributes of this category.", CATEGORY_CONTENT)
+            //     NUMBER_OF_CATEGORIES--;
+            //     continue
+            // }
             
             // - List attributes collected for the category 
             listAttributes(categoryDetails, CATEGORY_CONTAINER);
@@ -100,7 +121,6 @@ function renderFindingsByCategory(data, mhrAct, privacyAct, useMHR) {
 function getCategoryLabel (violationNumber, container){
 
     const label = document.createElement("span")
-    
     const CATEGORY_CONTAINER = document.createElement("div")
     
     

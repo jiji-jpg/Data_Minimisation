@@ -20,6 +20,27 @@ function isAllNotApplicable(categoryObj) {
     return attributes.length > 0 && attributes.every(attr => attr.toLowerCase().trim() === "not applicable");
 }
 
+// Helper: check how many valid categories are there 
+function countValidCategories(data){
+    var categoryCount = 0;
+    const dataAssetDict = data.data[1][0];
+    for (const dataAssetName in dataAssetDict){
+        
+        const categoryArrays = dataAssetDict[dataAssetName]
+        for (const category of categoryArrays){
+            for (const [categoryName, categoryDetails] of Object.entries(category)){
+                if (categoryDetails.some(item => item.skipped)){
+                    continue;
+                }
+                categoryCount ++;
+            }   
+        }
+    }
+    
+    return categoryCount
+
+}
+
 function renderExecutiveSummary(data, categories, badCategoryCount) {
 
     const minimisationScore = calculateMinimisationScore(data);
@@ -33,9 +54,10 @@ function renderExecutiveSummary(data, categories, badCategoryCount) {
     if (totalCategoriesEl) {
         if (allNA) {
             totalCategoriesEl.textContent = 0;
-        } else {
-            const reportGroups = data.data?.[1]?.[0] || {};
-            totalCategoriesEl.textContent = Object.keys(reportGroups).length;
+        }
+         else {
+            const categoryCount = countValidCategories(data)
+            totalCategoriesEl.textContent = categoryCount
         }
     }
 
