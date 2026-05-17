@@ -1,0 +1,82 @@
+{
+  "data": [
+    {
+      "collectMyHealthRecord": "unsure"
+    },
+    [
+      {
+        "Government Data Asset": [
+          {
+            "Government Health Data": [
+              {
+                "skipped": true
+              }
+            ]
+          }
+        ],
+        "Health Data Asset": [
+          {
+            "Clinical Health Data": [
+              {
+                "skipped": true
+              }
+            ]
+          },
+          {
+            "Medical Records & Immunisation": [
+              {
+                "skipped": true
+              }
+            ]
+          }
+        ],
+        "Personal Data Asset": [
+          {
+            "Personal Details": [
+              {
+                "attributeCollected": [
+                  "Date of Birth",
+                  "Name"
+                ]
+              },
+              {
+                "collectionPurpose": "clinical care"
+              },
+              {
+                "consent": "no"
+              },
+              {
+                "lessDetailed": "no"
+              },
+              {
+                "essential": "no"
+              },
+              {
+                "retentionPeriodMHR": "Information is kept for a set period determined by organisation that surpasses 30 years after death 'or' 130 years from birth."
+              },
+              {
+                "retentionPeriod": "information is kept indefinitely"
+              },
+              {
+                "retentionException": "Yes, for research or statistical purposes"
+              },
+              {
+                "enforcementMeasure": "manually deleted"
+              }
+            ]
+          },
+          {
+            "Government-issued identifiers and Sensitive Information": [
+              {
+                "skipped": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  ],
+  "ok": true,
+  "session_id": "20260515083824848500",
+  "updated_at": "2026-05-15T08:39:29.046394+00:00"
+}

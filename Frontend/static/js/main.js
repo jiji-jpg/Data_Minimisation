@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const [answerRes, mhrRes, privacyRes] = await Promise.all([
         fetch("/api/latest-submission"),
+        // fetch("/static/js/caseFive.json"), 
         fetch("/static/myHealthRecord.json"),
         fetch("/static/privacyAct.json")
     ]);
@@ -34,5 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderRecommendedActions(data, mhrAct, privacyAct, useMHR);
     renderCostReduction(NUMBER_OF_ATTRIBUTES, badCategoryCount, NUMBER_OF_CATEGORIES);
     renderExecutiveSummary(data, getAllCategories(data), badCategoryCount);
+    
+    
     
 });
