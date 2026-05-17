@@ -236,10 +236,10 @@ function calculateRetentionScore(data) {
         const categoryDetails = Object.entries(categoryObj)[0][1];
         
         const retentionPeriodMHR = getCategoryFieldValue(categoryDetails, "retentionPeriodMHR");
-        const specialCircumstance = getCategoryFieldValue(categoryDetails, "specialCircumstance") || "";
+        const specialCircumstance = getCategoryFieldValue(categoryDetails, "retentionException") || "";
         const enforcementMeasure = getCategoryFieldValue(categoryDetails, "enforcementMeasure");
         const retentionPeriod = getCategoryFieldValue(categoryDetails, "retentionPeriod");
-
+        console.log(enforcementMeasure)
         // a: category point logic
         const isOptionB =
             retentionPeriodMHR !== "up to 30 years after death" &&
@@ -247,17 +247,19 @@ function calculateRetentionScore(data) {
             retentionPeriodMHR !== "unsure" &&
             retentionPeriodMHR !== "there is no consistent policy" &&
             retentionPeriodMHR !== "";
-
+        
         if (
             retentionPeriodMHR === "up to 30 years after death" ||
             retentionPeriodMHR === "100 years"
         ) {
+            
             categoryPoint += 1;
             totalCategoryCount++;
         } else if (
             isOptionB &&
             specialCircumstance.includes("yes")
         ) {
+            
             categoryPoint += 1;
             totalCategoryCount++;
         } else if (
@@ -270,24 +272,26 @@ function calculateRetentionScore(data) {
             retentionPeriodMHR === "unsure" ||
             retentionPeriodMHR === "there is no consistent policy"
         ) {
+            
             categoryPoint += 0.5;
             totalCategoryCount++;
         } else if (
             isOptionB &&
             specialCircumstance === "unsure"
         ) {
+            
             categoryPoint += 0.5;
             totalCategoryCount++;
         } else {
             if ("skipped" in categoryDetails[0]){
                 return;
             }
-            console.log("category point is added")
+            
             categoryPoint += 1;
             totalCategoryCount++;
         }
         
-
+        
         // b: deletion / enforcement
         // clarified rules:
         // manually deleted = manual bad
@@ -295,8 +299,8 @@ function calculateRetentionScore(data) {
         // upon patient request = good
 
         if (
-            enforcementMeasure === "manually deleted" ||
-            enforcementMeasure === "unsure"
+            enforcementMeasure.includes( "manually deleted") ||
+            enforcementMeasure.includes( "unsure")
         ) {
             deletionValues.push("manual");
         } else if (enforcementMeasure === "upon patient request") {
@@ -308,9 +312,9 @@ function calculateRetentionScore(data) {
         // c: retention period
         retentionValues.push(retentionPeriod);
     });
-
+    console.log(categoryPoint)
     const a = totalCategoryCount === 0 ? 0 : categoryPoint / totalCategoryCount;
-
+    console.log("a:", a)
     // b
     let deletionScore = 0;
     let deletionCount = 0;
@@ -324,11 +328,12 @@ function calculateRetentionScore(data) {
             deletionCount++;
         }
     });
-
+    
     const b = deletionCount === 0
         ? 0
         : normalizeScore(deletionScore, 1 * deletionCount, 2 * deletionCount);
 
+    console.log("b", b)
     // c
     let retentionScoreRaw = 0;
     let retentionCount = 0;
@@ -345,12 +350,14 @@ function calculateRetentionScore(data) {
             retentionCount++;
         }
     });
-
+    
+    
     const c = retentionCount === 0
         ? 0
         : normalizeScore(retentionScoreRaw, -1 * retentionCount, 2 * retentionCount);
-
+    console.log("c:", c)
     const finalScore = ((a + b + c) / 3) * 10;
+    console.log(finalScore)
     return Number(finalScore.toFixed(1));
 }
 
