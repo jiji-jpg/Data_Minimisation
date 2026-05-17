@@ -45,7 +45,7 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
             `${retentionResult.manualDeleted}% of enforcement measures rely on manual deletion.`;
 
         
-        // Check if Attribute = Not Applicable
+        // Check if there is at least one non-skipped category
         const assets = data["data"][1][0];
         const categories = Object.values(assets).flat();
         let hasValidData = false;
@@ -54,20 +54,10 @@ function renderKeyFindings(data, mhrAct, privacyAct, useMHR) {
         categories.forEach(categoryObj => {
             const details = categoryObj[Object.keys(categoryObj)[0]];
 
+            const skippedObj = details.find(item => item.skipped === true);
+            if (skippedObj) return;
 
-            const attributeObj = details.find(item => item.attributeCollected !== undefined);
-
-
-            if (attributeObj && Array.isArray(attributeObj.attributeCollected)) {
-                const valid = attributeObj.attributeCollected.some(attr =>
-                    attr.toLowerCase().trim() !== "not applicable"
-                );
-
-
-                if (valid) {
-                    hasValidData = true;
-                }
-            }
+            hasValidData = true;
         });
 
 
@@ -174,16 +164,9 @@ function calculateFromRules(data, rules, field) {
     categories.forEach(categoryObj => {
         const details = categoryObj[Object.keys(categoryObj)[0]];
 
-        // Skip not applicable category
-        const attributeObj = details.find(item => item.attributeCollected !== undefined);
-
-        const isNotApplicable = attributeObj &&
-            Array.isArray(attributeObj.attributeCollected) &&
-            attributeObj.attributeCollected.some(attr =>
-                attr.toLowerCase().trim() === "not applicable"
-            );
-
-    if (isNotApplicable) return;
+        // Skip === "ture"
+        const skippedObj = details.find(item => item.skipped === true);
+        if (skippedObj) return;
 
         let obj;
 
@@ -253,16 +236,9 @@ function calculateRetentionIssues(data, mhrAct, privacyAct, useMHR) {
     categories.forEach(categoryObj => {
         const details = categoryObj[Object.keys(categoryObj)[0]];
 
-        // Skip not applicable category
-        const attributeObj = details.find(item => item.attributeCollected !== undefined);
-
-        const isNotApplicable = attributeObj &&
-            Array.isArray(attributeObj.attributeCollected) &&
-            attributeObj.attributeCollected.some(attr =>
-                attr.toLowerCase().trim() === "not applicable"
-            );
-
-        if (isNotApplicable) return;
+        // Skipped === true
+        const skippedObj = details.find(item => item.skipped === true);
+        if (skippedObj) return;
 
         const retentionObj = details.find(item => item.retentionPeriod !== undefined);
         const retentionMHRObj = details.find(item => item.retentionPeriodMHR !== undefined);

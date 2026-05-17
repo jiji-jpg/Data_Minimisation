@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const [answerRes, mhrRes, privacyRes] = await Promise.all([
         fetch("/api/latest-submission"),
+        // fetch("/static/js/CaseFour.json"),
         fetch("/static/myHealthRecord.json"),
         fetch("/static/privacyAct.json")
     ]);
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let NUMBER_OF_ATTRIBUTES = 0;
     
     renderKeyFindings(data, mhrAct, privacyAct, useMHR);
+
     const result = renderFindingsByCategory(data, mhrAct, privacyAct, useMHR);
     
     badCategoryCount = result.badCategoryCount;

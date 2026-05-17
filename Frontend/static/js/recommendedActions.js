@@ -32,6 +32,7 @@
                     categories.push({
                         assetGroup: assetGroupName,
                         categoryName,
+                        skipped: merged.skipped === true,
                         attributeCollected: merged.attributeCollected || [],
                         collectionPurpose: merged.collectionPurpose || "",
                         consent: merged.consent || "",
@@ -39,7 +40,7 @@
                         lessDetailed: merged.lessDetailed || "",
                         retentionPeriodForMHR: merged.retentionPeriodMHR || "",
                         retentionPeriod: merged.retentionPeriod || "",
-                        specialCircumtance: merged.specialCircumtance || "",
+                        specialCircumtance: merged.retentionException || "",
                         enforcementMeasure: merged.enforcementMeasure || ""
                     });
                 }
@@ -65,9 +66,7 @@
         const { categories } = extractCategories(answerJson);
         const mhrAnswered = normalize(answerJson?.data?.[0]?.collectMyHealthRecord) !== "no";
 
-        const applicableCategories = categories.filter(c =>
-            !c.attributeCollected.some(attr => normalize(attr) === "not applicable")
-        );
+        const applicableCategories = categories.filter(c => !c.skipped);
 
         const mhrConsentRule = getMyHealthRuleByKey("consent", myHealthRecordRules);
         const mhrPurposeRule = getMyHealthRuleByKey("purpose", myHealthRecordRules);
@@ -202,7 +201,10 @@
 
                     return {
                         group: c.categoryName,
-                        attributes: notes.length > 0 ? notes : [`Consent: ${c.consent}`]
+                        attributes: [
+                            `Consent: ${c.consent}`,
+                            `${c.attributeCollected.join(", ")}`
+                        ]
                     };
                 }),
                 label: "Improvement Recommended",
@@ -284,12 +286,11 @@
 
                     return {
                         group: c.categoryName,
-                        attributes: notes.length > 0
-                            ? notes
-                            : [
-                                `Retention period: ${c.retentionPeriod || "not set"}`,
-                                `MHR retention: ${c.retentionPeriodForMHR || "not set"}`
-                            ]
+                        attributes: [
+                            `Retention period: ${c.retentionPeriod || "not set"}`,
+                            `MHR retention timeframe: ${c.retentionPeriodForMHR || "not set"}`,
+                            `Retention circumstance: ${c.specialCircumtance || "not set"}`
+                        ]
                     };
                 }),
                 label: "Priority Attention Suggested",
