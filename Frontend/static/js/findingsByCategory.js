@@ -226,7 +226,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         // check if less detailed version can be collected 
         if ("lessDetailed" in item && (item.lessDetailed == "yes" || item.lessDetailed == "unsure")){
             createElement("p", "These attributes could have a less detailed version collected. They may violate the following section of Privacy Act", container);
-            createElement("a", "Privacy Act 3.1 - 3.2", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles#part-1-consideration-of-personal-information-privacy")
+            createElement("a", "Privacy Act 3.1 - 3.2", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-3-app-3-collection-of-solicited-personal-information")
             violationNumber ++;
         }
 
@@ -242,7 +242,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
             {
             
             createElement("p", "These attributes have unknown retention period or are kept indefinitely. This may violate sections of Privacy Act 1988", container)
-            createElement("a", "Privacy Act 11.2", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles#part-1-consideration-of-personal-information-privacy")
+            createElement("a", "Privacy Act 11.2", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-11-app-11-security-of-personal-information")
             violationNumber ++;
         }
 
@@ -276,7 +276,7 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
         CONSENT == BAD_PURPOSE_CONSENT2)
     ){
         createElement("p", "Obtain consent before collecting these attributes for marketing purpose is advised by Privacy Act 1988", container)
-        createElement("a", "Privacy Act 7.1 - 7.4", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles#part-1-consideration-of-personal-information-privacy")
+        createElement("a", "Privacy Act 7.1 - 7.4", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-7-app-7-direct-marketing")
         violationNumber ++;
     }
 
@@ -291,7 +291,7 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
         CONSENT == BAD_SENSITIVE_CONSENT2
     )){
         createElement("p", "Obtain consent before collecting sensitive information is advised by Pivacy Act 1988", container)
-        createElement("a", "Privacy Act 3.3 - 3.4", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles#part-1-consideration-of-personal-information-privacy")
+        createElement("a", "Privacy Act 3.3 - 3.4", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-3-app-3-collection-of-solicited-personal-information")
         violationNumber ++;
     }
 
