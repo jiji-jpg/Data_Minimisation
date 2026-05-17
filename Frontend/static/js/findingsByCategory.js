@@ -162,7 +162,7 @@ function checkMHR(answer){
 
 }
 
-function createElement(elementType, text, container){
+function createElement(elementType, text, container, href = null){
     // create an element, change the text, then append to container
     // Arg: 
     //     elementType: String; the kind of DOM element needs to be created
@@ -171,6 +171,9 @@ function createElement(elementType, text, container){
 
     const element = document.createElement(elementType)
     element.textContent = text
+    if (elementType === "a" && href) {
+        element.href = href;
+    }
     container.appendChild(element)
 }
 
@@ -214,7 +217,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         // check if consent is no or unsure 
         if ("consent" in item && (item.consent == "no" || item.consent == "unsure")){
             createElement("p", "These attributes may be collected with no consent. Collecting data after acquiring consent is advised by My Health Act 2012.", container)
-            createElement("a", "My Health Records Act 2012 - Part 3 - Registration", container)
+            createElement("a", "My Health Records Act 2012 - Part 3 - Registration", container, "https://www.legislation.gov.au/C2012A00063/latest/text")
             violationNumber ++;
 
         }
@@ -223,7 +226,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
         // check if less detailed version can be collected 
         if ("lessDetailed" in item && (item.lessDetailed == "yes" || item.lessDetailed == "unsure")){
             createElement("p", "These attributes could have a less detailed version collected. They may violate the following section of Privacy Act", container);
-            createElement("a", "Privacy Act 3.1 - 3.2", container)
+            createElement("a", "Privacy Act 3.1 - 3.2", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles#part-1-consideration-of-personal-information-privacy")
             violationNumber ++;
         }
 
@@ -239,7 +242,7 @@ function checkGenericRules (categoryDetails, violationNumber, container){
             {
             
             createElement("p", "These attributes have unknown retention period or are kept indefinitely. This may violate sections of Privacy Act 1988", container)
-            createElement("a", "Privacy Act 11.2", container)
+            createElement("a", "Privacy Act 11.2", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles#part-1-consideration-of-personal-information-privacy")
             violationNumber ++;
         }
 
@@ -273,7 +276,7 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
         CONSENT == BAD_PURPOSE_CONSENT2)
     ){
         createElement("p", "Obtain consent before collecting these attributes for marketing purpose is advised by Privacy Act 1988", container)
-        createElement("a", "Privacy Act 7.1 - 7.4", container)
+        createElement("a", "Privacy Act 7.1 - 7.4", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles#part-1-consideration-of-personal-information-privacy")
         violationNumber ++;
     }
 
@@ -288,7 +291,7 @@ function checkPrivacyAct(categoryName, privacyAct, categoryDetails, violationNum
         CONSENT == BAD_SENSITIVE_CONSENT2
     )){
         createElement("p", "Obtain consent before collecting sensitive information is advised by Pivacy Act 1988", container)
-        createElement("a", "Privacy Act 3.3 - 3.4", container)
+        createElement("a", "Privacy Act 3.3 - 3.4", container, "https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles#part-1-consideration-of-personal-information-privacy")
         violationNumber ++;
     }
 
@@ -313,7 +316,7 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
         // Check if collection purpose violates MHR Act 
         if (BAD_PURPOSE.includes(COLLECTION_PURPOSE)){
             createElement("p", `My Health Record Act 2012 advises against collecting data with the purpose of ${BAD_PURPOSE.join(", ")}`, container)
-            createElement("a", PURPOSE_SECTION, container)
+            createElement("a", PURPOSE_SECTION, container, "https://www.legislation.gov.au/C2012A00063/latest/text")
             violationNumber ++; 
         }
 
@@ -327,7 +330,7 @@ function checkMHRAct(MHRCollected, violationNumber, categoryDetails, MHRAct, con
         
         if (BAD_RETENTION_PERIOD.includes(RETENTION_PERIOD) && (SPECIAL_CIRCUMSTANCE == "no" || SPECIAL_CIRCUMSTANCE == "unsure")){
             createElement("p", `My Health Record Act 2012 advises against ${BAD_RETENTION_PERIOD.join(", ")}`, container);
-            createElement("a", RETENTION_SECTION, container)
+            createElement("a", RETENTION_SECTION, container, "https://www.legislation.gov.au/C2012A00063/latest/text")
             violationNumber ++;
 
         }

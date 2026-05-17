@@ -166,7 +166,7 @@
                 links: [
                     {
                         text: mhrPurposeRule.MyHealthRecordSection || "My Health Records Act",
-                        href: "#"
+                        href: "https://www.legislation.gov.au/C2012A00063/latest/text"
                     }
                 ]
             });
@@ -211,7 +211,7 @@
                 links: [
                     {
                         text: mhrConsentRule.MyHealthRecordSection || "My Health Records Act",
-                        href: "#"
+                        href: "https://www.legislation.gov.au/C2012A00063/latest/text"
                     }
                 ]
             });
@@ -256,7 +256,7 @@
                 links: [
                     {
                         text: privacyLessDetailedRule.PrivacyActSection || "Privacy Act",
-                        href: "#"
+                        href: "https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles#part-1-consideration-of-personal-information-privacy"
                     }
                 ]
             });
@@ -297,7 +297,7 @@
                 links: [
                     {
                         text: mhrRetentionRule.MyHealthRecordSection || "My Health Records Act",
-                        href: "#"
+                        href: "https://www.legislation.gov.au/C2012A00063/latest/text"
                     },
                 ]
             });
@@ -318,7 +318,7 @@
                     {
                         // Use MHR deletion method section from myHealthRecord.json
                         text: mhrDeletionRule.MyHealthRecordSection || "My Health Records Act",
-                        href: "#"
+                        href: "https://www.legislation.gov.au/C2012A00063/latest/text"
                     }
                 ]
             });

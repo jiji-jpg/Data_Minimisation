@@ -234,7 +234,7 @@ function calculateRetentionScore(data) {
 
     categories.forEach(categoryObj => {
         const categoryDetails = Object.entries(categoryObj)[0][1];
-
+        
         const retentionPeriodMHR = getCategoryFieldValue(categoryDetails, "retentionPeriodMHR");
         const specialCircumstance = getCategoryFieldValue(categoryDetails, "specialCircumstance") || "";
         const enforcementMeasure = getCategoryFieldValue(categoryDetails, "enforcementMeasure");
@@ -279,9 +279,14 @@ function calculateRetentionScore(data) {
             categoryPoint += 0.5;
             totalCategoryCount++;
         } else {
+            if ("skipped" in categoryDetails[0]){
+                return;
+            }
+            console.log("category point is added")
             categoryPoint += 1;
             totalCategoryCount++;
         }
+        
 
         // b: deletion / enforcement
         // clarified rules:
