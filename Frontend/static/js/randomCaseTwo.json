@@ -9,9 +9,7 @@
           {
             "Personal Details": [
               {
-                "attributeCollected": [
-                  "not applicable"
-                ]
+                "skipped": true
               },
               {
                 "collectionPurpose": "n/a"
