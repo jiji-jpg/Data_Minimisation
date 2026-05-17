@@ -225,25 +225,18 @@
             lessDetailedCategories.forEach(c => {
                 items.push({
                     group: c.categoryName,
-                    attributes: [`Less detailed version can be collected`, ...c.attributeCollected]
+                    attributes: [...c.attributeCollected]
                 });
             });
 
             // Second list: attributes not essential for operation
             nonEssentialCategories.forEach(c => {
-                // Avoid duplicating categories already listed from lessDetailed
                 const alreadyListed = lessDetailedCategories.some(l => l.categoryName === c.categoryName);
                 if (!alreadyListed) {
                     items.push({
                         group: c.categoryName,
-                        attributes: [`Not essential for operation`, ...c.attributeCollected]
+                        attributes: [...c.attributeCollected]
                     });
-                } else {
-                    // Category appears in both — append the essential note to existing item
-                    const existing = items.find(i => i.group === c.categoryName);
-                    if (existing) {
-                        existing.attributes.unshift("Not essential for operation");
-                    }
                 }
             });
 
