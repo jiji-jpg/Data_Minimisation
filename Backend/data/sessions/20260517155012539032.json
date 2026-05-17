@@ -1,0 +1,47 @@
+{
+  "session_id": "20260517155012539032",
+  "updated_at": "2026-05-17T15:50:12.539336+00:00",
+  "steps": {
+    "_DA1": {
+      "checkboxes": {
+        "Name": false,
+        "Phone": false,
+        "DOB": true,
+        "Email": false,
+        "Gender": false,
+        "PostAddress": false,
+        "Address": false,
+        "Fax": false,
+        "Sign": false,
+        "skipSection": false,
+        "ClinicalCare-1A": true,
+        "SystemManagement-1A": false,
+        "LegalObligation-1A": false,
+        "CourtOrder-1A": false,
+        "SeriousThreat-1A": false,
+        "InsuranceIndemnity-1A": false,
+        "Marketing-1A": false,
+        "Operational-1A": false,
+        "HumanResource-1A": false,
+        "GeneralInsurance-1A": false,
+        "UnsurePurpose-1A": false,
+        "AutomaticallyDeleted-1A": true,
+        "SecurelyDestroyedP-1A": false,
+        "ManualDeletion-1A": false,
+        "UponPR-1A": false,
+        "DeIdentified-1A": false,
+        "Unsure-1A": false
+      },
+      "radios": {
+        "choice1": "yes",
+        "choice2": "no",
+        "choice3": "yes"
+      },
+      "selects": {
+        "Question1-1A": "Determined by Company",
+        "Question1B": "Yes, for legal or audit requirements",
+        "Question2-1A": "Information is not kept once it is no longer needed"
+      }
+    }
+  }
+}

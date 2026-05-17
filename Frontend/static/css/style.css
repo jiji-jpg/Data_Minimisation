@@ -2192,3 +2192,42 @@ input[type="checkbox"]:hover {
     padding-right: 1rem;
   }
 }
+
+/* -----------Footer ---------------*/
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 16px;
+  color: #c0c4d6;
+  padding-top: 0.25rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.footer-contact span {
+ padding: 3rem;
+}
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  padding-top: 0.25rem;
+}
+
+.footer-contact,
+.footer-contact a,
+.footer-contact span {
+  pointer-events: none;
+  cursor: default;
+}
+
+.footer-contact *:hover {
+  color: #c0c4d6 !important;
+}
