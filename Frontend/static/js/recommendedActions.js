@@ -62,6 +62,40 @@
         return privacyActRules.find(rule => normalize(rule.category) === "sensitive information") || {};
     }
 
+     const SECTION_URLS = {
+        // My Health Records Act sections  (key = normalised MyHealthRecordSection value)
+        "my health records act 2012 - part 3 - registration":
+            "https://www.legislation.gov.au/C2012A00063/latest/text#part3",
+
+        "my health records act 2012 - part 4 division 2 (sections 61-63)":
+            "https://www.austlii.edu.au/au/legis/cth/consol_act/mhra2012180/#s61",
+
+        "my health records act 2012 - part 2 section 16":
+            "https://www.austlii.edu.au/au/legis/cth/consol_act/mhra2012180/#s16",
+
+        "my health records act 2012 - part 2, division 1, section 17 (retention and destruction of records)":
+            "https://www.austlii.edu.au/au/legis/cth/consol_act/mhra2012180/#s17",
+
+        // Privacy Act / APP sections  (key = normalised PrivacyActSection value)
+        "privacy act 7.1 - 7.4":
+            "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-7-app-7-direct-marketing",
+
+        "privacy act 3.1 - 3.2":
+            "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-3-app-3-collection-of-solicited-personal-information",
+
+        "privacy act 3.3 - 3.4":
+            "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-3-app-3-collection-of-solicited-personal-information",
+
+        "privacy act 11.2":
+            "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-11-app-11-security-of-personal-information",
+    };
+
+    function resolveSectionUrl(sectionText) {
+        if (!sectionText) return "#";
+        const key = String(sectionText).trim().toLowerCase();
+        return SECTION_URLS[key] || "#";
+    }
+
     function buildRecommendedActions(answerJson, myHealthRecordRules, privacyActRules) {
         const { categories } = extractCategories(answerJson);
         const mhrAnswered = normalize(answerJson?.data?.[0]?.collectMyHealthRecord) !== "no";
@@ -163,12 +197,12 @@
                     attributes: [`Purpose: ${c.collectionPurpose}`]
                 })),
                 label: "Priority Attention Suggested",
-                links: [
-                    {
-                        text: mhrPurposeRule.MyHealthRecordSection || "My Health Records Act",
-                        href: "#"
-                    }
-                ]
+                 links: [
+                {
+                    text: mhrPurposeRule.MyHealthRecordSection || "My Health Records Act",
+                    href: resolveSectionUrl(mhrPurposeRule.MyHealthRecordSection)
+                }
+            ]
             });
         }
 
@@ -211,7 +245,7 @@
                 links: [
                     {
                         text: mhrConsentRule.MyHealthRecordSection || "My Health Records Act",
-                        href: "#"
+                        href: resolveSectionUrl(mhrConsentRule.MyHealthRecordSection)
                     }
                 ]
             });
@@ -249,7 +283,7 @@
                 links: [
                     {
                         text: privacyLessDetailedRule.PrivacyActSection || "Privacy Act",
-                        href: "#"
+                        href: resolveSectionUrl(privacyLessDetailedRule.PrivacyActSection)
                     }
                 ]
             });
@@ -290,8 +324,8 @@
                 links: [
                     {
                         text: mhrRetentionRule.MyHealthRecordSection || "My Health Records Act",
-                        href: "#"
-                    },
+                        href: resolveSectionUrl(mhrRetentionRule.MyHealthRecordSection)
+                    }
                 ]
             });
         }
@@ -308,12 +342,11 @@
                 })),
                 label: "Priority Attention Suggested",
                 links: [
-                    {
-                        // Use MHR deletion method section from myHealthRecord.json
-                        text: mhrDeletionRule.MyHealthRecordSection || "My Health Records Act",
-                        href: "#"
-                    }
-                ]
+                {
+                    text: mhrDeletionRule.MyHealthRecordSection || "My Health Records Act",
+                    href: resolveSectionUrl(mhrDeletionRule.MyHealthRecordSection)
+                }
+            ]
             });
         }
 
