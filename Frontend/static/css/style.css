@@ -35,10 +35,6 @@ html body {
   color: #ffffff;
   width: 100vw;
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
 }
 
 .nav-inner {
@@ -2206,8 +2202,9 @@ input[type="checkbox"]:hover {
 }
 
 .footer-contact span {
- padding: 3rem;
+ padding: 0 3rem;
 }
+
 .footer-links {
   display: flex;
   align-items: center;
@@ -2228,6 +2225,14 @@ input[type="checkbox"]:hover {
   cursor: default;
 }
 
-.footer-contact *:hover {
-  color: #c0c4d6 !important;
+body {
+  width:100%;
+  min-height: 100vh;
+}
+
+.site-footer {
+  background-color: #0b1b3a;
+  color: #ffffff;
+  width: 100%;
+  margin-top: auto;
 }
